@@ -10,32 +10,33 @@
     <div class="game-container">
         <h1>Football Rondo - Quiz Challenge</h1>
 
+        <!-- Added Pause Button -->
+        <button id="pause-btn">Pause</button>
+
         <div class="timer-container">
             <h3>Player 1 Time: <span id="time1">150</span>s</h3>
             <h3>Player 2 Time: <span id="time2">150</span>s</h3>
         </div>
 
-        <!-- Player 1 Circle -->
+        <!-- Player Circles -->
         <div id="player1-circle" class="player-circle active">
             <div id="alphabet-circle-1" class="alphabet-circle"></div>
         </div>
-
-        <!-- Player 2 Circle -->
         <div id="player2-circle" class="player-circle">
             <div id="alphabet-circle-2" class="alphabet-circle"></div>
         </div>
 
+        <!-- Question/Answer Section -->
         <div id="question-container">
             <p id="question">Select a letter to start!</p>
         </div>
-
         <div class="answer-container">
             <input type="text" id="answer-input" placeholder="Type your answer here...">
             <button id="submit-answer">Submit Answer</button>
         </div>
-
         <button id="skip-btn">Skip Turn</button>
 
+        <!-- Result Screen with Restart Button -->
         <div id="result">
             <h2>Game Over!</h2>
             <p id="winner-message"></p>
@@ -43,8 +44,14 @@
                 <div>Player 1 Score: <span id="score1">0</span></div>
                 <div>Player 2 Score: <span id="score2">0</span></div>
             </div>
+            <button id="restart-btn">Restart Game</button>
         </div>
     </div>
+
+    <!-- Add sound elements (create these audio files or remove if unused) -->
+    <audio id="correct-sound" src="correct.mp3"></audio>
+    <audio id="incorrect-sound" src="incorrect.mp3"></audio>
+    <audio id="game-over-sound" src="game-over.mp3"></audio>
 
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="script.js"></script>
