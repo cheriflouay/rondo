@@ -14,7 +14,8 @@ let selectedLetter = null;
 let player1Score = 0;
 let player2Score = 0;
 let isPaused = false;
-let currentLetterIndex = 0; // Track current letter position
+let player1CurrentLetterIndex = 0;
+let player2CurrentLetterIndex = 0;
 
 // DOM Elements
 const questionElement = document.getElementById('question');
@@ -59,16 +60,17 @@ async function fetchQuestions() {
         console.error("Error loading questions:", error);
     }
 }
+
 function startGame() {
     document.getElementById('play-btn').style.display = 'none';
     fetchQuestions();
 }
+
 // Initialize Game
 function initializeGame() {
     generateAlphabetCircles();
     startTimer();
     switchPlayer(1);
-    currentLetterIndex = 0;
     loadNextQuestion();
 }
 
@@ -98,14 +100,22 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
 }
 
 function activateCurrentLetter() {
-    const letters = document.querySelectorAll('.letter');
-    letters.forEach(letter => {
-        letter.classList.remove('active');
-        if (letter.textContent === alphabet[currentLetterIndex]) {
-            selectedLetter = letter;
-            letter.classList.add('active');
-        }
-    });
+    const currentPlayerCircleId = currentPlayer === 1 ? 'alphabet-circle-1' : 'alphabet-circle-2';
+    const circle = document.getElementById(currentPlayerCircleId);
+    const letters = circle.querySelectorAll('.letter');
+    const currentIndex = currentPlayer === 1 ? player1CurrentLetterIndex : player2CurrentLetterIndex;
+
+    letters.forEach(letter => letter.classList.remove('active'));
+    
+    if (currentIndex < alphabet.length) {
+        const targetLetter = alphabet[currentIndex];
+        letters.forEach(letter => {
+            if (letter.textContent === targetLetter) {
+                letter.classList.add('active');
+                selectedLetter = letter;
+            }
+        });
+    }
 }
 
 function startTimer() {
@@ -132,6 +142,7 @@ function switchPlayer(player) {
 
 function skipTurn() {
     switchPlayer(currentPlayer === 1 ? 2 : 1);
+    loadNextQuestion();
 }
 
 function loadQuestion(letter, playerNumber) {
@@ -152,15 +163,18 @@ function checkAnswer() {
         document.getElementById(`score${currentPlayer}`).textContent = currentPlayer === 1 ? player1Score : player2Score;
         selectedLetter.classList.add('correct', 'used');
         correctSound.play();
+
+        if (currentPlayer === 1) player1CurrentLetterIndex++;
+        else player2CurrentLetterIndex++;
     } else {
         selectedLetter.classList.add('incorrect', 'used');
         incorrectSound.play();
         switchPlayer(currentPlayer === 1 ? 2 : 1);
     }
-    answerInput.value = "";
 
-    currentLetterIndex++;
-    if (currentLetterIndex >= alphabet.length) {
+    answerInput.value = "";
+    
+    if (player1CurrentLetterIndex >= alphabet.length || player2CurrentLetterIndex >= alphabet.length) {
         endGame();
         return;
     }
@@ -169,7 +183,8 @@ function checkAnswer() {
 }
 
 function loadNextQuestion() {
-    const nextLetter = alphabet[currentLetterIndex];
+    const currentIndex = currentPlayer === 1 ? player1CurrentLetterIndex : player2CurrentLetterIndex;
+    const nextLetter = alphabet[currentIndex];
     loadQuestion(nextLetter, currentPlayer);
     activateCurrentLetter();
     answerInput.focus();
@@ -202,7 +217,8 @@ function restartGame() {
     player2Score = 0;
     currentPlayer = 1;
     isPaused = false;
-    currentLetterIndex = 0;
+    player1CurrentLetterIndex = 0;
+    player2CurrentLetterIndex = 0;
 
     document.getElementById('time1').textContent = 150;
     document.getElementById('time2').textContent = 150;
