@@ -1,0 +1,14 @@
+{
+  "name": "football-quiz-game",
+  "version": "1.0.0",
+  "description": "A multiplayer football quiz game",
+  "main": "index.html",
+  "dependencies": {
+    "firebase": "^9.23.0"
+  },
+  "scripts": {
+    "start": "live-server"
+  },
+  "author": "Louay",
+  "license": "MIT"
+}

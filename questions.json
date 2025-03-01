@@ -1,0 +1,534 @@
+{
+  "player1_sets": {
+    "set1": {
+      "A": {
+        "letter": "A",
+        "question": "Which English club, known for its red kit and rich history, is nicknamed 'The Gunners'?",
+        "answer": "Arsenal"
+      },
+      "B": {
+        "letter": "B",
+        "question": "Which German football legend, nicknamed 'Der Kaiser', is celebrated for his elegant style and leadership on the pitch?",
+        "answer": "Franz Beckenbauer"
+      },
+      "C": {
+        "letter": "C",
+        "question": "Which Scottish club, renowned for its storied European history and passionate supporters, is affectionately known as the Bhoys?",
+        "answer": "Celtic"
+      },
+      "D": {
+        "letter": "D",
+        "question": "Which club from Croatia, known for its consistent domestic dominance and European outings, has made a mark in its league?",
+        "answer": "Dinamo Zagreb"
+      },
+      "E": {
+        "letter": "E",
+        "question": "Which prolific striker, with an illustrious career across Europe and Africa, is famous for his goal‐scoring exploits?",
+        "answer": "Samuel Eto'o"
+      },
+      "F": {
+        "letter": "F",
+        "question": "Which Italian club, celebrated for its purple kits and passionate fan base, competes regularly in Serie A?",
+        "answer": "Fiorentina"
+      },
+      "G": {
+        "letter": "G",
+        "question": "Which Turkish club, renowned for its fervent supporters and a rich European pedigree, has enjoyed considerable success on the continental stage?",
+        "answer": "Galatasaray"
+      },
+      "H": {
+        "letter": "H",
+        "question": "Which striker, famed for his acrobatic goals and clinical finishing, carved out a memorable career in European football?",
+        "answer": "Higuaín"
+      },
+      "I": {
+        "letter": "I",
+        "question": "Which Spanish playmaker, celebrated for his creativity and key role in Barcelona’s success, has won numerous trophies with his club and country?",
+        "answer": "Iniesta"
+      },
+      "J": {
+        "letter": "J",
+        "question": "Which football visionary, noted for his innovative style and later coaching success, transformed the game and left an indelible legacy?",
+        "answer": "Johan Cruyff"
+      },
+      "K": {
+        "letter": "K",
+        "question": "Which South Korean top‐flight competition, renowned for its competitive matches and talent production, stands as the pinnacle of domestic football in the nation?",
+        "answer": "K League"
+      },
+      "L": {
+        "letter": "L",
+        "question": "Which Croatian midfielder, known for his exquisite passing and elegant play, has been instrumental in winning European honors?",
+        "answer": "Luka Modrić"
+      },
+      "M": {
+        "letter": "M",
+        "question": "Which English club, known as 'The Red Devils' and with a storied history in domestic and European competitions, is one of the most famous teams in the world?",
+        "answer": "Manchester United"
+      },
+      "N": {
+        "letter": "N",
+        "question": "Which Brazilian forward, celebrated for his flair and technical brilliance, has become one of the sport’s most recognizable icons?",
+        "answer": "Neymar"
+      },
+      "O": {
+        "letter": "O",
+        "question": "Which Greek club, renowned for its impressive domestic trophy haul and European campaigns, is a dominant force in its national league?",
+        "answer": "Olympiacos"
+      },
+      "P": {
+        "letter": "P",
+        "question": "Which Brazilian football legend, often hailed as the greatest of all time for his skill and goal-scoring prowess, needs no introduction?",
+        "answer": "Pelé"
+      },
+      "Q": {
+        "letter": "Q",
+        "question": "Which English club, commonly abbreviated as QPR, has experienced the highs and lows of top‐flight football?",
+        "answer": "Queens Park Rangers"
+      },
+      "R": {
+        "letter": "R",
+        "question": "Which French winger, known for his pace and technical ability, became a key player in Bayern Munich’s era of success?",
+        "answer": "Franck Ribéry"
+      },
+      "S": {
+        "letter": "S",
+        "question": "Which Russian club, noted for its rich history and domestic success, is one of the most celebrated teams in its country?",
+        "answer": "Spartak Moscow"
+      },
+      "T": {
+        "letter": "T",
+        "question": "Which French forward, famous for his speed and clinical finishing during his time at Arsenal, is regarded as one of the best strikers of his generation?",
+        "answer": "Thierry Henry"
+      },
+      "U": {
+        "letter": "U",
+        "question": "Which annual UEFA competition, contested by the winners of Europe’s two major club tournaments, pits the continent’s elite against one another?",
+        "answer": "UEFA Super Cup"
+      },
+      "V": {
+        "letter": "V",
+        "question": "Which Italian striker, known for his imposing presence and goal-scoring prowess in Serie A, left an indelible mark during his career?",
+        "answer": "Christian Vieri"
+      },
+      "W": {
+        "letter": "W",
+        "question": "Which English club, identifiable by its association with a hammer and a long history in top‐flight football, has a passionate following?",
+        "answer": "West Ham United"
+      },
+      "X": {
+        "letter": "X",
+        "question": "Which Spanish midfielder, celebrated for his incisive passing and creative vision, played a pivotal role in his club’s European triumphs?",
+        "answer": "Xabi Alonso"
+      },
+      "Y": {
+        "letter": "Y",
+        "question": "Which dynamic midfielder, noted for his composure and ball-winning abilities, has emerged as a rising star in European football?",
+        "answer": "Yves Bissouma"
+      },
+      "Z": {
+        "letter": "Z",
+        "question": "Which French playmaker, admired for his elegance and decisive performances in crucial matches, is widely regarded as one of the game's all-time greats?",
+        "answer": "Zlatan Ibrahimović"
+      }
+    },
+    "set2": {
+      "A": {
+        "letter": "A",
+        "question": "Which English club, celebrated for its claret and blue kit and rich tradition, is a historic member of the top flight?",
+        "answer": "Aston Villa"
+      },
+      "B": {
+        "letter": "B",
+        "question": "Which Spanish club, renowned for its tiki-taka style and global fanbase, has amassed numerous La Liga and Champions League titles?",
+        "answer": "Barcelona"
+      },
+      "C": {
+        "letter": "C",
+        "question": "Which Brazilian right-back, famed for his energetic runs and leadership, earned international acclaim during his career?",
+        "answer": "Cafu"
+      },
+      "D": {
+        "letter": "D",
+        "question": "Which German knockout cup, noted for its unpredictable upsets and historic moments, is a highlight of domestic football?",
+        "answer": "DFB-Pokal"
+      },
+      "E": {
+        "letter": "E",
+        "question": "Which German club, known for its passionate support and recent resurgence in Europe, calls the city of Frankfurt its home?",
+        "answer": "Eintracht Frankfurt"
+      },
+      "F": {
+        "letter": "F",
+        "question": "Which Portuguese winger, celebrated for his silky dribbling and creativity, won the Ballon d’Or in 2000?",
+        "answer": "Figo"
+      },
+      "G": {
+        "letter": "G",
+        "question": "Which Scottish club, famed for its storied rivalry and multiple domestic trophies, has long been a powerhouse in its league?",
+        "answer": "Glasgow Rangers"
+      },
+      "H": {
+        "letter": "H",
+        "question": "Which English midfielder, recognized for his leadership and tireless work rate, has captained his club with distinction?",
+        "answer": "Henderson"
+      },
+      "I": {
+        "letter": "I",
+        "question": "Which historic club competition, once pitting European and South American champions against each other, captured global attention?",
+        "answer": "Intercontinental Cup"
+      },
+      "J": {
+        "letter": "J",
+        "question": "Which Italian midfielder, noted for his technical skill and clever playmaking, became an influential figure in Serie A?",
+        "answer": "Jorginho"
+      },
+      "K": {
+        "letter": "K",
+        "question": "Which Dutch striker, known for his clinical finishing and partnership with top clubs, won accolades in the 1990s?",
+        "answer": "Patrick Kluivert"
+      },
+      "L": {
+        "letter": "L",
+        "question": "Which top-tier Spanish football league, celebrated for its technical play and producing world-class talent, remains a global benchmark?",
+        "answer": "La Liga"
+      },
+      "M": {
+        "letter": "M",
+        "question": "Which German playmaker, who scored a decisive goal in the World Cup final, is remembered for his vision and creativity?",
+        "answer": "Mario Götze"
+      },
+      "N": {
+        "letter": "N",
+        "question": "Which English club, nicknamed 'The Magpies' and with a storied history in the Premier League, has a passionate fan base?",
+        "answer": "Newcastle United"
+      },
+      "O": {
+        "letter": "O",
+        "question": "Which Nigerian striker, celebrated for his acrobatic goals and dynamic style, shone brightly in European football?",
+        "answer": "Obafemi Martins"
+      },
+      "P": {
+        "letter": "P",
+        "question": "Which Portuguese club, renowned for developing world-class talent and strong European performances, is a domestic giant?",
+        "answer": "Porto"
+      },
+      "Q": {
+        "letter": "Q",
+        "question": "Which Portuguese winger, famed for his trademark 'trivela' and inventive flair, became one of the most exciting talents of his generation?",
+        "answer": "Quaresma"
+      },
+      "R": {
+        "letter": "R",
+        "question": "Which Brazilian playmaker, known for his dazzling skills and joyful style of play, became a global icon in his era?",
+        "answer": "Ronaldinho"
+      },
+      "S": {
+        "letter": "S",
+        "question": "Which domestic football league, featuring Scotland's top clubs and celebrated for its storied rivalries, represents the pinnacle of Scottish football?",
+        "answer": "Scottish Premiership"
+      },
+      "T": {
+        "letter": "T",
+        "question": "Which Italian club, recognized for its maroon kit and deep-rooted history in Serie A, has been a competitive force for decades?",
+        "answer": "Torino"
+      },
+      "U": {
+        "letter": "U",
+        "question": "Which prestigious European international competition, held every four years and featuring the continent’s elite national teams, captures the spirit of the game?",
+        "answer": "UEFA European Championship"
+      },
+      "V": {
+        "letter": "V",
+        "question": "Which Spanish club, known for its vibrant attacking football and trophy-laden history, competes fiercely in La Liga?",
+        "answer": "Valencia"
+      },
+      "W": {
+        "letter": "W",
+        "question": "Which English club, recognized by its distinctive blue and white kit and hard-fought performances, has become a mainstay in the Premier League?",
+        "answer": "West Bromwich Albion"
+      },
+      "X": {
+        "letter": "X",
+        "question": "Which Spanish midfielder, celebrated for his deep-lying playmaking and tactical intelligence, left a lasting legacy in European football?",
+        "answer": "Xabi Alonso"
+      },
+      "Y": {
+        "letter": "Y",
+        "question": "Which Swiss club, known for its consistent domestic performances and occasional European adventures, is affectionately nicknamed 'Die Young Boys'?",
+        "answer": "Young Boys"
+      },
+      "Z": {
+        "letter": "Z",
+        "question": "Which Brazilian playmaker, admired for his elegant technique and creative vision, is often hailed as one of the greatest talents of his generation?",
+        "answer": "Zico"
+      }
+    }
+  },
+  "player2_sets": {
+    "set1": {
+      "A": {
+        "letter": "A",
+        "question": "Which premier club competition in Asia, organized by the Asian Football Confederation, features the continent’s elite clubs?",
+        "answer": "AFC Champions League"
+      },
+      "B": {
+        "letter": "B",
+        "question": "Which Brazilian forward, known for his delicate footwork and memorable goal celebrations, was a key figure in his national team's World Cup triumph?",
+        "answer": "Bebeto"
+      },
+      "C": {
+        "letter": "C",
+        "question": "Which prestigious international tournament, featuring national teams from South America and steeped in history, is celebrated for its fierce rivalries?",
+        "answer": "Copa América"
+      },
+      "D": {
+        "letter": "D",
+        "question": "Which Brazilian defender, recognized for his strong tackles and calm composure at the back, has featured for top European clubs?",
+        "answer": "Dante"
+      },
+      "E": {
+        "letter": "E",
+        "question": "Which pre-season tournament, hosted by an English club at their home ground and sponsored by a major airline, attracts top international teams?",
+        "answer": "Emirates Cup"
+      },
+      "F": {
+        "letter": "F",
+        "question": "Which Spanish forward, celebrated for his pace and clinical finishing, enjoyed a glittering career in both La Liga and the Premier League?",
+        "answer": "Fernando Torres"
+      },
+      "G": {
+        "letter": "G",
+        "question": "Which Italian club, known for its long history in Serie A and its iconic red and blue colors, stands among Italy’s oldest teams?",
+        "answer": "Genoa"
+      },
+      "H": {
+        "letter": "H",
+        "question": "Which English club, nicknamed 'The Tigers' and recognized for its passionate supporters, hails from a historic port city?",
+        "answer": "Hull City"
+      },
+      "I": {
+        "letter": "I",
+        "question": "Which Spanish attacking midfielder, known for his creative dribbling and flair, became a key asset for his club in European competitions?",
+        "answer": "Isco"
+      },
+      "J": {
+        "letter": "J",
+        "question": "Which South Korean club, famed for its domestic dominance and impressive continental performances, is a regular in the K League?",
+        "answer": "Jeonbuk Hyundai Motors"
+      },
+      "K": {
+        "letter": "K",
+        "question": "Which Croatian striker, celebrated for his clinical finishing and off‐the-ball movement, has emerged as a key figure in European football?",
+        "answer": "Mario Kramarić"
+      },
+      "L": {
+        "letter": "L",
+        "question": "Which Belgian forward, noted for his physicality and prolific goal-scoring, has become a marquee name in European leagues?",
+        "answer": "Lukaku"
+      },
+      "M": {
+        "letter": "M",
+        "question": "Which Italian club, famous for its iconic red and black stripes and a legacy of European triumphs, remains a stalwart of Serie A?",
+        "answer": "AC Milan"
+      },
+      "N": {
+        "letter": "N",
+        "question": "Which Portuguese winger, known for his trickery and pace, has been a key player for his club in both domestic and continental competitions?",
+        "answer": "Nani"
+      },
+      "O": {
+        "letter": "O",
+        "question": "Which Paraguayan club, steeped in history and boasting multiple Copa Libertadores titles, is one of South America’s most storied teams?",
+        "answer": "Olimpia"
+      },
+      "P": {
+        "letter": "P",
+        "question": "Which Portuguese defender, celebrated for his tough tackling and leadership at the back, has earned numerous accolades throughout his career?",
+        "answer": "Pepe"
+      },
+      "Q": {
+        "letter": "Q",
+        "question": "Which Portuguese winger, renowned for his signature 'trivela' and dazzling dribbling skills, captured the imagination of fans worldwide?",
+        "answer": "Quaresma"
+      },
+      "R": {
+        "letter": "R",
+        "question": "Which Spanish club, acclaimed for its record number of Champions League titles and global brand, epitomizes footballing excellence?",
+        "answer": "Real Madrid"
+      },
+      "S": {
+        "letter": "S",
+        "question": "Which domestic football league, featuring Scotland’s elite clubs and celebrated for its intense rivalries, is the apex of Scottish football?",
+        "answer": "Scottish Premiership"
+      },
+      "T": {
+        "letter": "T",
+        "question": "Which legendary English defender, known for his leadership and longevity, captained his club to multiple domestic honors?",
+        "answer": "Tony Adams"
+      },
+      "U": {
+        "letter": "U",
+        "question": "Which Dutch club, famed for its commitment to nurturing young talent and competitive spirit in the Eredivisie, is based in a historic city?",
+        "answer": "Utrecht"
+      },
+      "V": {
+        "letter": "V",
+        "question": "Which Brazilian striker, celebrated for his explosive pace and knack for scoring crucial goals, became a cult hero at several top clubs?",
+        "answer": "Vágner Love"
+      },
+      "W": {
+        "letter": "W",
+        "question": "Which English club, known for its resilient spirit and notable cup runs, has experienced both promotion challenges and memorable successes?",
+        "answer": "Watford"
+      },
+      "X": {
+        "letter": "X",
+        "question": "Which Spanish midfielder, renowned for his role in pioneering the tiki-taka style at Barcelona, is hailed as one of the greatest playmakers ever?",
+        "answer": "Xavi"
+      },
+      "Y": {
+        "letter": "Y",
+        "question": "Which Japanese club, celebrated for its attractive style and multiple J1 League titles, boasts a passionate fan base?",
+        "answer": "Yokohama F. Marinos"
+      },
+      "Z": {
+        "letter": "Z",
+        "question": "Which Brazilian midfielder, known for his versatility and long career at top European clubs, remains a beloved figure in football history?",
+        "answer": "Zé Roberto"
+      }
+    },
+    "set2": {
+      "A": {
+        "letter": "A",
+        "question": "Which Spanish winger, celebrated for his electrifying pace and dribbling skills, has become a standout talent in the Premier League?",
+        "answer": "Adama Traoré"
+      },
+      "B": {
+        "letter": "B",
+        "question": "Which English club, noted for its attractive style of play and recent rise in the top flight, hails from the south coast?",
+        "answer": "Brighton & Hove Albion"
+      },
+      "C": {
+        "letter": "C",
+        "question": "Which prestigious club tournament, organized by CONMEBOL and featuring South America’s elite teams, is renowned for its passionate atmosphere?",
+        "answer": "Copa Libertadores"
+      },
+      "D": {
+        "letter": "D",
+        "question": "Which striker, known for his aggressive play and goal-scoring ability in both La Liga and the Premier League, made a major impact during his career?",
+        "answer": "Diego Costa"
+      },
+      "E": {
+        "letter": "E",
+        "question": "Which English forward, celebrated for his physical presence and knack for scoring crucial goals, became a fan favorite in the Premier League?",
+        "answer": "Emile Heskey"
+      },
+      "F": {
+        "letter": "F",
+        "question": "Which Turkish club, famous for its passionate supporters and impressive record in the Süper Lig, has a long and storied history?",
+        "answer": "Fenerbahçe"
+      },
+      "G": {
+        "letter": "G",
+        "question": "Which continental tournament, organized by CONCACAF and featuring North and Central American national teams, showcases regional football talent?",
+        "answer": "Gold Cup"
+      },
+      "H": {
+        "letter": "H",
+        "question": "Which German club, known for its iconic blue and white kit and based in a historic port city, boasts a rich footballing heritage?",
+        "answer": "Hamburger SV"
+      },
+      "I": {
+        "letter": "I",
+        "question": "Which Croatian midfielder, renowned for his technical ability and precise passing, played a pivotal role in his club’s European successes?",
+        "answer": "Ivan Rakitic"
+      },
+      "J": {
+        "letter": "J",
+        "question": "Which Japanese domestic cup competition, featuring teams from the J.League in a knockout format, highlights emerging talent each season?",
+        "answer": "J.League Cup"
+      },
+      "K": {
+        "letter": "K",
+        "question": "Which Senegalese defender, celebrated for his robust defending and leadership at the back, has been a cornerstone in Serie A?",
+        "answer": "Kalidou Koulibaly"
+      },
+      "L": {
+        "letter": "L",
+        "question": "Which Italian club, based in Rome and recognized for its passionate support and sky-blue kits, has a long history in Serie A?",
+        "answer": "Lazio"
+      },
+      "M": {
+        "letter": "M",
+        "question": "Which top-tier football league in the United States and Canada has surged in global popularity and attracts international stars?",
+        "answer": "Major League Soccer"
+      },
+      "N": {
+        "letter": "N",
+        "question": "Which French midfielder, renowned for his tireless work rate and defensive prowess, has been pivotal in his club's recent successes?",
+        "answer": "N'Golo Kanté"
+      },
+      "O": {
+        "letter": "O",
+        "question": "Which Spanish club, known for its commitment to nurturing emerging talent and gritty performances, competes in La Liga?",
+        "answer": "Osasuna"
+      },
+      "P": {
+        "letter": "P",
+        "question": "Which Spanish winger, celebrated for his pace and technical skill on the flank, contributed significantly to his club's domestic triumphs?",
+        "answer": "Pedro"
+      },
+      "Q": {
+        "letter": "Q",
+        "question": "Which Portuguese winger, famed for his dazzling 'trivela' and unique technique, remains one of the most memorable talents of his era?",
+        "answer": "Quaresma"
+      },
+      "R": {
+        "letter": "R",
+        "question": "Which Spanish club, recognized for its stylish play and competitive spirit in La Liga, is a consistent performer on the domestic scene?",
+        "answer": "Real Sociedad"
+      },
+      "S": {
+        "letter": "S",
+        "question": "Which Senegalese winger, known for his electrifying runs and goal-scoring prowess, has garnered widespread acclaim in the Premier League?",
+        "answer": "Sadio Mané"
+      },
+      "T": {
+        "letter": "T",
+        "question": "Which Brazilian defender, celebrated for his leadership and calm composure in high-pressure matches, became a stalwart in Serie A?",
+        "answer": "Thiago Silva"
+      },
+      "U": {
+        "letter": "U",
+        "question": "Which German club, noted for its spirited performances and rapid rise in the Bundesliga, has captured the hearts of its supporters?",
+        "answer": "Union Berlin"
+      },
+      "V": {
+        "letter": "V",
+        "question": "Which Serbian forward, whose clinical finishing and physical presence have marked him as one of Europe’s rising stars, is making headlines?",
+        "answer": "Vlahović"
+      },
+      "W": {
+        "letter": "W",
+        "question": "Which Welsh club, recently thrust into the international spotlight thanks to a high-profile takeover and passionate local following, competes in the English leagues?",
+        "answer": "Wrexham"
+      },
+      "X": {
+        "letter": "X",
+        "question": "Which Spanish midfielder, renowned for his tactical intelligence and precise long-range passes, was key to his club’s success in Europe?",
+        "answer": "Xabi Alonso"
+      },
+      "Y": {
+        "letter": "Y",
+        "question": "Which young German forward, noted for breaking age records in the Bundesliga and dazzling with his goal-scoring ability, is considered a prodigy?",
+        "answer": "Youssoufa Moukoko"
+      },
+      "Z": {
+        "letter": "Z",
+        "question": "Which French playmaker, admired for his elegance and visionary performances on the international stage, left an enduring mark on world football?",
+        "answer": "Zinedine Zidane"
+      }
+    }
+  }
+}

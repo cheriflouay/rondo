@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Rondo - Quiz Challenge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Football Rondo - Quiz Challenge</h1>
+
+        <div class="timer-container">
+            <h3>Player 1 Time: <span id="time1">150</span>s</h3>
+            <h3>Player 2 Time: <span id="time2">150</span>s</h3>
+        </div>
+
+        <!-- Player 1 Circle -->
+        <div id="player1-circle" class="player-circle active">
+            <div id="alphabet-circle-1" class="alphabet-circle"></div>
+        </div>
+
+        <!-- Player 2 Circle -->
+        <div id="player2-circle" class="player-circle">
+            <div id="alphabet-circle-2" class="alphabet-circle"></div>
+        </div>
+
+        <div id="question-container">
+            <p id="question">Select a letter to start!</p>
+        </div>
+
+        <div class="answer-container">
+            <input type="text" id="answer-input" placeholder="Type your answer here...">
+            <button id="submit-answer">Submit Answer</button>
+        </div>
+
+        <button id="skip-btn">Skip Turn</button>
+
+        <div id="result">
+            <h2>Game Over!</h2>
+            <p id="winner-message"></p>
+            <div class="score-board">
+                <div>Player 1 Score: <span id="score1">0</span></div>
+                <div>Player 2 Score: <span id="score2">0</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
