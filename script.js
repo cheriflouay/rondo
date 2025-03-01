@@ -33,6 +33,7 @@ const gameOverSound = document.getElementById('game-over-sound');
 document.getElementById('skip-btn').addEventListener('click', skipTurn);
 document.getElementById('submit-answer').addEventListener('click', checkAnswer);
 document.getElementById('restart-btn').addEventListener('click', restartGame);
+document.getElementById('play-btn').addEventListener('click', startGame);
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 answerInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswer());
 
@@ -58,7 +59,10 @@ async function fetchQuestions() {
         console.error("Error loading questions:", error);
     }
 }
-
+function startGame() {
+    document.getElementById('play-btn').style.display = 'none';
+    fetchQuestions();
+}
 // Initialize Game
 function initializeGame() {
     generateAlphabetCircles();
@@ -218,6 +222,3 @@ function togglePause() {
     isPaused = !isPaused;
     document.getElementById('pause-btn').textContent = isPaused ? 'Resume' : 'Pause';
 }
-
-// Start the Game
-fetchQuestions();
