@@ -1,5 +1,10 @@
 /* style.css */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* RTL adjustments */
+html[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
 
 /* Reset & Basic Styles */
 * {
@@ -108,7 +113,6 @@ h3 {
   transform: translateX(-29px);
 }
 
-
 #player1-circle .alphabet-circle {
   border-color: #9b59b6;
 }
@@ -134,7 +138,6 @@ h3 {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
-
 
 .letter:hover:not(.used) {
   background: linear-gradient(145deg, #7b68ee, #6a5acd);
@@ -177,7 +180,7 @@ h3 {
 }
 
 #question-container {
-  background-color: #ffffff; /* white background to match the game container */
+  background-color: #ffffff;
   padding: 20px 30px;
   border-radius: 12px;
   margin: 20px 0;
@@ -188,7 +191,7 @@ h3 {
   font-size: 1.3rem;
   font-weight: 500;
   color: #333;
-  border: 2px solid #2a5298; /* blue border matching your headings */
+  border: 2px solid #2a5298;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   width: 100%;
   max-width: 500px;
@@ -202,11 +205,9 @@ h3 {
   transform: translateY(-2px);
 }
 
-/* Remove the decorative dashed circle if still present */
 #question-container::before {
   content: none;
 }
-
 
 /* Answer Container */
 .answer-container {
@@ -325,6 +326,7 @@ button {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
+
 .score-board {
   margin-top: 20px;
   display: flex;

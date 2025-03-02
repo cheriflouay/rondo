@@ -11,10 +11,17 @@
     <div class="game-container">
         <header>
             <img src="logo.jpg" alt="Football Rondo Logo" width="80" height="80">
-            <h1>Football Rondo - Quiz Challenge</h1>
-        </header>
-        <!-- Add this after the header -->
-        <button id="play-btn" class="play-btn">Start Game</button>
+            <h1 data-i18n="headerTitle"></h1>
+          </header>
+          
+          <!-- Language Selector -->
+          <select id="languageSwitcher">
+            <option value="en">English</option>
+            <option value="ar">العربية</option>
+            <option value="fr">Français</option>
+          </select>
+          
+          <button id="play-btn" class="play-btn" data-i18n="startGame"></button>          
 
         <!-- Added Pause Button -->
         <button id="pause-btn">Pause</button>

@@ -90,7 +90,7 @@ function generateAlphabetCircles() {
     generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
     generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
     
-    // Now adjust display based on current active player
+    // Adjust display based on current active player
     if (currentPlayer === 1) {
         player1Circle.classList.add('active');
         player2Circle.classList.remove('active');
@@ -159,7 +159,7 @@ function switchPlayer(player) {
     player1Circle.classList.remove('active');
     player2Circle.classList.remove('active');
 
-    // Add active class and update display for the correct player's circle
+    // Update display for the correct player's circle
     if (player === 1) {
         player1Circle.style.display = 'block';
         player1Circle.classList.add('active');
@@ -185,22 +185,28 @@ function skipTurn() {
 }
 
 function loadQuestion(letter, playerNumber) {
-    currentQuestion = (playerNumber === 1) ? 
-        player1Questions[letter] : 
-        player2Questions[letter];
-    questionElement.textContent = currentQuestion?.question || "Question not found";
+    currentQuestion = (playerNumber === 1) ? player1Questions[letter] : player2Questions[letter];
+    const currentLang = document.getElementById('languageSwitcher').value;
+    // Display the question in the selected language
+    questionElement.textContent = (currentQuestion && currentQuestion.question && currentQuestion.question[currentLang])
+      ? currentQuestion.question[currentLang]
+      : "Question not found";
 }
 
 function checkAnswer() {
     const userAnswer = answerInput.value.trim().toLowerCase();
-    const correctAnswer = currentQuestion?.answer.toLowerCase();
-
     if (!userAnswer || !currentQuestion) return;
 
-    // Split the correct answer into words
-    const correctWords = correctAnswer.split(/\s+/);
-    // Check if the user answer matches the full answer or any individual word of the answer
-    const isCorrect = userAnswer === correctAnswer || correctWords.includes(userAnswer);
+    // Gather all acceptable answers (for every language)
+    const correctAnswers = Object.values(currentQuestion.answer).map(ans => ans.toLowerCase());
+    let isCorrect = false;
+    for (const ans of correctAnswers) {
+        const ansWords = ans.split(/\s+/);
+        if (userAnswer === ans || ansWords.includes(userAnswer)) {
+            isCorrect = true;
+            break;
+        }
+    }
 
     if (isCorrect) {
         currentPlayer === 1 ? player1Score++ : player2Score++;
@@ -298,3 +304,38 @@ function togglePause() {
     isPaused = !isPaused;
     document.getElementById('pause-btn').textContent = isPaused ? 'Resume' : 'Pause';
 }
+
+function loadLanguage(lang) {
+    fetch(`${lang}.json`)
+      .then(response => response.json())
+      .then(translations => {
+        // Update all elements with a data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(elem => {
+          const key = elem.getAttribute('data-i18n');
+          if (translations[key]) {
+            elem.textContent = translations[key];
+          }
+        });
+  
+        // Optionally update input placeholders
+        const answerInput = document.getElementById('answer-input');
+        if (answerInput && translations["answerPlaceholder"]) {
+          answerInput.placeholder = translations["answerPlaceholder"];
+        }
+  
+        // Set the HTML lang attribute and direction (RTL for Arabic)
+        document.documentElement.lang = lang;
+        document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      })
+      .catch(err => console.error("Error loading language file:", err));
+}
+  
+// Listen for language changes
+document.getElementById('languageSwitcher').addEventListener('change', (event) => {
+    loadLanguage(event.target.value);
+});
+  
+// Load default language on page load (e.g., English)
+document.addEventListener("DOMContentLoaded", () => {
+    loadLanguage("en");
+});
