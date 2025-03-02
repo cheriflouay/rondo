@@ -197,7 +197,12 @@ function checkAnswer() {
 
     if (!userAnswer || !currentQuestion) return;
 
-    if (userAnswer === correctAnswer) {
+    // Split the correct answer into words
+    const correctWords = correctAnswer.split(/\s+/);
+    // Check if the user answer matches the full answer or any individual word of the answer
+    const isCorrect = userAnswer === correctAnswer || correctWords.includes(userAnswer);
+
+    if (isCorrect) {
         currentPlayer === 1 ? player1Score++ : player2Score++;
         document.getElementById(`score${currentPlayer}`).textContent = currentPlayer === 1 ? player1Score : player2Score;
         selectedLetter.classList.add('correct', 'used');
