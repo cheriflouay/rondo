@@ -141,6 +141,13 @@ function switchPlayer(player) {
 }
 
 function skipTurn() {
+    // Increment current player's index before switching
+    if (currentPlayer === 1) {
+        player1CurrentLetterIndex++;
+    } else {
+        player2CurrentLetterIndex++;
+    }
+    
     switchPlayer(currentPlayer === 1 ? 2 : 1);
     loadNextQuestion();
 }
@@ -169,6 +176,14 @@ function checkAnswer() {
     } else {
         selectedLetter.classList.add('incorrect', 'used');
         incorrectSound.play();
+        
+        // Increment current player's index before switching
+        if (currentPlayer === 1) {
+            player1CurrentLetterIndex++;
+        } else {
+            player2CurrentLetterIndex++;
+        }
+        
         switchPlayer(currentPlayer === 1 ? 2 : 1);
     }
 
