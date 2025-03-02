@@ -1,3 +1,4 @@
+// script.js
 import { getDatabase, ref, child, get, push } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { app, db } from "./firebase-config.js";
 
@@ -14,8 +15,8 @@ let selectedLetter = null;
 let player1Score = 0;
 let player2Score = 0;
 let isPaused = false;
-let player1Queue = [...alphabet]; // Queue for Player 1
-let player2Queue = [...alphabet]; // Queue for Player 2
+let player1Queue = [...alphabet];
+let player2Queue = [...alphabet];
 
 // DOM Elements
 const questionElement = document.getElementById('question');
@@ -77,26 +78,47 @@ function initializeGame() {
 }
 
 function generateAlphabetCircles() {
+    // Temporarily force both circles to display so that offsetWidth can be computed correctly
+    player1Circle.style.display = 'block';
+    player2Circle.style.display = 'block';
+    
+    // Clear existing circles
+    document.getElementById('alphabet-circle-1').innerHTML = '';
+    document.getElementById('alphabet-circle-2').innerHTML = '';
+    
+    // Generate new circles for both players
     generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
     generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
+    
+    // Now adjust display based on current active player
+    if (currentPlayer === 1) {
+        player1Circle.classList.add('active');
+        player2Circle.classList.remove('active');
+        player2Circle.style.display = 'none';
+    } else {
+        player2Circle.classList.add('active');
+        player1Circle.classList.remove('active');
+        player1Circle.style.display = 'none';
+    }
 }
 
 function generateAlphabetCircle(circleId, questions, playerNumber) {
     const circle = document.getElementById(circleId);
-    circle.innerHTML = '';
-    const radius = 120;
-    const centerX = circle.offsetWidth / 2;
-    const centerY = circle.offsetHeight / 2;
+    const containerWidth = circle.parentElement.offsetWidth;
+    const radius = containerWidth * 0.48;
+    const centerX = containerWidth / 2;
+    const centerY = containerWidth / 2;
 
     alphabet.forEach((letter, index) => {
-        const angle = (index / alphabet.length) * (2 * Math.PI);
-        const x = centerX + radius * Math.cos(angle) - 20;
-        const y = centerY + radius * Math.sin(angle) - 20;
+        const angle = (index / alphabet.length) * Math.PI * 2 - Math.PI/2;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
 
         const letterDiv = document.createElement("div");
         letterDiv.className = "letter";
         letterDiv.textContent = letter;
-        letterDiv.style.transform = `translate(${x - centerX}px, ${y - centerY}px)`;
+        letterDiv.style.left = `${x}px`;
+        letterDiv.style.top = `${y}px`;
         circle.appendChild(letterDiv);
     });
 }
@@ -133,13 +155,26 @@ function startTimer() {
 
 function switchPlayer(player) {
     currentPlayer = player;
-    player1Circle.classList.toggle('active', player === 1);
-    player2Circle.classList.toggle('active', player === 2);
+    // Remove the active class from both circles
+    player1Circle.classList.remove('active');
+    player2Circle.classList.remove('active');
+
+    // Add active class and update display for the correct player's circle
+    if (player === 1) {
+        player1Circle.style.display = 'block';
+        player1Circle.classList.add('active');
+        player2Circle.style.display = 'none';
+    } else {
+        player2Circle.style.display = 'block';
+        player2Circle.classList.add('active');
+        player1Circle.style.display = 'none';
+    }
+
     answerInput.value = "";
+    loadNextQuestion();
 }
 
 function skipTurn() {
-    // Move current question to end of queue
     if (currentPlayer === 1) {
         player1Queue.push(player1Queue.shift());
     } else {
@@ -147,7 +182,6 @@ function skipTurn() {
     }
     
     switchPlayer(currentPlayer === 1 ? 2 : 1);
-    loadNextQuestion();
 }
 
 function loadQuestion(letter, playerNumber) {
@@ -169,14 +203,12 @@ function checkAnswer() {
         selectedLetter.classList.add('correct', 'used');
         correctSound.play();
 
-        // Remove from queue
         if (currentPlayer === 1) player1Queue.shift();
         else player2Queue.shift();
     } else {
         selectedLetter.classList.add('incorrect', 'used');
         incorrectSound.play();
         
-        // Move to end of queue
         if (currentPlayer === 1) {
             player1Queue.push(player1Queue.shift());
         } else {
