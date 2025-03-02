@@ -14,8 +14,8 @@ let selectedLetter = null;
 let player1Score = 0;
 let player2Score = 0;
 let isPaused = false;
-let player1CurrentLetterIndex = 0;
-let player2CurrentLetterIndex = 0;
+let player1Queue = [...alphabet]; // Queue for Player 1
+let player2Queue = [...alphabet]; // Queue for Player 2
 
 // DOM Elements
 const questionElement = document.getElementById('question');
@@ -68,6 +68,8 @@ function startGame() {
 
 // Initialize Game
 function initializeGame() {
+    player1Queue = [...alphabet];
+    player2Queue = [...alphabet];
     generateAlphabetCircles();
     startTimer();
     switchPlayer(1);
@@ -103,19 +105,15 @@ function activateCurrentLetter() {
     const currentPlayerCircleId = currentPlayer === 1 ? 'alphabet-circle-1' : 'alphabet-circle-2';
     const circle = document.getElementById(currentPlayerCircleId);
     const letters = circle.querySelectorAll('.letter');
-    const currentIndex = currentPlayer === 1 ? player1CurrentLetterIndex : player2CurrentLetterIndex;
+    const currentLetter = currentPlayer === 1 ? player1Queue[0] : player2Queue[0];
 
-    letters.forEach(letter => letter.classList.remove('active'));
-    
-    if (currentIndex < alphabet.length) {
-        const targetLetter = alphabet[currentIndex];
-        letters.forEach(letter => {
-            if (letter.textContent === targetLetter) {
-                letter.classList.add('active');
-                selectedLetter = letter;
-            }
-        });
-    }
+    letters.forEach(letter => {
+        letter.classList.remove('active');
+        if (letter.textContent === currentLetter) {
+            letter.classList.add('active');
+            selectedLetter = letter;
+        }
+    });
 }
 
 function startTimer() {
@@ -141,11 +139,11 @@ function switchPlayer(player) {
 }
 
 function skipTurn() {
-    // Increment current player's index before switching
+    // Move current question to end of queue
     if (currentPlayer === 1) {
-        player1CurrentLetterIndex++;
+        player1Queue.push(player1Queue.shift());
     } else {
-        player2CurrentLetterIndex++;
+        player2Queue.push(player2Queue.shift());
     }
     
     switchPlayer(currentPlayer === 1 ? 2 : 1);
@@ -171,38 +169,48 @@ function checkAnswer() {
         selectedLetter.classList.add('correct', 'used');
         correctSound.play();
 
-        if (currentPlayer === 1) player1CurrentLetterIndex++;
-        else player2CurrentLetterIndex++;
+        // Remove from queue
+        if (currentPlayer === 1) player1Queue.shift();
+        else player2Queue.shift();
     } else {
         selectedLetter.classList.add('incorrect', 'used');
         incorrectSound.play();
         
-        // Increment current player's index before switching
+        // Move to end of queue
         if (currentPlayer === 1) {
-            player1CurrentLetterIndex++;
+            player1Queue.push(player1Queue.shift());
         } else {
-            player2CurrentLetterIndex++;
+            player2Queue.push(player2Queue.shift());
         }
         
         switchPlayer(currentPlayer === 1 ? 2 : 1);
     }
 
     answerInput.value = "";
-    
-    if (player1CurrentLetterIndex >= alphabet.length || player2CurrentLetterIndex >= alphabet.length) {
-        endGame();
-        return;
-    }
-    
+    checkEndGame();
     loadNextQuestion();
 }
 
 function loadNextQuestion() {
-    const currentIndex = currentPlayer === 1 ? player1CurrentLetterIndex : player2CurrentLetterIndex;
-    const nextLetter = alphabet[currentIndex];
+    const currentQueue = currentPlayer === 1 ? player1Queue : player2Queue;
+    if (currentQueue.length === 0) {
+        endGame();
+        return;
+    }
+    
+    const nextLetter = currentQueue[0];
     loadQuestion(nextLetter, currentPlayer);
     activateCurrentLetter();
     answerInput.focus();
+}
+
+function checkEndGame() {
+    const p1Done = player1Queue.length === 0;
+    const p2Done = player2Queue.length === 0;
+    
+    if (p1Done && p2Done) {
+        endGame();
+    }
 }
 
 function endGame() {
@@ -232,8 +240,8 @@ function restartGame() {
     player2Score = 0;
     currentPlayer = 1;
     isPaused = false;
-    player1CurrentLetterIndex = 0;
-    player2CurrentLetterIndex = 0;
+    player1Queue = [...alphabet];
+    player2Queue = [...alphabet];
 
     document.getElementById('time1').textContent = 150;
     document.getElementById('time2').textContent = 150;
