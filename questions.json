@@ -1701,19 +1701,19 @@
       }
     }
   },
-    "player2_sets": {
-      "set1": {
+  "player2_sets": {
+    "set1": {
       "A": {
         "letter": "A",
         "question": {
-          "en": "Which Argentine midfielder, famed for his elegance and creative play, emerged as a superstar in his league?",
-          "ar": "أي لاعب وسط أرجنتيني، مشهور بأناقته وإبداعه، برز كنجم في الدوري؟",
-          "fr": "Quel milieu argentin, célèbre pour son élégance et sa créativité, s'est imposé comme une superstar dans son championnat?"
+          "en": "Which Argentine forward, known for his work ethic and versatility?",
+          "ar": "أي مهاجم أرجنتيني، معروف باجتهاده وتعدد أدواره؟",
+          "fr": "Quel attaquant argentin, connu pour son éthique de travail et sa polyvalence?"
         },
         "answer": {
-          "en": "Alvarez",
-          "ar": "ألفاريز",
-          "fr": "Alvarez"
+          "en": "Julian Alvarez",
+          "ar": "جوليان ألفاريز",
+          "fr": "Julian Alvarez"
         }
       },
       "B": {
@@ -2045,14 +2045,14 @@
       "A": {
         "letter": "A",
         "question": {
-          "en": "Which Argentine striker, recognized for his versatility and lethal finishing, became a key figure for his club?",
-          "ar": "أي مهاجم أرجنتيني، مشهور بتعدد استخداماته وتشطيبه الحاسم، أصبح شخصية رئيسية في ناديه؟",
-          "fr": "Quel attaquant argentin, reconnu pour sa polyvalence et sa finition redoutable, est devenu une pièce maîtresse de son club?"
+          "en": "Which French defender, known for his composure and leadership, famously battled illness during his career?",
+          "ar": "أي مدافع فرنسي، اشتهر بهدوئه وقدرته القيادية، وخاض معركة ضد المرض خلال مسيرته؟",
+          "fr": "Quel défenseur français, connu pour son calme et son leadership, a surmonté une grave maladie pendant sa carrière ?"
         },
         "answer": {
-          "en": "Acosta",
-          "ar": "أكوستا",
-          "fr": "Acosta"
+          "en": "Abidal",
+          "ar": "أبيدال",
+          "fr": "Abidal"
         }
       },
       "B": {
@@ -2381,7 +2381,7 @@
         }
       }
     },
-      "set3": {
+    "set3": {
         "A": {
           "letter": "A",
           "question": {
@@ -2720,8 +2720,8 @@
             "fr": "Zé Roberto"
           }
         }
-      },
-      "set4": {
+    },
+    "set4": {
         "A": {
           "letter": "A",
           "question": {
@@ -3060,8 +3060,8 @@
             "fr": "Zamora Trophy"
           }
         }
-      },
-      "set5": {
+    },
+    "set5": {
         "A": {
           "letter": "A",
           "question": {
@@ -3401,6 +3401,6 @@
             "fr": "Oleksandr Zinchenko"
           }
         }
-      }
     }
   }
+}
