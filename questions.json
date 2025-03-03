@@ -723,14 +723,14 @@
       "D": {
         "letter": "D",
         "question": {
-          "en": "Which Dutch footballer, known for his elegant style and mastery on the ball, became a legend with the surname ‘De Boer’?",
-          "ar": "أي لاعب كرة قدم هولندي، معروف بأسلوبه الأنيق وتحكمه بالكرة، أصبح أسطورة بلقب 'دي بور'؟",
-          "fr": "Quel footballeur néerlandais, réputé pour son style élégant et sa maîtrise du ballon, est devenu une légende sous le nom de 'De Boer'?"
+          "en": "Which Italian left-back, known for his precise crosses and attacking contributions, has impressed fans with his versatility?",
+          "ar": "أي ظهير أيسر إيطالي، مشهور بتمريراته الدقيقة ومساهماته الهجومية، وقد أذهل الجماهير بمرونته، هو؟",
+          "fr": "Quel arrière gauche italien, reconnu pour la précision de ses centres et ses contributions offensives, a impressionné les fans par sa polyvalence, est-il ?"
         },
         "answer": {
-          "en": "De Boer",
-          "ar": "دي بور",
-          "fr": "De Boer"
+          "en": "Federico Dimarco",
+          "ar": "فيديريكو دي ماركو",
+          "fr": "Federico Dimarco"
         }
       },
       "E": {
