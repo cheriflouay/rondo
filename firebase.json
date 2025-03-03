@@ -1,6 +1,8 @@
 {
   "hosting": {
-    "public": ".",
+    "target": "production",
+    "site": "football-rondo-by-louay",
+    "public": "build",
     "ignore": [
       "firebase.json",
       "**/.*",
