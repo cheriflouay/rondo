@@ -1699,7 +1699,1369 @@
           "fr": "Zaniolo"
         }
       }
+    },
+    "set6": {
+      "A": {
+        "letter": "A",
+        "question": {
+          "en": "Argentine striker known for explosive finishing at Manchester City. Who is he?",
+          "ar": "مهاجم أرجنتيني معروف بإنهائه الانفجاري في مانشستر سيتي. من هو؟",
+          "fr": "Attaquant argentin réputé pour sa finition explosive à Manchester City. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Aguero",
+          "ar": "أغويرو",
+          "fr": "Aguero"
+        }
+      },
+      "B": {
+        "letter": "B",
+        "question": {
+          "en": "Welsh winger famed for powerful runs at Tottenham and Real Madrid. Who is he?",
+          "ar": "جناح ويلزي مشهور بجريه القوي في توتنهام وريال مدريد. من هو؟",
+          "fr": "Ailier gallois célèbre pour ses courses puissantes à Tottenham et au Real Madrid. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Bale",
+          "ar": "بايل",
+          "fr": "Bale"
+        }
+      },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Uruguayan forward celebrated for clinical finishing at Napoli and PSG. Who is he?",
+          "ar": "مهاجم أوروغوياني مشهور بإنهائه الدقيق في نابولي وباريس سان جيرمان. من هو؟",
+          "fr": "Attaquant uruguayen reconnu pour sa finition clinique à Naples et au PSG. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Cavani",
+          "ar": "كافاني",
+          "fr": "Cavani"
+        }
+      },
+      "D": {
+        "letter": "D",
+        "question": {
+          "en": "Belgian midfielder admired for vision and precise passing at Manchester City. Who is he?",
+          "ar": "لاعب وسط بلجيكي معجب برؤيته وتمريراته الدقيقة في مانشستر سيتي. من هو؟",
+          "fr": "Milieu de terrain belge admiré pour sa vision et ses passes précises à Manchester City. Qui est-il ?"
+        },
+        "answer": {
+          "en": "De Bruyne",
+          "ar": "دي بروين",
+          "fr": "De Bruyne"
+        }
+      },
+      "E": {
+        "letter": "E",
+        "question": {
+          "en": "Colombian left‐back known for his rapid overlapping runs and defensive solidity at Villarreal. Who is he?",
+          "ar": "ظهير أيسر كولومبي معروف بجريه المتداخل السريع وصلابته الدفاعية في فياريال. من هو؟",
+          "fr": "Défenseur latéral colombien réputé pour ses courses en appui rapides et sa solidité défensive à Villarreal. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Pervis Estupinan",
+          "ar": "بريفيس إستوبينان",
+          "fr": "Pervis Estupinan"
+        }
+      },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Brazilian forward recognized for his creative link‐up play at Liverpool. Who is he?",
+          "ar": "مهاجم برازيلي معروف بقدرته الإبداعية على الربط بين اللعب في ليفربول. من هو؟",
+          "fr": "Attaquant brésilien reconnu pour son jeu de liaison créatif à Liverpool. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Firmino",
+          "ar": "فيرمينو",
+          "fr": "Firmino"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "French attacker renowned for agility and decisive goals at Atletico Madrid. Who is he?",
+          "ar": "مهاجم فرنسي مشهور بخفته وأهدافه الحاسمة في أتلتيكو مدريد. من هو؟",
+          "fr": "Attaquant français réputé pour son agilité et ses buts décisifs à l'Atlético Madrid. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Griezmann",
+          "ar": "غريزمان",
+          "fr": "Griezmann"
+        }
+      },
+      "H": {
+        "letter": "H",
+        "question": {
+          "en": "Belgian winger celebrated for dazzling dribbles and blistering pace at Chelsea. Who is he?",
+          "ar": "جناح بلجيكي معروف بمراوغاته المبهرة وسرعته البرّاقة في تشيلسي. من هو؟",
+          "fr": "Ailier belge célébré pour ses dribbles éblouissants et sa vitesse fulgurante à Chelsea. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Hazard",
+          "ar": "هازارد",
+          "fr": "Hazard"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+          "en": "Which Argentine striker, celebrated for his clinical finishing and penalty expertise during his prolific stint at Inter Milan before joining PSG, is he?",
+          "ar": "أي مهاجم أرجنتيني مشهور بإنهائه الدقيق وخبرته في ركلات الجزاء خلال فترة تألقه في إنتر ميلان قبل انضمامه لباريس سان جيرمان، هو؟",
+          "fr": "Quel attaquant argentin, reconnu pour sa finition clinique et son expertise aux penalties lors de son passage prolifique à l'Inter Milan avant de rejoindre le PSG, est-il ?"
+        },
+        "answer": {
+          "en": "Icardi",
+          "ar": "إيكاردي",
+          "fr": "Icardi"
+        }
+      },
+      "J": {
+        "letter": "J",
+        "question": {
+          "en": "Brazilian forward known for his pace and versatility at Manchester City. Who is he?",
+          "ar": "مهاجم برازيلي مشهور بسرعته وتعدد استخداماته في مانشستر سيتي. من هو؟",
+          "fr": "Attaquant brésilien réputé pour sa vitesse et sa polyvalence à Manchester City. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Jesus",
+          "ar": "Jesus",
+          "fr": "Jesus"
+        }
+      },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "Which Ivorian forward, famed for his explosive pace and decisive goals during his tenure at Chelsea – including key contributions in the Champions League – is he?",
+          "ar": "أي مهاجم إيفواري مشهور بسرعته الانفجارية وأهدافه الحاسمة خلال فترة لعبه في تشيلسي – بما في ذلك مساهماته الرئيسية في دوري الأبطال – هو؟",
+          "fr": "Quel attaquant ivoirien, célèbre pour sa vitesse explosive et ses buts décisifs lors de son passage à Chelsea, avec des contributions clés en Ligue des Champions, est-il ?"
+        },
+        "answer": {
+          "en": "Salomon Kalou",
+          "ar": "سالومون كالوا",
+          "fr": "Salomon Kalou"
+        }
+      },
+      "L": {
+        "letter": "L",
+        "question": {
+          "en": "Which Croatian shot‐stopper, known for his rapid reflexes and pivotal penalty saves at Dinamo Zagreb, has emerged as a leader between the posts?",
+          "ar": "أي حارس مرمى كرواتي مشهور بانعكاساته السريعة وتصدياته الحاسمة لركلات الجزاء في دينامو زغرب، وقد برز كقائد بين العارضتين؟",
+          "fr": "Quel gardien croate, reconnu pour ses réflexes rapides et ses arrêts décisifs sur penalty à Dinamo Zagreb, s'est imposé comme un leader dans ses buts ?"
+        },
+        "answer": {
+          "en": "Livakovic",
+          "ar": "ليفاكوفيتش",
+          "fr": "Livakovic"
+        }
+      },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "Croatian midfielder celebrated for his precise passes and key role at Real Madrid. Who is he?",
+          "ar": "لاعب وسط كرواتي مشهور بتمريراته الدقيقة ودوره الأساسي في ريال مدريد. من هو؟",
+          "fr": "Milieu croate célébré pour ses passes précises et son rôle clé au Real Madrid. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Modric",
+          "ar": "مودريتش",
+          "fr": "Modric"
+        }
+      },
+      "N": {
+        "letter": "N",
+        "question": {
+          "en": "German goalkeeper renowned for his sweeping skills and leadership at Bayern Munich. Who is he?",
+          "ar": "حارس مرمى ألماني مشهور بمهاراته الشاملة وقيادته في بايرن ميونخ. من هو؟",
+          "fr": "Gardien allemand réputé pour ses compétences de balayage et son leadership au Bayern Munich. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Neuer",
+          "ar": "نويَر",
+          "fr": "Neuer"
+        }
+      },
+      "O": {
+        "letter": "O",
+        "question": {
+          "en": "German playmaker acclaimed for his creative assists at Arsenal. Who is he?",
+          "ar": "صانع ألعاب ألماني مشهور بتمريراته الإبداعية في آرسنال. من هو؟",
+          "fr": "Playmaker allemand acclamé pour ses passes décisives créatives à Arsenal. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Ozil",
+          "ar": "أوزيل",
+          "fr": "Ozil"
+        }
+      },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "Spanish defender known for composure and tactical intelligence at Barcelona. Who is he?",
+          "ar": "مدافع إسباني مشهور بهدوئه وذكائه التكتيكي في برشلونة. من هو؟",
+          "fr": "Défenseur espagnol réputé pour sa sérénité et son intelligence tactique à Barcelone. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Pique",
+          "ar": "بيكيه",
+          "fr": "Pique"
+        }
+      },
+      "Q": {
+        "letter": "Q",
+        "question": {
+          "en": "Which Qatari football club, competing in the Qatar Stars League and known for its dedicated fanbase, is it?",
+          "ar": "أي نادٍ قطري لكرة القدم، ينافس في دوري نجوم قطر ومعروف بقاعدته الجماهيرية المخلصة، هو؟",
+          "fr": "Quel club de football qatari, évoluant dans la Qatar Stars League et reconnu pour sa fidèle base de supporters, est-ce ?"
+        },
+        "answer": {
+          "en": "Qatar SC",
+          "ar": "قطر اس سي",
+          "fr": "Qatar SC"
+        }
+      },
+      "R": {
+        "letter": "R",
+        "question": {
+          "en": "Which Brazilian forward, celebrated for his speed and finishing ability and a key figure in Brazil’s international success in the 1990s, is he?",
+          "ar": "أي مهاجم برازيلي مشهور بسرعته وقدرته على إنهاء الهجمات وكان شخصية محورية في نجاحات البرازيل الدولية في التسعينيات، هو؟",
+          "fr": "Quel attaquant brésilien, célébré pour sa vitesse et sa capacité à finir, et figure clé du succès international du Brésil dans les années 90, est-il ?"
+        },
+        "answer": {
+          "en": "Romario",
+          "ar": "روماريو",
+          "fr": "Romario"
+        }
+      },
+      "S": {
+        "letter": "S",
+        "question": {
+          "en": "Which Czech football club, one of the oldest in the country and renowned for its strong domestic legacy, is it?",
+          "ar": "أي نادٍ تشيكي لكرة القدم، أحد أقدم الأندية في البلاد ومشهور بإرثه المحلي القوي، هو؟",
+          "fr": "Quel club de football tchèque, l'un des plus anciens du pays et réputé pour son riche héritage national, est-ce ?"
+        },
+        "answer": {
+          "en": "Slavia Praga",
+          "ar": "سلافيا براغا",
+          "fr": "Slavia Praga"
+        }
+      },
+      "T": {
+        "letter": "T",
+        "question": {
+          "en": "Which North African national team, known for its spirited performances in the Africa Cup of Nations, is it?",
+          "ar": "أي منتخب من شمال أفريقيا، معروف بعروضه النابضة بالحياة في كأس الأمم الأفريقية، هو؟",
+          "fr": "Quelle équipe nationale nord-africaine, reconnue pour ses performances passionnées à la Coupe d'Afrique des Nations, est-ce ?"
+        },
+        "answer": {
+          "en": "Tunisia",
+          "ar": "تونس",
+          "fr": "Tunisia"
+        }
+      },
+      "U": {
+        "letter": "U",
+        "question": {
+          "en": "Which French centre‐back, recognized for his robust defending and pivotal role at Barcelona, is he?",
+          "ar": "أي قلب دفاع فرنسي، مشهور بقدراته الدفاعية القوية ودوره المحوري في برشلونة، هو؟",
+          "fr": "Quel défenseur central français, reconnu pour sa robustesse défensive et son rôle essentiel à Barcelone, est-il ?"
+        },
+        "answer": {
+          "en": "Umtiti",
+          "ar": "أومتتي",
+          "fr": "Umtiti"
+        }
+      },
+      "V": {
+        "letter": "V",
+        "question": {
+          "en": "Which Dutch midfielder, noted for his intelligent playmaking and scoring ability during his time at Ajax and Manchester United, is he?",
+          "ar": "أي لاعب وسط هولندي، مشهور بقدرته على صناعة اللعب والتسجيل خلال فترته في أياكس ومانشستر يونايتد، هو؟",
+          "fr": "Quel milieu néerlandais, reconnu pour sa capacité de jeu intelligent et son talent de buteur à l'Ajax et Manchester United, est-il ?"
+        },
+        "answer": {
+          "en": "Van de beek",
+          "ar": "فان دي بيك",
+          "fr": "Van de Beek"
+        }
+      },
+      "W": {
+        "letter": "W",
+        "question": {
+          "en": "East London club nicknamed 'The Hammers' with a rich heritage. Which club is it?",
+          "ar": "نادي شرق لندن المعروف بلقب 'المطارق' وله تراث غني. أي نادٍ هو؟",
+          "fr": "Club d'Est de Londres surnommé 'The Hammers' avec un riche héritage. De quel club s'agit-il ?"
+        },
+        "answer": {
+          "en": "West Ham United",
+          "ar": "ويست هام يونايتد",
+          "fr": "West Ham United"
+        }
+      },
+      "X": {
+        "letter": "X",
+        "question": {
+          "en": "Which Swiss international midfielder, celebrated for his dribbling and creative flair at clubs like Borussia Dortmund and Liverpool, is he?",
+          "ar": "أي لاعب وسط دولي سويسري مشهور بمهاراته في المراوغة وإبداعه مع أندية مثل بوروسيا دورتموند وليفربول، هو؟",
+          "fr": "Quel milieu international suisse, célébré pour ses dribbles et sa créativité dans des clubs comme le Borussia Dortmund et Liverpool, est-il ?"
+        },
+        "answer": {
+          "en": "Xherdan Shakiri",
+          "ar": "خشردان شاير",
+          "fr": "Xherdan Shaqiri"
+        }
+      },
+      "Y": {
+        "letter": "Y",
+        "question": {
+          "en": "Which English football club, affectionately known as \"The Minstermen\" and steeped in history, is it?",
+          "ar": "أي نادٍ إنجليزي لكرة القدم، المعروف بحنان بلقب 'المينسترمان' وغارق في التاريخ، هو؟",
+          "fr": "Quel club de football anglais, affectueusement surnommé 'The Minstermen' et riche d'histoire, est-ce ?"
+        },
+        "answer": {
+          "en": "York",
+          "ar": "يورك",
+          "fr": "York"
+        }
+      },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Moroccan playmaker celebrated for his flair and key passes at Ajax and Chelsea. Who is he?",
+          "ar": "صانع ألعاب مغربي مشهور بإبداعه وتمريراته الحاسمة في أياكس وتشيلسي. من هو؟",
+          "fr": "Playmaker marocain célébré pour sa créativité et ses passes décisives à l'Ajax et Chelsea. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Ziyech",
+          "ar": "زياش",
+          "fr": "Ziyech"
+        }
+      }
+    },
+    "set7": {
+      "A": {
+        "letter": "A",
+        "question": {
+          "en": "Gabonese striker known for his speed and goals at Dortmund and Arsenal. Who is he?",
+          "ar": "مهاجم غابوني مشهور بسرعته وأهدافه في دورتموند وآرسنال. من هو؟",
+          "fr": "Attaquant gabonais réputé pour sa vitesse et ses buts à Dortmund et Arsenal. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Aubameyang",
+          "ar": "أوبامييانغ",
+          "fr": "Aubameyang"
+        }
+      },
+      "B": {
+        "letter": "B",
+        "question": {
+          "en": "Which Italian forward, recognized for his flair and unpredictable style during his stints at Inter Milan and AC Milan, is he?",
+          "ar": "أي مهاجم إيطالي، معروف بأسلوبه المبدع وغير المتوقع خلال فترته في إنتر ميلان وإيه سي ميلان، هو؟",
+          "fr": "Quel attaquant italien, reconnu pour son talent et son style imprévisible lors de ses passages à l'Inter Milan et à l'AC Milan, est-il ?"
+        },
+        "answer": {
+          "en": "Balotelli",
+          "ar": "بالوتيلي",
+          "fr": "Balotelli"
+        }
+      },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Which Italian football club, based in the city of Como and competing in the lower tiers of Serie B, is it?",
+          "ar": "أي نادي إيطالي لكرة القدم، مقره في مدينة كومو ويتنافس في الدرجات الدنيا من الدوري الإيطالي (سيري ب)، هو؟",
+          "fr": "Quel club italien, basé dans la ville de Côme et évoluant dans les divisions inférieures de la Serie B, est-ce ?"
+        },
+        "answer": {
+          "en": "Como",
+          "ar": "كومو",
+          "fr": "Como"
+        }
+      },
+      "D": {
+        "letter": "D",
+        "question": {
+          "en": "Juventus icon known for his free‐kicks and creative playmaking. Who is he?",
+          "ar": "أسطورة يوفنتوس المشهورة بركلاتها الحرة وصناعة اللعب الإبداعية. من هو؟",
+          "fr": "Icône de la Juventus réputée pour ses coups francs et sa créativité en tant que meneur de jeu. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Del Piero",
+          "ar": "ديل بييرو",
+          "fr": "Del Piero"
+        }
+      },
+   "E": {
+      "letter": "E",
+      "question": {
+        "en": "Which young Swedish winger, celebrated for his rapid pace and technical ability at Manchester United, is he?",
+        "ar": "أي جناح سويدي شاب مشهور بسرعته الفائقة وقدراته الفنية في مانشستر يونايتد، هو؟",
+        "fr": "Quel jeune ailier suédois, réputé pour sa vitesse fulgurante et ses compétences techniques à Manchester United, est-il ?"
+      },
+      "answer": {
+        "en": "Anthony Elanga",
+        "ar": "أنتوني إيلانغا",
+        "fr": "Anthony Elanga"
+      }
+    },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Colombian striker famous for his clinical finishing at Atlético Madrid and Monaco. Who is he?",
+          "ar": "مهاجم كولومبي مشهور بإنهائه الدقيق في أتلتيكو مدريد وموناكو. من هو؟",
+          "fr": "Attaquant colombien célèbre pour sa finition clinique à l'Atlético Madrid et à Monaco. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Falcao",
+          "ar": "فالكاو",
+          "fr": "Falcao"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "Liverpool captain who led his team to a historic Champions League win. Who is he?",
+          "ar": "قائد ليفربول الذي قاد فريقه للفوز التاريخي بدوري أبطال أوروبا. من هو؟",
+          "fr": "Capitaine de Liverpool ayant mené son équipe à une victoire historique en Ligue des Champions. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Gerrard",
+          "ar": "جيرارد",
+          "fr": "Gerrard"
+        }
+      },
+      "H": {
+        "letter": "H",
+        "question": {
+          "en": "Arsenal’s French striker known for his speed and clinical finishing. Who is he?",
+          "ar": "مهاجم فرنسي في أرسنال مشهور بسرعته وإنهائه الدقيق. من هو؟",
+          "fr": "Attaquant français d'Arsenal, reconnu pour sa vitesse et sa finition clinique. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Henry",
+          "ar": "هنري",
+          "fr": "Henry"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+          "en": "Which Italian winger, renowned for his technical skills and creativity at Napoli, is he?",
+          "ar": "أي جناح إيطالي مشهور بمهاراته الفنية وإبداعه في نابولي، هو؟",
+          "fr": "Quel ailier italien, célèbre pour ses compétences techniques et sa créativité à Naples, est-il ?"
+        },
+        "answer": {
+          "en": "Insigne",
+          "ar": "إنسيني",
+          "fr": "Insigne"
+        }
+      },
+  
+    "J": {
+      "letter": "J",
+      "question": {
+        "en": "Which official ball, was used in the 2010 FIFA World Cup and impressed with its unique design and flight characteristics?",
+        "ar": "أي كرة رسمية، استخدمت في كأس العالم 2010 وأثارت الإعجاب بتصميمها الفريد وخصائصها في الطيران؟",
+        "fr": "Quelle balle officielle, a été utilisée lors de la Coupe du Monde 2010 et a impressionné par son design unique et ses caractéristiques de vol ?"
+      },
+      "answer": {
+        "en": "Jabulanie",
+        "ar": "جابولاني",
+        "fr": "Jabulanie"
+      }
+    },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "Which term describes the action that starts a football match when the ball is kicked from the center circle, is it?",
+          "ar": "أي مصطلح يصف الإجراء الذي يبدأ مباراة كرة القدم عندما تُركل الكرة من الدائرة الوسطى، هو؟",
+          "fr": "Quel terme décrit l'action qui démarre un match de football lorsque le ballon est dégagé du cercle central ?"
+        },
+        "answer": {
+          "en": "Kick Off",
+          "ar": "ركلة البداية",
+          "fr": "Kick Off"
+        }
+      },
+   "L": {
+      "letter": "L",
+      "question": {
+        "en": "Which emerging Spanish winger, playing for Barcelona and noted for his agility and technical skills in youth competitions, is he?",
+        "ar": "أي جناح إسباني ناشئ، يلعب لبرشلونة ومشهور بخفته ومهاراته الفنية في المسابقات الشبابية، هو؟",
+        "fr": "Quel ailier espagnol émergent, jouant pour Barcelone et reconnu pour son agilité et ses compétences techniques dans les compétitions de jeunes, est-il ?"
+      },
+      "answer": {
+        "en": "Lamin Yamal",
+        "ar": "لامين يامال",
+        "fr": "Lamin Yamal"
+      }
+    },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "Which Brazilian left‐back, celebrated for his attacking flair and distinctive hairstyles during his long tenure at Real Madrid, is he?",
+          "ar": "أي ظهير أيسر برازيلي مشهور بأسلوبه الهجومي وإطلالاته المميزة في فترة لعبه الطويلة مع ريال مدريد، هو؟",
+          "fr": "Quel arrière gauche brésilien, célébré pour son flair offensif et ses coiffures distinctives durant sa longue carrière au Real Madrid, est-il ?"
+        },
+        "answer": {
+          "en": "Marcelo",
+          "ar": "مارسيلو",
+          "fr": "Marcelo"
+        }
+      },
+   "N": {
+      "letter": "N",
+      "question": {
+        "en": "Which Belgian midfielder, known for his powerful presence and technical ability in European competitions, is he?",
+        "ar": "أي وسط ميدان بلجيكي مشهور بحضوره القوي وقدراته الفنية في المسابقات الأوروبية، هو؟",
+        "fr": "Quel milieu de terrain belge, connu pour sa présence puissante et ses compétences techniques dans les compétitions européennes, est-il ?"
+      },
+      "answer": {
+        "en": "Radja Nainggolan",
+        "ar": "رادجا ناينغولان",
+        "fr": "Radja Nainggolan"
+      }
+    },
+    "O": {
+      "letter": "O",
+      "question": {
+        "en": "Which Belgian forward, noted for his speed and goal-scoring potential in European competitions, is he?",
+        "ar": "أي مهاجم بلجيكي مشهور بسرعته وإمكاناته في تسجيل الأهداف في المسابقات الأوروبية، هو؟",
+        "fr": "Quel attaquant belge, reconnu pour sa vitesse et son potentiel de buteur dans les compétitions européennes, est-il ?"
+      },
+      "answer": {
+        "en": "Openda",
+        "ar": "أوبندا",
+        "fr": "Openda"
+      }
+    },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "French midfielder known for his flair at Juventus and Manchester United. Who is he?",
+          "ar": "لاعب وسط فرنسي مشهور بإبداعه في يوفنتوس ومانشستر يونايتد. من هو؟",
+          "fr": "Milieu de terrain français connu pour son style à Juventus et Manchester United. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Pogba",
+          "ar": "بوغبا",
+          "fr": "Pogba"
+        }
+      },
+      "Q": {
+        "letter": "Q",
+        "question": {
+          "en": "Which London‐based club, commonly abbreviated as QPR and known for its rollercoaster history in the top flight, is it?",
+          "ar": "أي نادي لندن، الذي يُعرف عادةً باسم QPR ومشهور بتاريخه المتقلب في الدرجة الأولى، هو؟",
+          "fr": "Quel club londonien, souvent abrégé en QPR et réputé pour son histoire mouvementée en première division, est-ce ?"
+        },
+        "answer": {
+          "en": "Queen’s Park Rangers",
+          "ar": "كوينز بارك رينجرز",
+          "fr": "Queen’s Park Rangers"
+        }
+      },
+  "R": {
+    "letter": "R",
+    "question": {
+      "en": "Which Brazilian winger, known for his speed, dribbling, and creativity, has impressed at clubs like Leeds United and FC Barcelona?",
+      "ar": "أي جناح برازيلي، معروف بسرعته ومراوغاته وإبداعه، وقد تألق في أندية مثل ليدز يونايتد وبرشلونة؟",
+      "fr": "Quel ailier brésilien, connu pour sa vitesse, ses dribbles et sa créativité, s'est illustré dans des clubs comme Leeds United et le FC Barcelone ?"
+    },
+    "answer": {
+      "en": "Raphinha",
+      "ar": "رافينيا",
+      "fr": "Raphinha"
     }
+  },
+  "S": {
+    "letter": "S",
+    "question": {
+      "en": "Which French football club, renowned for producing talented midfielders and having a rich history in French football, is he?",
+      "ar": "أي نادي كرة قدم فرنسي، مشهور بإنتاج لاعبي الوسط الموهوبين ولديه تاريخ غني في كرة القدم الفرنسية، هو؟",
+      "fr": "Quel club de football français, reconnu pour former des milieux de terrain talentueux et ayant une riche histoire dans le football français, est-il ?"
+    },
+    "answer": {
+      "en": "Saint Etienne",
+      "ar": "سانت إتيان",
+      "fr": "Saint Etienne"
+    }
+  },
+  "T": {
+    "letter": "T",
+    "question": {
+      "en": "Which English forward, renowned for his physicality, clinical finishing, and key role at Brentford, is he?",
+      "ar": "أي مهاجم إنجليزي، مشهور بصلابته وإنهائه الدقيق ودوره الرئيسي في برينتفورد، هو؟",
+      "fr": "Quel attaquant anglais, réputé pour sa physicalité, sa finition clinique et son rôle clé à Brentford, est-il ?"
+    },
+    "answer": {
+      "en": "Ivan Toney",
+      "ar": "إيفان توني",
+      "fr": "Ivan Toney"
+    }
+  },
+  "U": {
+    "letter": "U",
+    "question": {
+      "en": "Which Dutch football club, known for developing talented defenders and competing in the Eredivisie, starts with the letter U?",
+      "ar": "أي نادٍ هولندي لكرة القدم، معروف بتطوير المدافعين الموهوبين والمنافسة في الدوري الهولندي، يبدأ بحرف U؟",
+      "fr": "Quel club néerlandais de football, connu pour former des défenseurs talentueux et évoluer en Eredivisie, commence par la lettre U ?"
+    },
+    "answer": {
+      "en": "FC Utrecht",
+      "ar": "إف سي أوتريخت",
+      "fr": "FC Utrecht"
+    }
+  },
+  "V": {
+    "letter": "V",
+    "question": {
+      "en": "Which French attacking midfielder, known for his agility, dribbling skills, and playmaking ability, is he?",
+      "ar": "أي لاعب وسط مهاجم فرنسي، معروف برشاقته ومهاراته في المراوغة وقدرته على صناعة اللعب، هو؟",
+      "fr": "Quel milieu offensif français, connu pour son agilité, ses dribbles et sa capacité à créer le jeu, est-il ?"
+    },
+    "answer": {
+      "en": "Mathieu Valbuena",
+      "ar": "ماتيو فالبوينا",
+      "fr": "Mathieu Valbuena"
+    }
+  },
+  "W": {
+    "letter": "W",
+    "question": {
+      "en": "Which English right-back, known for his defensive prowess and tackling ability at Manchester United, is he?",
+      "ar": "أي ظهير أيمن إنجليزي، معروف بمهاراته الدفاعية وقدرته على الافتكاك في مانشستر يونايتد، هو؟",
+      "fr": "Quel arrière droit anglais, connu pour sa solidité défensive et sa capacité aux tacles à Manchester United, est-il ?"
+    },
+    "answer": {
+      "en": "Aaron Wan Bissaka",
+      "ar": "آرون وان بيساكا",
+      "fr": "Aaron Wan Bissaka"
+    }
+  },
+  "X": {
+    "letter": "X",
+    "question": {
+      "en": "Which Swiss midfielder, known for his powerful left foot and playmaking ability, has a first name that starts with X?",
+      "ar": "أي لاعب وسط سويسري، معروف بقدمه اليسرى القوية وقدرته على صناعة اللعب، يبدأ اسمه الأول بحرف X؟",
+      "fr": "Quel milieu de terrain suisse, connu pour son pied gauche puissant et sa capacité à créer le jeu, a un prénom commençant par X ?"
+    },
+    "answer": {
+      "en": "Xherdan Shaqiri",
+      "ar": "جيردان شاكيري",
+      "fr": "Xherdan Shaqiri"
+    }
+  },
+  "Y": {
+    "letter": "Y",
+    "question": {
+      "en": "Which Ukrainian winger, known for his dribbling skills, powerful left foot, and time at Dynamo Kyiv and West Ham United, is he?",
+      "ar": "أي جناح أوكراني، معروف بمهاراته في المراوغة وقدمه اليسرى القوية، ولعب مع دينامو كييف ووست هام يونايتد، هو؟",
+      "fr": "Quel ailier ukrainien, connu pour ses dribbles, son pied gauche puissant et son passage par le Dynamo Kiev et West Ham United, est-il ?"
+    },
+    "answer": {
+      "en": "Yarmolenko",
+      "ar": "يارمولينكو",
+      "fr": "Yarmolenko"
+    }
+  },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Which African nation, renowned for its rich footballing heritage and competitive spirit in the Africa Cup of Nations, is it?",
+          "ar": "أي دولة إفريقية، معروفة بتراثها الكروي الغني وروحها التنافسية في كأس الأمم الأفريقية، هي؟",
+          "fr": "Quelle nation africaine, réputée pour son riche héritage footballistique et son esprit compétitif en Coupe d'Afrique des Nations, est-ce ?"
+        },
+        "answer": {
+          "en": "Zambia",
+          "ar": "زامبيا",
+          "fr": "Zambia"
+        }
+      }
+    },
+    "set8": {
+      "A": {
+        "letter": "A",
+        "question": {
+          "en": "Which Spanish football club, based in the Basque Country and known for its passionate supporters, is it?",
+          "ar": "أي نادٍ إسباني لكرة القدم، مقره في إقليم الباسك ومعروف بجماهيره المتحمسة، هو؟",
+          "fr": "Quel club de football espagnol, basé au Pays basque et connu pour ses supporters passionnés, est-ce ?"
+        },
+        "answer": {
+          "en": "Deportivo Alaves",
+          "ar": "ديبورتيفو ألافيس",
+          "fr": "Deportivo Alaves"
+        }
+      },
+      "B": {
+        "letter": "B",
+        "question": {
+          "en": "Which Spanish football manager, known for managing Liverpool and winning the 2005 UEFA Champions League, is he?",
+          "ar": "أي مدرب كرة قدم إسباني، معروف بتدريبه لنادي ليفربول وفوزه بدوري أبطال أوروبا 2005، هو؟",
+          "fr": "Quel entraîneur de football espagnol, connu pour avoir dirigé Liverpool et remporté la Ligue des Champions en 2005, est-il ?"
+        },
+        "answer": {
+          "en": "Rafa Benítez",
+          "ar": "رافا بنيتز",
+          "fr": "Rafa Benítez"
+        }
+      },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Which prestigious South American tournament, contested by national teams, is it?",
+          "ar": "أي بطولة كروية جنوب أمريكية مرموقة، تقام بين المنتخبات الوطنية، هي؟",
+          "fr": "Quel tournoi sud-américain prestigieux, disputé par des équipes nationales, est-ce ?"
+        },
+        "answer": {
+          "en": "Copa América",
+          "ar": "كوبا أمريكا",
+          "fr": "Copa América"
+        }
+      },
+      "D": {
+        "letter": "D",
+        "question": {
+          "en": "Which Belgian defender, noted for his solid defensive performances and leadership, is he?",
+          "ar": "أي مدافع بلجيكي مشهور بأدائه الدفاعي الصلب وقيادته؟",
+          "fr": "Quel défenseur belge, reconnu pour ses performances défensives solides et son leadership, est-il ?"
+        },
+        "answer": {
+          "en": "Denayer",
+          "ar": "دينير",
+          "fr": "Denayer"
+        }
+      },
+      "E": {
+        "letter": "E",
+        "question": {
+          "en": "Which Norwegian striker, dominating the Premier League with his incredible goal‐scoring prowess, is he?",
+          "ar": "أي مهاجم نرويجي يهيمن على الدوري الإنجليزي الممتاز بقدراته المذهلة في تسجيل الأهداف، هو؟",
+          "fr": "Quel attaquant norvégien, dominant la Premier League grâce à son incroyable talent de buteur, est-il ?"
+        },
+        "answer": {
+          "en": "Erling Haaland",
+          "ar": "إيرلينغ هالاند",
+          "fr": "Erling Haaland"
+        }
+      },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Which Italian full‐back, renowned for his versatility and technical skill, is he?",
+          "ar": "أي ظهير أيمن إيطالي مشهور بمرونته ومهاراته الفنية، هو؟",
+          "fr": "Quel arrière italien, réputé pour sa polyvalence et sa technique, est-il ?"
+        },
+        "answer": {
+          "en": "Florenzi",
+          "ar": "فلورينزي",
+          "fr": "Florenzi"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "Which Spanish club, known for its competitive spirit in La Liga, is it?",
+          "ar": "أي نادي إسباني، معروف بروحه التنافسية في الدوري الإسباني، هو؟",
+          "fr": "Quel club espagnol, reconnu pour son esprit combatif en Liga, est-ce ?"
+        },
+        "answer": {
+          "en": "Girona",
+          "ar": "جيرونا",
+          "fr": "Girona"
+        }
+      },
+      "H": {
+        "letter": "H",
+        "question": {
+          "en": "Which Norwegian striker, dominating the Premier League with his incredible goal‐scoring prowess, is he?",
+          "ar": "أي مهاجم نرويجي، يهيمن على الدوري الإنجليزي بفضل قدرته الفائقة على تسجيل الأهداف، هو؟",
+          "fr": "Quel attaquant norvégien, dominant la Premier League par son talent de buteur, est-il ?"
+        },
+        "answer": {
+          "en": "Haaland",
+          "ar": "هالاند",
+          "fr": "Haaland"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+          "en": "Which Spanish midfielder, famed for scoring the decisive goal in the 2010 World Cup final, is he?",
+          "ar": "أي لاعب وسط إسباني مشهور بتسجيله الهدف الحاسم في نهائي كأس العالم 2010، هو؟",
+          "fr": "Quel milieu espagnol, célèbre pour avoir marqué le but décisif en finale de la Coupe du Monde 2010, est-il ?"
+        },
+        "answer": {
+          "en": "Iniesta",
+          "ar": "إنييستا",
+          "fr": "Iniesta"
+        }
+      },
+      "J": {
+        "letter": "J",
+        "question": {
+          "en": "Which Portuguese forward, celebrated for his flair and creativity at Atlético Madrid and Barcelona, is he?",
+          "ar": "أي مهاجم برتغالي مشهور بلمساته الإبداعية وإبداعه في أتلتيكو مدريد وبرشلونة، هو؟",
+          "fr": "Quel attaquant portugais, salué pour son flair et sa créativité à l'Atlético Madrid et Barcelone, est-il ?"
+        },
+        "answer": {
+          "en": "Joao Felix",
+          "ar": "جواو فيليكس",
+          "fr": "Joao Felix"
+        }
+      },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "Which German midfielder, known for his pinpoint passing and success with Real Madrid, is he?",
+          "ar": "أي لاعب وسط ألماني مشهور بتمريراته الدقيقة ونجاحه مع ريال مدريد، هو؟",
+          "fr": "Quel milieu allemand, réputé pour ses passes précises et son succès au Real Madrid, est-il ?"
+        },
+        "answer": {
+          "en": "Kroos",
+          "ar": "كروز",
+          "fr": "Kroos"
+        }
+      },
+      "L": {
+        "letter": "L",
+        "question": {
+          "en": "Which Polish striker, acclaimed for his phenomenal goal-scoring records at Bayern Munich and Barcelona, is he?",
+          "ar": "أي مهاجم بولندي مشهور بسجلاته التهديفية الاستثنائية في بايرن ميونخ وبرشلونة، هو؟",
+          "fr": "Quel attaquant polonais, acclamé pour ses records de buts phénoménaux au Bayern Munich et à Barcelone, est-il ?"
+        },
+        "answer": {
+          "en": "Lewandowski",
+          "ar": "لياندوفسكي",
+          "fr": "Lewandowski"
+        }
+      },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "Which German club, renowned for its impressive Bundesliga history and passionate support, is it?",
+          "ar": "أي نادي ألماني مشهور بتاريخ الدوري الألماني المميز ودعمه الجماهيري المتحمس، هو؟",
+          "fr": "Quel club allemand, réputé pour son impressionnant palmarès en Bundesliga et son soutien passionné, est-ce ?"
+        },
+        "answer": {
+          "en": "Monchengladbach",
+          "ar": "مونشنغلادباخ",
+          "fr": "Monchengladbach"
+        }
+      },
+      "N": {
+        "letter": "N",
+        "question": {
+          "en": "Which French midfielder, recognized for his tireless work rate and vital role in France’s World Cup win, is he?",
+          "ar": "أي لاعب وسط فرنسي مشهور بعمله المتواصل ودوره الحيوي في فوز فرنسا بكأس العالم، هو؟",
+          "fr": "Quel milieu français, reconnu pour son endurance et son rôle essentiel dans la victoire de la France en Coupe du Monde, est-il ?"
+        },
+        "answer": {
+          "en": "N’Golo Kante",
+          "ar": "إنغولو كانتي",
+          "fr": "N’Golo Kante"
+        }
+      },
+      "O": {
+        "letter": "O",
+        "question": {
+          "en": "Which legendary stadium, nicknamed \"The Theatre of Dreams\" and home to Manchester United, is it?",
+          "ar": "أي استاد أسطوري، المعروف بلقب 'مسرح الأحلام' ومقر مانشستر يونايتد، هو؟",
+          "fr": "Quel stade légendaire, surnommé 'The Theatre of Dreams' et domicile de Manchester United, est-ce ?"
+        },
+        "answer": {
+          "en": "Old Trafford",
+          "ar": "أولد ترافورد",
+          "fr": "Old Trafford"
+        }
+      },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "Which American winger, known as \"Captain America\" for his dynamic play at Chelsea and AC Milan, is he?",
+          "ar": "أي جناح أمريكي، معروف بلقب 'الكابتن أمريكا' لأدائه الديناميكي في تشيلسي وإيه سي ميلان، هو؟",
+          "fr": "Quel ailier américain, surnommé 'Captain America' pour son jeu dynamique à Chelsea et à l'AC Milan, est-il ?"
+        },
+        "answer": {
+          "en": "Pulisic",
+          "ar": "بوليسي",
+          "fr": "Pulisic"
+        }
+      },
+      "Q": {
+        "letter": "Q",
+        "question": {
+          "en": "Which country in the Middle East hosted the first World Cup?",
+          "ar": "أي دولة في الشرق الأوسط استضافت أول كأس عالم؟",
+          "fr": "Quel pays du Moyen-Orient a accueilli la première Coupe du Monde ?"
+        },
+        "answer": {
+          "en": "Qatar",
+          "ar": "قطر",
+          "fr": "Qatar"
+        }
+      },
+      "R": {
+        "letter": "R",
+        "question": {
+          "en": "Which Brazilian striker, dubbed \"El Fenómeno\" for his remarkable skill and dominance in the 1990s/2000s, is he?",
+          "ar": "أي مهاجم برازيلي، المعروف بلقب 'إل فينومينو' لمهاراته المذهلة وهيمنته في التسعينيات/الألفينيات، هو؟",
+          "fr": "Quel attaquant brésilien, surnommé 'El Fenómeno' pour son incroyable talent et sa domination dans les années 90/2000, est-il ?"
+        },
+        "answer": {
+          "en": "Ronaldo Nazário",
+          "ar": "رونالدو نازاريو",
+          "fr": "Ronaldo Nazário"
+        }
+      },
+      "S": {
+        "letter": "S",
+        "question": {
+          "en": "Which iconic Italian stadium, shared by AC Milan and Inter Milan, is it called?",
+          "ar": "أي استاد إيطالي أيقوني، مشترك بين إيه سي ميلان وإنتر ميلان، ما اسمه؟",
+          "fr": "Quel stade italien emblématique, partagé par l'AC Milan et l'Inter Milan, porte quel nom ?"
+        },
+        "answer": {
+          "en": "San Siro",
+          "ar": "سان سيرو",
+          "fr": "San Siro"
+        }
+      },
+      "T": {
+        "letter": "T",
+        "question": {
+          "en": "Which Brazilian defender, celebrated for his leadership at Chelsea and PSG, is he?",
+          "ar": "أي مدافع برازيلي مشهور بقيادته في تشيلسي وباريس سان جيرمان، هو؟",
+          "fr": "Quel défenseur brésilien, célébré pour son leadership à Chelsea et au PSG, est-il ?"
+        },
+        "answer": {
+          "en": "Thiago Silva",
+          "ar": "ثياغو سيلفا",
+          "fr": "Thiago Silva"
+        }
+      },
+      "U": {
+        "letter": "U",
+        "question": {
+          "en": "Which premier European club competition, featuring the continent’s elite teams, is it?",
+          "ar": "أي مسابقة أندية أوروبية رائدة، تضم أفضل الفرق في القارة، هي؟",
+          "fr": "Quelle compétition européenne de clubs, regroupant les équipes d'élite du continent, est-ce ?"
+        },
+        "answer": {
+          "en": "UEFA Champions League",
+          "ar": "دوري أبطال أوروبا",
+          "fr": "UEFA Champions League"
+        }
+      },
+      "V": {
+        "letter": "V",
+        "question": {
+          "en": "Which Brazilian winger, electrifying La Liga with his flair and goals at Real Madrid, is he?",
+          "ar": "أي جناح برازيلي يبهر الدوري الإسباني بفضل إبداعه وأهدافه في ريال مدريد، هو؟",
+          "fr": "Quel ailier brésilien, électrisant la Liga par son flair et ses buts au Real Madrid, est-il ?"
+        },
+        "answer": {
+          "en": "Vini Jr.",
+          "ar": "فيني جونيور",
+          "fr": "Vini Jr."
+        }
+      },
+      "W": {
+        "letter": "W",
+        "question": {
+          "en": "Which national stadium of England, famed for hosting FA Cup finals and international matches, is it?",
+          "ar": "أي استاد وطني في إنجلترا، مشهور باستضافة نهائيات كأس الاتحاد الإنجليزي والمباريات الدولية، هو؟",
+          "fr": "Quel stade national d'Angleterre, réputé pour accueillir les finales de la FA Cup et les rencontres internationales, est-ce ?"
+        },
+        "answer": {
+          "en": "Wembley",
+          "ar": "ويمبلي",
+          "fr": "Wembley"
+        }
+      },
+      "X": {
+        "letter": "X",
+        "question": {
+          "en": "Which Spanish midfielder, renowned for his exceptional passing range at Liverpool, Real Madrid, and Bayern Munich, is he?",
+          "ar": "أي لاعب وسط إسباني مشهور بمدى تمريراته الاستثنائي في ليفربول وريال مدريد وبايرن ميونخ، هو؟",
+          "fr": "Quel milieu espagnol, reconnu pour sa remarquable vision de jeu à Liverpool, au Real Madrid et à Bayern Munich, est-il ?"
+        },
+        "answer": {
+          "en": "Xabi Alonso",
+          "ar": "زابي ألونسو",
+          "fr": "Xabi Alonso"
+        }
+      },
+      "Y": {
+        "letter": "Y",
+        "question": {
+          "en": "Which Soviet goalkeeper, the only keeper to have won the Ballon d’Or in 1963, is he?",
+          "ar": "أي حارس مرمى سوفيتي، الوحيد الذي فاز بجائزة الكرة الذهبية عام 1963، هو؟",
+          "fr": "Quel gardien soviétique, le seul à avoir remporté le Ballon d'Or en 1963, est-il ?"
+        },
+        "answer": {
+          "en": "Yashin",
+          "ar": "ياشين",
+          "fr": "Yashin"
+        }
+      },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Which Egyptian club, with a storied history in African competitions, is it?",
+          "ar": "أي نادي مصري، ذو تاريخ عريق في المسابقات الأفريقية، هو؟",
+          "fr": "Quel club égyptien, avec une histoire riche en compétitions africaines, est-ce ?"
+        },
+        "answer": {
+          "en": "Zamalek",
+          "ar": "زمالك",
+          "fr": "Zamalek"
+        }
+      }
+    },
+    "set9": {
+      "A": {
+        "letter": "A",
+        "question": {
+          "en": "Legendary Italian manager who won Champions League titles with AC Milan and Real Madrid. Who is he?",
+          "ar": "مدرب إيطالي أسطوري فاز بألقاب دوري الأبطال مع إيه سي ميلان وريال مدريد. من هو؟",
+          "fr": "Entraîneur italien légendaire ayant remporté la Ligue des Champions avec l'AC Milan et le Real Madrid. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Ancelotti",
+          "ar": "أنشيلوتي",
+          "fr": "Ancelotti"
+        }
+      },
+      "B": {
+        "letter": "B",
+        "question": {
+          "en": "Italian defender famed for his leadership at Juventus and Italy’s Euro 2020 win. Who is he?",
+          "ar": "مدافع إيطالي مشهور بقيادته في يوفنتوس وفوز إيطاليا ببطولة يورو 2020. من هو؟",
+          "fr": "Défenseur italien, célèbre pour son leadership à la Juventus et la victoire de l'Italie à l'Euro 2020. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Bonucci",
+          "ar": "بونوتشي",
+          "fr": "Bonucci"
+        }
+      },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Belgian goalkeeper celebrated for his heroics in Real Madrid’s 2022 Champions League win. Who is he?",
+          "ar": "حارس مرمى بلجيكي مشهور ببطولاته البطولية في فوز ريال مدريد بدوري الأبطال 2022. من هو؟",
+          "fr": "Gardien belge célébré pour ses exploits lors de la victoire du Real Madrid en Ligue des Champions 2022. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Courtois",
+          "ar": "كورتوا",
+          "fr": "Courtois"
+        }
+      },
+      "D": {
+        "letter": "D",
+        "question": {
+          "en": "Ivorian striker immortalized at Chelsea for his clutch goals in big matches. Who is he?",
+          "ar": "مهاجم إيفواري خلد اسمه في تشيلسي بفضل أهدافه الحاسمة في المباريات الكبيرة. من هو؟",
+          "fr": "Attaquant ivoirien immortalisé à Chelsea pour ses buts décisifs lors des grands matchs. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Drogba",
+          "ar": "دروغبا",
+          "fr": "Drogba"
+        }
+      },
+      "E": {
+        "letter": "E",
+        "question": {
+          "en": "Which brand of the American company Electronic Arts is specialized in sports video games?",
+          "ar": "أي علامة تجارية من الشركة الأمريكية Electronic Arts متخصصة في ألعاب الفيديو الرياضية؟",
+          "fr": "Quelle marque de l'entreprise américaine Electronic Arts est spécialisée dans les jeux vidéo sportifs ?"
+        },
+        "answer": {
+          "en": "EA Sports",
+          "ar": "EA Sports",
+          "fr": "EA Sports"
+        }
+      },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Dutch club known for its passionate supporters and rich history in European competitions. Which club is it?",
+          "ar": "نادي هولندي مشهور بجماهيره المتحمسة وتاريخه الغني في المسابقات الأوروبية. أي نادي هو؟",
+          "fr": "Quel club néerlandais, réputé pour ses supporters passionnés et son riche palmarès en compétitions européennes, est-ce ?"
+        },
+        "answer": {
+          "en": "Feyenoord",
+          "ar": "فاينورد",
+          "fr": "Feyenoord"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "Spanish teenage sensation known for his tenacity and creativity at Barcelona. Who is he?",
+          "ar": "معجزة إسبانية شابة مشهورة بصلابتها وإبداعها في برشلونة. من هو؟",
+          "fr": "Jeune prodige espagnol connu pour sa ténacité et sa créativité à Barcelone. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Gavi",
+          "ar": "غافي",
+          "fr": "Gavi"
+        }
+      },
+      "H": {
+        "letter": "H",
+        "question": {
+          "en": "Norwegian striker dominating the Premier League with Manchester City for his goal-scoring prowess. Who is he?",
+          "ar": "مهاجم نرويجي يهيمن على الدوري الإنجليزي مع مانشستر سيتي بفضل قدرته التهديفية. من هو؟",
+          "fr": "Attaquant norvégien dominant la Premier League avec Manchester City grâce à son talent de buteur. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Halaand",
+          "ar": "هالاند",
+          "fr": "Halaand"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+          "en": "French defender praised for his physicality and composure at Liverpool. Who is he?",
+          "ar": "مدافع فرنسي مشهور بصلابته ورباطة جأشه في ليفربول. من هو؟",
+          "fr": "Défenseur français, salué pour sa physicalité et son sang-froid à Liverpool. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Ibrahima Konaté",
+          "ar": "إبراهيما كوناتي",
+          "fr": "Ibrahima Konaté"
+        }
+      },
+      "J": {
+        "letter": "J",
+        "question": {
+          "en": "English midfielder known for his flair and set-piece delivery at Tottenham. Who is he?",
+          "ar": "لاعب وسط إنجليزي مشهور بإبداعه وقدرته على تنفيذ الركلات الثابتة في توتنهام. من هو؟",
+          "fr": "Milieu anglais, connu pour son flair et sa précision sur les coups arrêtés à Tottenham. Qui est-il ?"
+        },
+        "answer": {
+          "en": "James Maddison",
+          "ar": "جيمس ماديسون",
+          "fr": "James Maddison"
+        }
+      },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "French defender excelling at Barcelona for his versatility and defensive IQ. Who is he?",
+          "ar": "مدافع فرنسي متألق في برشلونة بفضل تعدد استخداماته وذكائه الدفاعي. من هو؟",
+          "fr": "Défenseur français, excellent à Barcelone grâce à sa polyvalence et son intelligence défensive, est-il ?"
+        },
+        "answer": {
+          "en": "Koundé",
+          "ar": "كوندي",
+          "fr": "Koundé"
+        }
+      },
+      "L": {
+        "letter": "L",
+        "question": {
+          "en": "Colombian winger admired for his dribbling and work rate at Liverpool. Who is he?",
+          "ar": "جناح كولومبي مشهور بمراوغاته ومعدل عمله العالي في ليفربول. من هو؟",
+          "fr": "Ailier colombien admiré pour ses dribbles et son engagement à Liverpool. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Luis Díaz",
+          "ar": "لويس دياز",
+          "fr": "Luis Díaz"
+        }
+      },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "French goalkeeper renowned for his shot-stopping at AC Milan. Who is he?",
+          "ar": "حارس مرمى فرنسي مشهور بقدرته على التصدي للكرات في إيه سي ميلان. من هو؟",
+          "fr": "Gardien français reconnu pour ses arrêts à l'AC Milan. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Maignan",
+          "ar": "ماينيان",
+          "fr": "Maignan"
+        }
+      },
+      "N": {
+        "letter": "N",
+        "question": {
+          "en": "Italian defensive legend and pillar of AC Milan’s 2000s dominance. Who is he?",
+          "ar": "أسطورة دفاعية إيطالية وركيزة من ركائز هيمنة إيه سي ميلان في العقد الأول من الألفية. من هو؟",
+          "fr": "Légende défensive italienne et pilier de la domination de l'AC Milan dans les années 2000. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Nesta",
+          "ar": "نيستا",
+          "fr": "Nesta"
+        }
+      },
+      "O": {
+        "letter": "O",
+        "question": {
+          "en": "Nigerian striker who led Napoli to their first Serie A title in 33 years. Who is he?",
+          "ar": "مهاجم نيجيري قاد نابولي لتحقيق أول لقب له في الدوري الإيطالي منذ 33 عاماً. من هو؟",
+          "fr": "Attaquant nigérian qui a mené Naples à leur premier titre de Serie A en 33 ans. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Osimhen",
+          "ar": "أوسيمين",
+          "fr": "Osimhen"
+        }
+      },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "Italian manager who revitalized AC Milan, guiding them to a 2022 Serie A title. Who is he?",
+          "ar": "مدرب إيطالي جدد إيه سي ميلان وقاده للفوز بلقب الدوري الإيطالي في 2022. من هو؟",
+          "fr": "Entraîneur italien qui a revitalisé l'AC Milan, les menant à remporter le titre de Serie A en 2022. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Pioli",
+          "ar": "بيولي",
+          "fr": "Pioli"
+        }
+      },
+      "Q": {
+        "letter": "Q",
+        "question": {
+          "en": "Which Portuguese winger famed for his \"trivela\" shots and flair at Porto and Besiktas is he?",
+          "ar": "أي جناح برتغالي مشهور بركلات \"تريفيلا\" وأسلوب لعبه الإبداعي في بورتو وبيشيكتاش. من هو؟",
+          "fr": "Quel ailier portugais, célèbre pour ses frappes 'trivela' et son style flamboyant à Porto et Besiktas, est-il ?"
+        },
+        "answer": {
+          "en": "Quaresma",
+          "ar": "كواريسما",
+          "fr": "Quaresma"
+        }
+      },
+      "R": {
+        "letter": "R",
+        "question": {
+          "en": "Which German defender known for his aggression and leadership at Real Madrid is he?",
+          "ar": "أي مدافع ألماني مشهور بوحشيته وقيادته في ريال مدريد. من هو؟",
+          "fr": "Défenseur allemand, reconnu pour son agressivité et son leadership au Real Madrid, est-il ?"
+        },
+        "answer": {
+          "en": "Rüdiger",
+          "ar": "روديغير",
+          "fr": "Rüdiger"
+        }
+      },
+      "S": {
+        "letter": "S",
+        "question": {
+          "en": "Which German center-back recognized for his strength and speed at Borussia Dortmund is he?",
+          "ar": "قلب دفاع ألماني مشهور بقوته وسرعته في بوروسيا دورتموند. من هو؟",
+          "fr": "Défenseur central allemand, reconnu pour sa puissance et sa vitesse à Borussia Dortmund, est-il ?"
+        },
+        "answer": {
+          "en": "Süle",
+          "ar": "سولي",
+          "fr": "Süle"
+        }
+      },
+      "T": {
+        "letter": "T",
+        "question": {
+          "en": "English defender thriving at AC Milan after his rise from Chelsea’s academy. Who is he?",
+          "ar": "مدافع إنجليزي متألق في إيه سي ميلان بعد أن صعد من أكاديمية تشيلسي. من هو؟",
+          "fr": "Défenseur anglais, s'épanouissant à l'AC Milan après avoir émergé de l'académie de Chelsea. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Tomori",
+          "ar": "توموري",
+          "fr": "Tomori"
+        }
+      },
+      "U": {
+        "letter": "U",
+        "question": {
+          "en": "Which German club that rose from lower divisions to compete in the Champions League is it?",
+          "ar": "نادي ألماني صعد من الدرجات الدنيا ليتنافس في دوري الأبطال. أي نادي هو؟",
+          "fr": "Quel club allemand, qui est passé des divisions inférieures à la Ligue des Champions, est-ce ?"
+        },
+        "answer": {
+          "en": "Union Berlin",
+          "ar": "يونيون برلين",
+          "fr": "Union Berlin"
+        }
+      },
+      "V": {
+        "letter": "V",
+        "question": {
+          "en": "Which Brazilian winger, electrifying La Liga with his flair and goals at Real Madrid, is he?",
+          "ar": "أي جناح برازيلي يبهر الدوري الإسباني بفضل إبداعه وأهدافه في ريال مدريد، هو؟",
+          "fr": "Quel ailier brésilien, électrisant la Liga par son flair et ses buts au Real Madrid, est-il ?"
+        },
+        "answer": {
+          "en": "Vini Jr.",
+          "ar": "فيني جونيور",
+          "fr": "Vini Jr."
+        }
+      },
+      "W": {
+        "letter": "W",
+        "question": {
+          "en": "Which national stadium of England, famed for hosting FA Cup finals and international matches, is it?",
+          "ar": "أي استاد وطني في إنجلترا، مشهور باستضافة نهائيات كأس الاتحاد الإنجليزي والمباريات الدولية، هو؟",
+          "fr": "Quel stade national d'Angleterre, réputé pour accueillir les finales de la FA Cup et les rencontres internationales, est-ce ?"
+        },
+        "answer": {
+          "en": "Wembley",
+          "ar": "ويمبلي",
+          "fr": "Wembley"
+        }
+      },
+      "X": {
+        "letter": "X",
+        "question": {
+          "en": "Which Spanish midfielder, renowned for his exceptional passing range at Liverpool, Real Madrid, and Bayern Munich, is he?",
+          "ar": "أي لاعب وسط إسباني مشهور بمدى تمريراته الاستثنائي في ليفربول وريال مدريد وبايرن ميونخ، هو؟",
+          "fr": "Quel milieu espagnol, reconnu pour sa remarquable vision de jeu à Liverpool, au Real Madrid et à Bayern Munich, est-il ?"
+        },
+        "answer": {
+          "en": "Xabi Alonso",
+          "ar": "زابي ألونسو",
+          "fr": "Xabi Alonso"
+        }
+      },
+      "Y": {
+        "letter": "Y",
+        "question": {
+          "en": "Which Soviet goalkeeper, the only keeper to have won the Ballon d’Or in 1963, is he?",
+          "ar": "أي حارس مرمى سوفيتي، الوحيد الذي فاز بجائزة الكرة الذهبية عام 1963، هو؟",
+          "fr": "Quel gardien soviétique, le seul à avoir remporté le Ballon d'Or en 1963, est-il ?"
+        },
+        "answer": {
+          "en": "Yashin",
+          "ar": "ياشين",
+          "fr": "Yashin"
+        }
+      },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Which African nation, recognized for its rich football culture and competitive spirit, is it?",
+          "ar": "أي دولة أفريقية، معروفة بثقافتها الكروية الغنية وروحها التنافسية، هي؟",
+          "fr": "Quelle nation africaine, reconnue pour sa riche culture footballistique et son esprit compétitif, est-ce ?"
+        },
+        "answer": {
+          "en": "Zimbabwe",
+          "ar": "زمبابوي",
+          "fr": "Zimbabwe"
+        }
+      }
+    }
+    
   },
   "player2_sets": {
     "set1": {
@@ -3401,6 +4763,1368 @@
             "fr": "Oleksandr Zinchenko"
           }
         }
+    },
+    "set6": {
+      "A": {
+        "letter": "A",
+        "question": {
+          "en": "Which Belgian club, famous for its renowned youth academy and multiple domestic titles, is it?",
+          "ar": "أي نادي بلجيكي، مشهور بأكاديميته الشبابية العريقة وعدد من الألقاب المحلية، هو؟",
+          "fr": "Quel club belge, célèbre pour sa réputée académie de jeunes et ses multiples titres nationaux, est-ce ?"
+        },
+        "answer": {
+          "en": "Anderlecht",
+          "ar": "أنديرليخت",
+          "fr": "Anderlecht"
+        }
+      },
+  "B": {
+    "letter": "B",
+    "question": {
+      "en": "Which Italian defender, renowned for his tactical intelligence, composure, and key role in Juventus' defense, is he?",
+      "ar": "أي مدافع إيطالي، مشهور بذكائه التكتيكي ورباطة جأشه ودوره الرئيسي في دفاع يوفنتوس، هو؟",
+      "fr": "Quel défenseur italien, reconnu pour son intelligence tactique, son sang-froid et son rôle clé dans la défense de la Juventus, est-il ?"
+    },
+    "answer": {
+      "en": "Barzagli",
+      "ar": "بارزالي",
+      "fr": "Barzagli"
+    }
+  },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Which Czech goalkeeper, lauded for his commanding saves at Chelsea, is he?",
+          "ar": "أي حارس مرمى تشيكي، مشهور بتصدياته المذهلة في تشيلسي، هو؟",
+          "fr": "Quel gardien tchèque, salué pour ses arrêts décisifs à Chelsea, est-il ?"
+        },
+        "answer": {
+          "en": "Petre Cech",
+          "ar": "بتر تشيك",
+          "fr": "Petre Cech"
+        }
+      },
+    "D": {
+     "letter": "D",
+     "question": {
+        "en": "Which Canadian left back, celebrated for his blistering pace and relentless attacking runs at Bayern Munich, is he?",
+        "ar": "أي لاعب دفاع أيسر كندي، مشهور بسرعته الخاطفة وهجماته المتواصلة في بايرن ميونخ، هو؟",
+        "fr": "Quel arrière gauche canadien, reconnu pour sa vitesse fulgurante et ses montées offensives à Bayern Munich, est-il ?"
+         },
+        "answer": {
+         "en": "Davies",
+         "ar": "ديفيز",
+         "fr": "Davies"
+          }
+       },
+      "E": {
+        "letter": "E",
+        "question": {
+          "en": "Which Catalan club, often seen as the rival to Barcelona and recognized for its blue and white colors, is it?",
+          "ar": "أي نادي كتالوني، يُعتبر غالباً منافساً لبرشلونة ومعروف بألوانه الزرقاء والبيضاء، هو؟",
+          "fr": "Quel club catalan, souvent considéré comme le rival de Barcelone et reconnu pour ses couleurs bleu et blanc, est-ce ?"
+        },
+        "answer": {
+          "en": "Espanol",
+          "ar": "إسبانول",
+          "fr": "Espanol"
+        }
+      },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Which creative midfielder, admired for his incisive passing at Arsenal and Chelsea, is he?",
+          "ar": "أي لاعب وسط مبدع، مشهور بتمريراته الحاسمة في آرسنال وتشيلسي، هو؟",
+          "fr": "Quel milieu de terrain créatif, salué pour ses passes incisives à Arsenal et Chelsea, est-il ?"
+        },
+        "answer": {
+          "en": "Fabregas",
+          "ar": "فابريغاس",
+          "fr": "Fabregas"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "Which Italian midfielder, famed for his tenacity and leadership on the pitch, is he?",
+          "ar": "أي لاعب وسط إيطالي، مشهور بصلابته وقيادته في الملعب، هو؟",
+          "fr": "Quel milieu italien, célèbre pour sa ténacité et son leadership sur le terrain, est-il ?"
+        },
+        "answer": {
+          "en": "Gattuso",
+          "ar": "جاتوزو",
+              "fr": "Gattuso"
+        }
+      },
+      "H": {
+        "letter": "H",
+        "question": {
+          "en": "Which German club based in Berlin, known for its distinctive playing style and passionate supporters, is it?",
+          "ar": "أي نادي ألماني مقره في برلين، معروف بأسلوب لعبه المميز ومشجعيه المتحمسين، هو؟",
+          "fr": "Quel club allemand basé à Berlin, réputé pour son style de jeu distinctif et ses supporters passionnés, est-ce ?"
+        },
+        "answer": {
+          "en": "Herta Berlin",
+          "ar": "هيرتا برلين",
+          "fr": "Herta Berlin"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+          "en": "Which South American football club, celebrated for its independent spirit and historic legacy, is it?",
+          "ar": "أي نادي كرة قدم أمريكي جنوبي، مشهور بروحه المستقلة وتراثه التاريخي، هو؟",
+          "fr": "Quel club sud-américain, célébré pour son esprit indépendant et son héritage historique, est-ce ?"
+        },
+        "answer": {
+          "en": "Independete",
+          "ar": "إنديبندنتي",
+          "fr": "Independete"
+        }
+      },
+      "J": {
+        "letter": "J",
+        "question": {
+          "en": "Which iconic Italian club, recognized for its black‐and‐white stripes and record number of Serie A titles, is it?",
+          "ar": "أي نادي إيطالي أيقوني، معروف بخطوطه البيضاء والسوداء وعدد ألقابه القياسي في الدوري الإيطالي، هو؟",
+          "fr": "Quel club italien emblématique, reconnu pour ses rayures noir et blanc et son nombre record de titres en Serie A, est-ce ?"
+        },
+        "answer": {
+          "en": "Juventus",
+          "ar": "يوفنتوس",
+          "fr": "Juventus"
+        }
+      },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "Which German midfielder, praised for his versatility and tactical acumen at Bayern Munich, is he?",
+          "ar": "أي لاعب وسط ألماني، مشهور بمرونته وحكمته التكتيكية في بايرن ميونخ، هو؟",
+          "fr": "Quel milieu allemand, salué pour sa polyvalence et son intelligence tactique à Bayern Munich, est-il ?"
+        },
+        "answer": {
+          "en": "Kimmich",
+          "ar": "كيميتش",
+          "fr": "Kimmich"
+        }
+      },
+      "L": {
+        "letter": "L",
+        "question": {
+          "en": "Which powerful Belgian forward, renowned for his prolific goal-scoring in the Premier League, is he?",
+          "ar": "أي مهاجم بلجيكي قوي، مشهور بتسجيله للأهداف بشكل منتظم في الدوري الإنجليزي الممتاز، هو؟",
+          "fr": "Quel avant puissant belge, reconnu pour sa capacité prolifique à marquer en Premier League, est-il ?"
+        },
+        "answer": {
+          "en": "Lukaku",
+          "ar": "لوكاكو",
+          "fr": "Lukaku"
+        }
+      },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "Which French forward, celebrated for his explosive pace and decisive impact in world tournaments, is he?",
+          "ar": "أي مهاجم فرنسي مشهور بسرعته الانفجارية وتأثيره الحاسم في البطولات العالمية، هو؟",
+          "fr": "Quel attaquant français, célébré pour sa vitesse explosive et son impact décisif lors des tournois mondiaux, est-il ?"
+        },
+        "answer": {
+          "en": "Mbappe",
+          "ar": "مبابي",
+          "fr": "Mbappe"
+        }
+      },
+      "N": {
+        "letter": "N",
+        "question": {
+          "en": "Which Uruguayan striker, emerging as a prolific scorer at a top Premier League club, is he?",
+          "ar": "أي مهاجم أوروغوياني، الذي برز كمُسجّل للأهداف بشكل منتظم في أحد أفضل أندية الدوري الإنجليزي، هو؟",
+          "fr": "Quel attaquant uruguayen, qui s'est imposé comme un buteur prolifique dans un grand club de Premier League, est-il ?"
+        },
+        "answer": {
+          "en": "Nunez",
+          "ar": "نونييز",
+          "fr": "Nunez"
+        }
+      },
+      "O": {
+        "letter": "O",
+        "question": {
+          "en": "Which Spanish forward, distinguished by his technical skill and flair at Real Sociedad, is he?",
+          "ar": "أي مهاجم إسباني، معروف بمهاراته الفنية وإبداعه في ريال سوسيداد، هو؟",
+          "fr": "Quel attaquant espagnol, distingué par sa technique et son flair à la Real Sociedad, est-il ?"
+        },
+        "answer": {
+          "en": "Oyarzabal",
+          "ar": "أويارزابال",
+          "fr": "Oyarzabal"
+        }
+      },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "Which Brazilian forward, often hailed as the greatest of all time with three World Cup wins, is he?",
+          "ar": "أي مهاجم برازيلي، الذي يُعتبر غالباً أعظم لاعب على الإطلاق مع ثلاث بطولات كأس العالم، هو؟",
+          "fr": "Quel attaquant brésilien, souvent salué comme le plus grand de tous les temps avec trois Coupes du Monde, est-il ?"
+        },
+        "answer": {
+          "en": "Pele",
+          "ar": "بيليه",
+          "fr": "Pelé"
+        }
+      },
+      "Q": {
+        "letter": "Q",
+        "question": {
+          "en": "Which Italian striker, known for his power and longevity in Serie A, is he?",
+          "ar": "أي مهاجم إيطالي مشهور بقوته وطول مسيرته في الدوري الإيطالي، هو؟",
+          "fr": "Quel attaquant italien, reconnu pour sa puissance et sa longévité en Serie A, est-il ?"
+        },
+        "answer": {
+          "en": "Quagliarella",
+          "ar": "كواجلياريلا",
+          "fr": "Quagliarella"
+        }
+      },
+      "R": {
+        "letter": "R",
+        "question": {
+          "en": "Which English forward, celebrated for his pace and social impact at Manchester United, is he?",
+          "ar": "أي مهاجم إنجليزي مشهور بسرعته وتأثيره الاجتماعي في مانشستر يونايتد، هو؟",
+          "fr": "Quel attaquant anglais, célébré pour sa vitesse et son impact social à Manchester United, est-il ?"
+        },
+        "answer": {
+          "en": "Rashford",
+          "ar": "راشفورد",
+          "fr": "Rashford"
+        }
+      },
+      "S": {
+        "letter": "S",
+        "question": {
+          "en": "Which Egyptian forward, noted for his electrifying pace and prolific scoring at Liverpool, is he?",
+          "ar": "أي مهاجم مصري مشهور بسرعته الكهربائية وتسجيله للأهداف بشكل منتظم في ليفربول، هو؟",
+          "fr": "Quel attaquant égyptien, reconnu pour sa vitesse électrisante et sa capacité à marquer abondamment à Liverpool, est-il ?"
+        },
+        "answer": {
+          "en": "Salah",
+          "ar": "صلاح",
+          "fr": "Salah"
+        }
+      },
+      "T": {
+        "letter": "T",
+        "question": {
+          "en": "Which Italian attacking midfielder and Roma legend, celebrated for his loyalty and creative genius, is he?",
+          "ar": "أي لاعب وسط مهاجم إيطالي وأسطورة في روما، مشهور بولائه وعبقريته الإبداعية، هو؟",
+          "fr": "Quel milieu offensif italien et légende de la Roma, célébré pour sa loyauté et son génie créatif, est-il ?"
+        },
+        "answer": {
+          "en": "Totti",
+          "ar": "توتي",
+          "fr": "Totti"
+        }
+      },
+      "U": {
+        "letter": "U",
+        "question": {
+          "en": "Which national football team, representing a North American country with a growing talent pool, is it?",
+          "ar": "أي منتخب كرة قدم، يمثل دولة من أمريكا الشمالية ذات قاعدة مواهب متنامية، هو؟",
+          "fr": "Quelle équipe nationale de football, représentant un pays nord-américain avec un vivier de talents en croissance, est-ce ?"
+        },
+        "answer": {
+          "en": "USA",
+          "ar": "الولايات المتحدة",
+          "fr": "USA"
+        }
+      },
+      "V": {
+        "letter": "V",
+        "question": {
+          "en": "Which Spanish club, renowned for its passionate fan base and storied history in La Liga, is it?",
+          "ar": "أي نادي إسباني، مشهور بقاعدته الجماهيرية المتحمسة وتاريخه العريق في الدوري الإسباني، هو؟",
+          "fr": "Quel club espagnol, réputé pour ses supporters passionnés et son histoire riche en Liga, est-ce ?"
+        },
+        "answer": {
+          "en": "Valencia",
+          "ar": "فالنسيا",
+          "fr": "Valencia"
+        }
+      },
+     "W": {
+    "letter": "W",
+    "question": {
+      "en": "Which English midfielder, once admired for his creative flair at Arsenal before injury setbacks impacted his career, is he?",
+      "ar": "أي لاعب وسط إنجليزي، الذي كان يُعجب به سابقاً لإبداعه في آرسنال قبل أن تؤثر الإصابات على مسيرته، هو؟",
+      "fr": "Quel milieu de terrain anglais, autrefois admiré pour sa créativité à Arsenal avant que les blessures n'impactent sa carrière, est-il ?"
+    },
+    "answer": {
+      "en": "Wilshere",
+      "ar": "ويلشير",
+      "fr": "Wilshere"
+    }
+  },
+  "X": {
+    "letter": "X",
+    "question": {
+      "en": "Which player, whose first name contains the letter 'X', played for Wolverhampton Wanderers and currently plays at West Ham United?",
+      "ar": "أي لاعب، يحتوي اسمه الأول على حرف X، لعب لوفرهامبتون وينضم حالياً إلى وست هام يونايتد؟",
+      "fr": "Quel joueur, dont le prénom contient la lettre 'X', a joué pour Wolverhampton Wanderers et joue actuellement à West Ham United ?"
+    },
+    "answer": {
+      "en": "Max Kilman",
+      "ar": "ماكس كيلمان",
+      "fr": "Max Kilman"
+    }
+  }
+  ,
+      "Y": {
+        "letter": "Y",
+        "question": {
+          "en": "Which Soviet goalkeeper, the only keeper to have won the Ballon d’Or in 1963, is he?",
+          "ar": "أي حارس مرمى سوفيتي، الوحيد الذي فاز بجائزة الكرة الذهبية عام 1963، هو؟",
+          "fr": "Quel gardien soviétique, le seul à avoir remporté le Ballon d'Or en 1963, est-il ?"
+        },
+        "answer": {
+          "en": "Yashin",
+          "ar": "يشن",
+          "fr": "Yashin"
+        }
+      },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Which African nation, recognized for its rich football culture and competitive spirit, is it?",
+          "ar": "أي دولة أفريقية، معروفة بثقافتها الكروية الغنية وروحها التنافسية، هي؟",
+          "fr": "Quelle nation africaine, reconnue pour sa riche culture footballistique et son esprit compétitif, est-ce ?"
+        },
+        "answer": {
+          "en": "Zambia",
+          "ar": "زامبيا",
+          "fr": "Zambia"
+        }
+      }
+    },
+    "set7": {
+    "A": {
+      "letter": "A",
+       "question": {
+       "en": "Which Austrian forward, known by the surname Arnautović and celebrated for his dynamic performances in European leagues, is he?",
+       "ar": "أي لاعب كرة قدم نمساوي، معروف باسم أرناوتوفيتش ومشهور بأدائه الديناميكي في الدوريات الأوروبية، هو؟",
+          "fr": "Quel attaquant autrichien, connu sous le nom d'Arnautović et célébré pour ses performances dynamiques dans les championnats européens, est-il ?"
+     },
+      "answer": {
+       "en": "Marko Arnautovic",
+       "ar": "ماركو أرناوتوفيتش",
+          "fr": "Marko Arnautovic"
+     }
+    },
+      "B": {
+        "letter": "B",
+        "question": {
+          "en": "Which Bulgarian forward, celebrated for his elegance and clinical finishing during his time at Manchester United, is he?",
+          "ar": "أي مهاجم بلغاري، مشهور بأناقته وإنهائه الدقيق خلال فترة لعبه في مانشستر يونايتد، هو؟",
+          "fr": "Quel attaquant bulgare, célébré pour son élégance et sa finition clinique à Manchester United, est-il ?"
+        },
+        "answer": {
+          "en": "Berbatov",
+          "ar": "بيرباتوف",
+          "fr": "Berbatov"
+        }
+      },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Which Belgian football club, renowned for its domestic dominance and European campaigns, is it?",
+          "ar": "أي نادي بلجيكي لكرة القدم، مشهور بسيطرته المحلية وحملاته الأوروبية، هو؟",
+          "fr": "Quel club belge de football, réputé pour sa domination nationale et ses campagnes européennes, est-ce ?"
+        },
+        "answer": {
+          "en": "Club Brugge",
+          "ar": "كلوب بروج",
+          "fr": "Club Brugge"
+        }
+      },
+      "D": {
+        "letter": "D",
+        "question": {
+          "en": "Which historic Spanish club from A Coruña, once a regular in La Liga’s top tier, is it?",
+          "ar": "أي نادي إسباني تاريخي من لا كورونيا، الذي كان من الفرق الدائمة في الدرجة الأولى للدوري الإسباني، هو؟",
+          "fr": "Quel club espagnol historique d'A Coruña, jadis régulier en première division de la Liga, est-ce ?"
+        },
+        "answer": {
+          "en": "Deportivo La Coruña",
+          "ar": "ديبورتيفو لا كورونيا",
+          "fr": "Deportivo La Coruña"
+        }
+      },
+      "E": {
+        "letter": "E",
+        "question": {
+          "en": "Which African nation, famous for its legendary national team and record Africa Cup of Nations titles, is it?",
+          "ar": "أي دولة إفريقية، مشهورة بمنتخبها الوطني الأسطوري وسجلاتها القياسية في كأس الأمم الأفريقية، هي؟",
+          "fr": "Quelle nation africaine, célèbre pour son équipe nationale légendaire et ses titres record en Coupe d'Afrique des Nations, est-ce ?"
+        },
+        "answer": {
+          "en": "Egypt",
+          "ar": "مصر",
+          "fr": "Égypte"
+        }
+      },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Which European nation, renowned for its technical football style and multiple World Cup victories, is it?",
+          "ar": "أي دولة أوروبية، مشهورة بأسلوبها الفني في كرة القدم وفوزها بعدة بطولات كأس العالم، هي؟",
+          "fr": "Quelle nation européenne, reconnue pour son style de football technique et ses multiples victoires en Coupe du Monde, est-ce ?"
+        },
+        "answer": {
+          "en": "France",
+          "ar": "فرنسا",
+          "fr": "France"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "Which Spanish club, recognized by its red and white colors and competitive spirit in La Liga, is it?",
+          "ar": "أي نادي إسباني، معروف بألوانه الحمراء والبيضاء وروحه التنافسية في الدوري الإسباني، هو؟",
+          "fr": "Quel club espagnol, identifié par ses couleurs rouge et blanc et son esprit compétitif en Liga, est-ce ?"
+        },
+        "answer": {
+          "en": "Granada",
+          "ar": "غرناطة",
+          "fr": "Granada"
+        }
+      },
+      "H": {
+        "letter": "H",
+        "question": {
+          "en": "Which Italian club, celebrated for its passionate supporters and dramatic Serie A moments, is it?",
+          "ar": "أي نادي إيطالي، مشهور بجماهيره المتحمسة ولحظاته الدرامية في الدوري الإيطالي، هو؟",
+          "fr": "Quel club italien, célébré pour ses supporters passionnés et ses moments dramatiques en Serie A, est-ce ?"
+        },
+        "answer": {
+          "en": "Hellas Verona",
+          "ar": "هيلاس فيرونا",
+          "fr": "Hellas Verona"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+        "en": "Which Spanish midfielder, celebrated for his creative passing, subtle playmaking, and key role at Real Sociedad, is he?",
+        "ar": "أي لاعب وسط إسباني مشهور بتمريراته الإبداعية وصناعة اللعب الدقيقة ودوره الأساسي في ريال سوسيداد، هو؟",
+            "fr": "Quel milieu espagnol, reconnu pour ses passes créatives, son jeu subtil et son rôle déterminant à la Real Sociedad, est-il ?"
+      },
+       "answer": {
+       "en": "Illarramendi",
+       "ar": "إيلاراميندي",
+          "fr": "Illarramendi"
+      }
+     },
+      "J": {
+        "letter": "J",
+        "question": {
+          "en": "Which young Brazilian forward, noted for his flair and technical skill, is he?",
+          "ar": "أي مهاجم برازيلي شاب، مشهور بلمساته الإبداعية ومهاراته الفنية، هو؟",
+          "fr": "Quel jeune attaquant brésilien, reconnu pour son flair et sa technique, est-il ?"
+        },
+        "answer": {
+          "en": "Vinicus Junior",
+          "ar": "فينيكوس جونيور",
+          "fr": "Vinicus Junior"
+        }
+      },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "Which German striker, renowned for his aerial ability and record-breaking World Cup goals, is he?",
+          "ar": "أي مهاجم ألماني مشهور بقدراته الهوائية وتحطيمه للأرقام القياسية في أهداف كأس العالم، هو؟",
+          "fr": "Quel attaquant allemand, réputé pour sa capacité aérienne et ses buts record en Coupe du Monde, est-il ?"
+        },
+        "answer": {
+          "en": "Klose",
+          "ar": "كلوز",
+          "fr": "Klose"
+        }
+      },
+  "L": {
+    "letter": "L",
+    "question": {
+      "en": "Which Spanish football club, renowned for its dynamic play and strong community roots, is it?",
+      "ar": "أي نادي كرة قدم إسباني، المعروف بأسلوب لعبه الديناميكي وجذوره المجتمعية القوية، هو؟",
+      "fr": "Quel club de football espagnol, réputé pour son jeu dynamique et ses fortes racines communautaires, est-ce ?"
+    },
+    "answer": {
+      "en": "Levente",
+      "ar": "ليفنتي",
+      "fr": "Levente"
+    }
+  },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "Which Brazilian centre‐back, recognized for his strong tackling and leadership in defense, is he?",
+          "ar": "أي قلب دفاع برازيلي مشهور بقدراته على التصدي القوي وقيادته في الدفاع، هو؟",
+          "fr": "Quel défenseur central brésilien, reconnu pour ses tacles puissants et son leadership défensif, est-il ?"
+        },
+        "answer": {
+          "en": "Miranda",
+          "ar": "ميراندًا",
+          "fr": "Miranda"
+        }
+      },
+     "N": {
+       "letter": "N",
+       "question": {
+        "en": "Who is the Senegalese striker currently playing for Chelsea, known for his pace and goal-scoring abilities?",
+        "ar": "من هو المهاجم السنغالي الذي يلعب حالياً في تشيلسي والمعروف بسرعته وقدرته على تسجيل الأهداف؟",
+            "fr": "Qui est l'attaquant sénégalais actuellement à Chelsea, reconnu pour sa vitesse et sa capacité à marquer des buts ?"
+        },
+        "answer": {
+        "en": "Nicolas Jackson",
+        "ar": "نيكولاس جاكسون",
+           "fr": "Nicolas Jackson"
+       }
+      },
+      "O": {
+        "letter": "O",
+        "question": {
+          "en": "Which Argentine centre‐back, known for his robust defending and leadership at club and country, is he?",
+          "ar": "أي قلب دفاع أرجنتيني مشهور بقدراته الدفاعية القوية وقيادته في النادي والمنتخب، هو؟",
+          "fr": "Quel défenseur central argentin, réputé pour sa défense solide et son leadership au niveau du club et de la nation, est-il ?"
+        },
+        "answer": {
+          "en": "Otamendi",
+          "ar": "أوتامندي",
+          "fr": "Otamendi"
+        }
+      },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "Which Spanish manager, famed for his innovative tactics and leadership at Barcelona, is he?",
+          "ar": "أي مدرب إسباني مشهور بتكتيكاته المبتكرة وقيادته في برشلونة، هو؟",
+          "fr": "Quel entraîneur espagnol, renommé pour ses tactiques innovantes et son leadership à Barcelone, est-il ?"
+        },
+        "answer": {
+          "en": "Pep Goardiolla",
+          "ar": "بيب جوارديولا",
+          "fr": "Pep Goardiolla"
+        }
+      },
+     "Q": {
+       "letter": "Q",
+       "question": {
+         "en": "Which current Liverpool defender, whose name starts with Q, is celebrated by its passionate fanbase?",
+         "ar": "أي مدافع حالي في ليفربول يبدأ اسمه بحرف Q ويحتفل به جماهيره المتحمسة؟",
+             "fr": "Quel défenseur actuel de Liverpool, dont le nom commence par Q, est célébré par ses fans passionnés ?"
+        },
+       "answer": {
+         "en": "Quansah",
+         "ar": "كوينسا",
+             "fr": "Quansah"
+        }
+       },
+      "R": {
+        "letter": "R",
+        "question": {
+          "en": "Which Brazilian winger, known for his silky skills and creative dribbling, played for Real Madrid and Manchester City?",
+          "ar": "أي جناح برازيلي، مشهور بمهاراته الناعمة ومراوغاته الإبداعية، لعب لريال مدريد ومانشستر سيتي؟",
+          "fr": "Quel ailier brésilien, réputé pour sa technique soyeuse et ses dribbles créatifs, a joué pour le Real Madrid et Manchester City ?"
+        },
+        "answer": {
+          "en": "Robinho",
+          "ar": "روبينيو",
+          "fr": "Robinho"
+        }
+      },
+      "S": {
+        "letter": "S",
+        "question": {
+          "en": "Which Spanish midfielder, celebrated for his visionary passing and playmaking, played for Arsenal?",
+          "ar": "أي لاعب وسط إسباني، مشهور بتمريراته الرؤيوية وصناعة اللعب، لعب لنادي أرسنال؟",
+          "fr": "Quel milieu espagnol, célébré pour ses passes visionnaires et sa capacité à créer le jeu, a joué pour Arsenal ?"
+        },
+        "answer": {
+          "en": "Santi Cazorla",
+          "ar": "سانتي كازورلا",
+          "fr": "Santi Cazorla"
+        }
+      },
+      "T": {
+        "letter": "T",
+        "question": {
+          "en": "Which Spanish coach, noted for his tactical insight and role in nurturing young talent, is he?",
+          "ar": "أي مدرب إسباني مشهور ببصيرته التكتيكية ودوره في تنمية المواهب الشابة، هو؟",
+          "fr": "Quel entraîneur espagnol, reconnu pour sa perspicacité tactique et son rôle dans le développement des jeunes talents, est-il ?"
+        },
+        "answer": {
+          "en": "Titu Vilanova",
+          "ar": "تيتو فيلانوفا",
+          "fr": "Titu Vilanova"
+        }
+      },
+      "U": {
+        "letter": "U",
+        "question": {
+          "en": "Which Eastern European nation, known for its passionate football culture and emerging talents, is it?",
+          "ar": "أي دولة من أوروبا الشرقية، مشهورة بثقافتها الكروية المتحمسة والمواهب الناشئة، هي؟",
+          "fr": "Quelle nation d'Europe de l'Est, réputée pour sa culture footballistique passionnée et ses talents émergents, est-ce ?"
+        },
+        "answer": {
+          "en": "Ukrania",
+          "ar": "أوكرانيا",
+          "fr": "Ukrania"
+        }
+      },
+      "V": {
+        "letter": "V",
+        "question": {
+          "en": "Which Italian midfielder, renowned for his elegant ball control and creativity, played for PSG?",
+          "ar": "أي لاعب وسط إيطالي، مشهور بتحكمه الأنيق بالكرة وإبداعه، لعب لنادي باريس سان جيرمان؟",
+          "fr": "Quel milieu de terrain italien, célèbre pour son contrôle élégant du ballon et sa créativité, a joué pour le PSG ?"
+        },
+        "answer": {
+          "en": "Marco Verratti",
+          "ar": "ماركو فيراتي",
+          "fr": "Marco Verratti"
+        }
+      },
+      "W": {
+        "letter": "W",
+        "question": {
+          "en": "Which legendary French manager, credited with revolutionizing English football with Arsenal, is he?",
+          "ar": "أي مدرب فرنسي أسطوري، مشهور بإحداث ثورة في كرة القدم الإنجليزية مع أرسنال، هو؟",
+          "fr": "Quel légendaire manager français, crédité de la révolution du football anglais avec Arsenal, est-il ?"
+        },
+        "answer": {
+          "en": "Arsen Wenger",
+          "ar": "أرسين وينجر",
+          "fr": "Arsene Wenger"
+        }
+      },
+      "X": {
+        "letter": "X",
+        "question": {
+          "en": "What is the first name of the english right-back, known for his attacking runs and solid defensive skills, has played for Norwich City?",
+          "ar": "ما هو الاسم الأول للظهير أيمن إنجليزي، معروف بانطلاقاته الهجومية ومهاراته الدفاعية القوية، لعب لنورويتش سيتي؟",
+          "fr": "Quel est le prénom de l'arrière droit anglais, connu pour ses montées offensives et ses solides qualités défensives, a joué pour Norwich City ?"
+        },
+        "answer": {
+          "en": "Max",
+          "ar": "ماكس",
+          "fr": "Max"
+        }
+      },
+      "Y": {
+        "letter": "Y",
+        "question": {
+          "en": "What is the first name of the Belgian winger, known for his pace and dribbling skills, who has played for Atlético Madrid and in the Chinese Super League?",
+          "ar": "ما هو الاسم الأول للجناح البلجيكي، المعروف بسرعته ومهاراته في المراوغة، والذي لعب لأتلتيكو مدريد وفي الدوري الصيني؟",
+          "fr": "Quel est le prénom de l'ailier belge, connu pour sa vitesse et ses dribbles, qui a joué pour l'Atlético Madrid et en Super League chinoise ?"
+        },
+        "answer": {
+          "en": "Yannick Carrasco",
+          "ar": "يانيك كاراسكو",
+          "fr": "Yannick Carrasco"
+        }
+      },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Which Spanish midfielder, known for his work rate and versatility at Real Sociedad, is he?",
+          "ar": "أي لاعب وسط إسباني، معروف بمستوى عمله العالي وتعدد استخداماته في ريال سوسيداد، هو؟",
+          "fr": "Quel milieu de terrain espagnol, connu pour son éthique de travail et sa polyvalence à la Real Sociedad, est-il ?"
+        },
+        "answer": {
+          "en": "Zubimendi",
+          "ar": "زوبيميندي",
+          "fr": "Zubimendi"
+        }
+      }  
+    },
+    "set8": {
+      "A": {
+        "letter": "A",
+        "question": {
+          "en": "Spanish manager who transformed Arsenal into Premier League title contenders. Who is he?",
+          "ar": "مدرب إسباني الذي حوّل أرسنال إلى مرشحين لبطولة الدوري الإنجليزي. من هو؟",
+          "fr": "Entraîneur espagnol ayant transformé Arsenal en prétendant au titre de Premier League. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Arteta",
+          "ar": "أرتيتا",
+          "fr": "Arteta"
+        }
+      },
+      "B": {
+        "letter": "B",
+        "question": {
+          "en": "Italian goalkeeping legend with over 20 years at Juventus and Parma. Who is he?",
+          "ar": "أسطورة حراسة المرمى الإيطالية التي قضت أكثر من 20 عاماً في يوفنتوس وبارما. من هو؟",
+          "fr": "Légende italienne du gardien de but ayant passé plus de 20 ans à la Juventus et à Parme. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Buffon",
+          "ar": "بوفيه",
+          "fr": "Buffon"
+        }
+      },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Brazilian right-back and World Cup-winning captain known for his endless stamina. Who is he?",
+          "ar": "ظهير أيمن برازيلي وكابتن فائز بكأس العالم معروف بقدرته اللامتناهية على التحمل. من هو؟",
+          "fr": "Arrière droit brésilien et capitaine champion du Monde, célèbre pour son endurance inépuisable. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Cafu",
+          "ar": "كافو",
+          "fr": "Cafu"
+        }
+      },
+      "D": {
+        "letter": "D",
+        "question": {
+          "en": "Argentine winger famed for his World Cup final goal and spells at Real Madrid/PSG. Who is he?",
+          "ar": "جناح أرجنتيني مشهور بهدفه في نهائي كأس العالم وفتراته في ريال مدريد وباريس سان جيرمان. من هو؟",
+          "fr": "Ailier argentin célèbre pour son but en finale de Coupe du Monde et ses passages à Real Madrid/PSG. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Di Maria",
+          "ar": "دي ماريا",
+          "fr": "Di Maria"
+        }
+      },
+      "E": {
+        "letter": "E",
+        "question": {
+          "en": "UEFA’s second-tier club competition, often a gateway to the Champions League. What is it?",
+          "ar": "مسابقة الأندية الثانية في أوروبا التابعة لليوفا، والتي غالباً ما تكون مدخلاً لدوري الأبطال. ما هي؟",
+          "fr": "La compétition de clubs de second rang de l'UEFA, souvent considérée comme une porte d'entrée vers la Ligue des Champions. Qu'est-ce que c'est ?"
+        },
+        "answer": {
+          "en": "Europa League",
+          "ar": "دوري أوروبا",
+          "fr": "Europa League"
+        }
+      },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Dutch-Ghanaian wing-back known for his blistering speed at Bayer Leverkusen. Who is he?",
+          "ar": "ظهير جناح هولندي-غاناني مشهور بسرعته الخاطفة في باير ليفركوزن. من هو؟",
+          "fr": "Arrière latéral néerlandais-ghanéen, réputé pour sa vitesse fulgurante à Bayer Leverkusen. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Frimpong",
+          "ar": "فريمبونغ",
+          "fr": "Frimpong"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "German midfielder who captained Manchester City to a historic treble in 2023. Who is he?",
+          "ar": "لاعب وسط ألماني قاد مانشستر سيتي لتحقيق الثلاثية التاريخية في 2023. من هو؟",
+          "fr": "Milieu de terrain allemand ayant mené Manchester City vers un triplé historique en 2023. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Gundogan",
+          "ar": "غوندوجان",
+          "fr": "Gundogan"
+        }
+      },
+      "H": {
+        "letter": "H",
+        "question": {
+          "en": "Danish striker making waves at Manchester United for his physicality and finishing. Who is he?",
+          "ar": "مهاجم دنماركي يشق طريقه في مانشستر يونايتد بفضل قوته وإنهائه، من هو؟",
+          "fr": "Attaquant danois faisant sensation à Manchester United par sa physicalité et sa finition. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Hojlund",
+          "ar": "هويلوند",
+          "fr": "Hojlund"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+          "en": "Spanish playmaker known for his dribbling and creativity at Real Madrid. Who is he?",
+          "ar": "صانع ألعاب إسباني مشهور بمراوغاته وإبداعه في ريال مدريد. من هو؟",
+          "fr": "Playmaker espagnol réputé pour ses dribbles et sa créativité au Real Madrid. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Isco",
+          "ar": "إيسكو",
+          "fr": "Isco"
+        }
+      },
+      "J": {
+        "letter": "J",
+        "question": {
+          "en": "Argentine forward who won the World Cup and Premier League in the same season. Who is he?",
+          "ar": "مهاجم أرجنتيني فاز بكأس العالم والدوري الإنجليزي في نفس الموسم. من هو؟",
+          "fr": "Attaquant argentin qui a remporté la Coupe du Monde et la Premier League dans la même saison. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Julian Alvarez",
+          "ar": "جوليان ألفاريز",
+          "fr": "Julian Alvarez"
+        }
+      },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "Georgian winger nicknamed \"Kvaradona\" for his dazzling skills at Napoli. Who is he?",
+          "ar": "جناح جورجي مشهور بلقب 'كفارادونا' لمهاراته الباهرة في نابولي. من هو؟",
+          "fr": "Ailier géorgien surnommé 'Kvaradona' pour ses compétences éblouissantes à Naples. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Kvaratskhelia",
+          "ar": "كفاراتشليا",
+          "fr": "Kvaratskhelia"
+        }
+      },
+      "L": {
+        "letter": "L",
+        "question": {
+          "en": "Inter Milan’s Argentine striker and key player in their 2023 Champions League run. Who is he?",
+          "ar": "مهاجم أرجنتيني في إنتر ميلان ولاعب أساسي في رحلة الفريق في دوري الأبطال 2023. من هو؟",
+          "fr": "Attaquant argentin d'Inter Milan et joueur clé lors de leur parcours en Ligue des Champions 2023. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Lautaro Martínez",
+          "ar": "لاوتارو مارتينيز",
+          "fr": "Lautaro Martínez"
+        }
+      },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "German youngster celebrated for his dribbling and versatility at Bayern Munich. Who is he?",
+          "ar": "لاعب شاب ألماني مشهور بمهاراته في المراوغة وتعدد استخداماته في بايرن ميونخ. من هو؟",
+          "fr": "Jeune talent allemand célébré pour ses dribbles et sa polyvalence à Bayern Munich. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Musiala",
+          "ar": "موسيالا",
+          "fr": "Musiala"
+        }
+      },
+      "N": {
+        "letter": "N",
+        "question": {
+          "en": "French forward known for his versatility and goal-scoring at RB Leipzig and Chelsea. Who is he?",
+          "ar": "مهاجم فرنسي مشهور بمرونته وقدرته على التسجيل في RB لايبزيغ وتشيلسي. من هو؟",
+          "fr": "Attaquant français, reconnu pour sa polyvalence et ses buts à RB Leipzig et Chelsea, est-il ?"
+        },
+        "answer": {
+          "en": "Nkunku",
+          "ar": "نكونكو",
+          "fr": "Nkunku"
+        }
+      },
+      "O": {
+        "letter": "O",
+        "question": {
+          "en": "Cameroonian goalkeeper recognized for his distribution at Inter Milan and Manchester United. Who is he?",
+          "ar": "حارس مرمى كاميروني مشهور بتمريراته الدقيقة في إنتر ميلان ومانشستر يونايتد. من هو؟",
+          "fr": "Gardien camerounais reconnu pour sa distribution au sein d'Inter Milan et de Manchester United. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Onana",
+          "ar": "أونانا",
+          "fr": "Onana"
+        }
+      },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "Spanish midfield prodigy praised for his maturity and creativity at Barcelona. Who is he?",
+          "ar": "معجزة وسط إسباني مشهور بنضجه وإبداعه في برشلونة. من هو؟",
+          "fr": "Prodige du milieu espagnol, salué pour sa maturité et sa créativité à Barcelone. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Pedri",
+          "ar": "بيدري",
+          "fr": "Pedri"
+        }
+      },
+      "Q": {
+        "letter": "Q",
+        "question": {
+          "en": "Top-tier football league in Qatar, home to clubs like Al-Sadd and Al-Duhail. What is it?",
+          "ar": "أعلى دوري كرة قدم في قطر، موطن لأندية مثل السد والدوحة. ما هو؟",
+          "fr": "La ligue de football de premier plan au Qatar, regroupant des clubs comme Al-Sadd et Al-Duhail. Qu'est-ce que c'est ?"
+        },
+        "answer": {
+          "en": "Qatar Stars League",
+          "ar": "دوري نجوم قطر",
+          "fr": "Qatar Stars League"
+        }
+      },
+      "R": {
+        "letter": "R",
+        "question": {
+          "en": "Brazilian forward famous for his clutch goals in Real Madrid’s Champions League comebacks. Who is he?",
+          "ar": "مهاجم برازيلي مشهور بأهدافه الحاسمة في عودة ريال مدريد في دوري الأبطال. من هو؟",
+          "fr": "Attaquant brésilien célèbre pour ses buts décisifs lors des retours en Ligue des Champions de Real Madrid. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Rodrygo",
+          "ar": "رودريغو",
+          "fr": "Rodrygo"
+        }
+      },
+      "S": {
+        "letter": "S",
+        "question": {
+          "en": "Hungarian midfielder known for his set-piece mastery at Liverpool. Who is he?",
+          "ar": "لاعب وسط مجري مشهور بتحكمه في الكرات الثابتة في ليفربول. من هو؟",
+          "fr": "Milieu hongrois reconnu pour sa maîtrise des coups de pied arrêtés à Liverpool. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Szoboszlai",
+          "ar": "سبوزوبزلاي",
+          "fr": "Szoboszlai"
+        }
+      },
+      "T": {
+        "letter": "T",
+        "question": {
+          "en": "French defensive midfielder anchoring Real Madrid’s midfield after Casemiro’s exit. Who is he?",
+          "ar": "لاعب وسط دفاعي فرنسي يقود وسط ريال مدريد بعد رحيل كاسيميرو. من هو؟",
+          "fr": "Milieu défensif français, ancrant le milieu de terrain de Real Madrid après le départ de Casemiro, est-il ?"
+        },
+        "answer": {
+          "en": "Tchouameni",
+          "ar": "تشواميني",
+          "fr": "Tchouameni"
+        }
+      },
+      "U": {
+        "letter": "U",
+        "question": {
+          "en": "Serie A club based in Udine, known for developing underrated talents. Which club is it?",
+          "ar": "نادي الدوري الإيطالي (سيري آ) مقره في أوديني، مشهور بتطوير المواهب غير المُقدّرة، أي نادي هو؟",
+          "fr": "Quel club de Serie A, basé à Udine et reconnu pour développer des talents sous-estimés, est-ce ?"
+        },
+        "answer": {
+          "en": "Udinese",
+          "ar": "أودينيزي",
+          "fr": "Udinese"
+        }
+      },
+      "V": {
+        "letter": "V",
+        "question": {
+          "en": "Serbian striker celebrated for his powerful strikes at Juventus. Who is he?",
+          "ar": "مهاجم صربي مشهور بضرباته القوية في يوفنتوس. من هو؟",
+          "fr": "Attaquant serbe célébré pour ses frappes puissantes à la Juventus. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Vlahovic",
+          "ar": "فلاهوفيتش",
+          "fr": "Vlahovic"
+        }
+      },
+      "W": {
+        "letter": "W",
+        "question": {
+          "en": "English right-back renowned for his pace and defensive solidity at Manchester City. Who is he?",
+          "ar": "ظهير أيمن إنجليزي مشهور بسرعته وصلابته الدفاعية في مانشستر سيتي. من هو؟",
+          "fr": "Arrière droit anglais réputé pour sa vitesse et sa solidité défensive à Manchester City. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Walker",
+          "ar": "ووكر",
+          "fr": "Walker"
+        }
+      },
+      "X": {
+        "letter": "X",
+        "question": {
+          "en": "Dutch wonderkid making headlines for his creativity at RB Leipzig and PSG. Who is he?",
+          "ar": "معجزة هولندية تحدث ضجة بفضل إبداعه في RB لايبزيغ وباريس سان جيرمان. من هو؟",
+          "fr": "Prodige néerlandais faisant sensation pour sa créativité à RB Leipzig et au PSG. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Xavi Simons",
+          "ar": "شافي سيمونز",
+          "fr": "Xavi Simons"
+        }
+      },
+      "Y": {
+        "letter": "Y",
+        "question": {
+          "en": "Ivorian midfield powerhouse who dominated the Premier League with Manchester City. Who is he?",
+          "ar": "لاعب وسط من ساحل العاج، مشهور بقدرته على السيطرة على الدوري الإنجليزي مع مانشستر سيتي. من هو؟",
+          "fr": "Milieu de terrain ivoirien, véritable puissance qui a dominé la Premier League avec Manchester City. Qui est-il ?"
+        },
+        "answer": {
+          "en": "Yaya Toure",
+          "ar": "يايا توري",
+          "fr": "Yaya Toure"
+        }
+      },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Which versatile Italian defender, noted for his role in Italy’s 2006 World Cup victory and successful spells at Juventus, Barcelona, and AC Milan, is he?",
+          "ar": "أي مدافع إيطالي متعدد الاستخدامات، مشهور بدوره في فوز إيطاليا بكأس العالم 2006 وفترات تألقه في يوفنتوس وبرشلونة وإيه سي ميلان، هو؟",
+          "fr": "Quel défenseur italien polyvalent, connu pour son rôle dans la victoire de l'Italie à la Coupe du Monde 2006 et ses passages réussis à la Juventus, à Barcelone et à l'AC Milan, est-il ?"
+        },
+        "answer": {
+          "en": "Zambrotta",
+          "ar": "زامبروتا",
+          "fr": "Zambrotta"
+        }
+      }
+    },
+    "set9": {
+      "A": {
+        "letter": "A",
+        "question": {
+          "en": "Which Madrid-based Spanish club, nicknamed 'Los Rojiblancos' and led in recent years by a renowned tactician, is famous for its gritty style of play?",
+          "ar": "أي نادي إسباني من مدريد، المعروف بلقب 'الروخيبلانكوس' وتديره مدرب مشهور، يشتهر بأسلوبه القتالي  على أرض الملعب؟",
+          "fr": "Quel club espagnol basé à Madrid, surnommé 'Les Rojiblancos' et dirigé par un tacticien de renom, est réputé pour son style de jeu combatif ?"
+        },
+        "answer": {
+          "en": "Atletico Madrid",
+          "ar": "أتليتيكو مدريد",
+          "fr": "Atletico Madrid"
+        }
+      },
+      "B": {
+        "letter": "B",
+        "question": {
+          "en": "Which Munich-based German powerhouse, known as 'Die Bayern' and record champion of its league, has become synonymous with domestic and international success?",
+          "ar": "أي نادي ألماني من ميونخ، المعروف باسم 'دي بايرن' وبطلاً قياسياً في الدوري، يُعد رمزاً للنجاح على المستويين المحلي والدولي؟",
+          "fr": "Quel club allemand basé à Munich, surnommé 'Die Bayern' et recordman en Bundesliga, incarne le succès tant sur la scène nationale qu’internationale ?"
+        },
+        "answer": {
+          "en": "Bayern Munich",
+          "ar": "بايرن ميونخ",
+          "fr": "Bayern Munich"
+        }
+      },
+      "C": {
+        "letter": "C",
+        "question": {
+          "en": "Which elite European tournament, celebrated for its iconic anthem and finals held in grand venues, brings together the continent’s top clubs every season?",
+          "ar": "ما هي البطولة الأوروبية النخبوية التي تشتهر بنشيدها الشهير ونهائياتها التي تقام في ملاعب ضخمة وتجمع أفضل أندية القارة كل موسم؟",
+          "fr": "Quelle compétition européenne, connue pour son hymne emblématique et ses finales dans des stades prestigieux, réunit les meilleures équipes du continent chaque saison ?"
+        },
+        "answer": {
+          "en": "Champions League",
+          "ar": "دوري الأبطال",
+          "fr": "Ligue des Champions"
+        }
+      },
+      "D": {
+        "letter": "D",
+        "question": {
+          "en": "Which striker, often dubbed 'El Matador' for his fearless, combative playing style and physicality, made his mark in top European leagues with clubs like Atletico Madrid and Chelsea?",
+          "ar": "أي مهاجم يُلقب بـ 'El Matador' نظرًا لأسلوبه القتالي والجسدي الذي لا يعرف الخوف، وحقق شهرة كبيرة في البطولات الأوروبية مع أندية مثل أتليتيكو مدريد وتشيلسي؟",
+          "fr": "Quel attaquant, surnommé 'El Matador' en raison de son style de jeu combatif et physique, a marqué les grands championnats européens en évoluant notamment pour l’Atletico Madrid et Chelsea ?"
+        },
+        "answer": {
+          "en": "Diego Costa",
+          "ar": "دييغو كوستا",
+          "fr": "Diego Costa"
+        }
+      },
+      "E": {
+        "letter": "E",
+        "question": {
+          "en": "Which high-profile Spanish fixture, contested by the two giants of Spanish football—Real Madrid and Barcelona—captures global attention with its historic rivalry?",
+          "ar": "ما هي المواجهة الإسبانية البارزة التي تجمع بين عملاقي كرة القدم الإسبانية، ريال مدريد وبرشلونة، وتثير إعجاب الجماهير حول العالم بفضل تاريخها العريق؟",
+          "fr": "Quel match emblématique, opposant les deux géants du football espagnol, le Real Madrid et le FC Barcelone, est célèbre pour sa rivalité historique et attire l’attention mondiale ?"
+        },
+        "answer": {
+          "en": "El Clasico",
+          "ar": "الكلاسيكو",
+          "fr": "El Clasico"
+        }
+      },
+      "F": {
+        "letter": "F",
+        "question": {
+          "en": "Which knockout tournament, first contested in the 19th century and famous for its 'giant-killing' upsets, is the oldest domestic competition in English football?",
+          "ar": "ما هي البطولة الإنجليزية بنظام خروج المغلوب التي تأسست في القرن التاسع عشر والمعروفة بمفاجآتها المثيرة، وتعد أقدم منافسة محلية في كرة القدم الإنجليزية؟",
+          "fr": "Quelle compétition anglaise à élimination directe, lancée au XIXe siècle et réputée pour ses exploits inattendus, est la plus ancienne des tournois domestiques ?"
+        },
+        "answer": {
+          "en": "FA Cup",
+          "ar": "كأس الاتحاد الإنجليزي",
+          "fr": "FA Cup"
+        }
+      },
+      "G": {
+        "letter": "G",
+        "question": {
+          "en": "Which Dutch football icon, renowned for his distinctive blond hair, technical brilliance, and leadership on the field, left an indelible mark on the sport during the 1980s and beyond?",
+          "ar": "أي أسطورة هولندية في كرة القدم، معروفة بشعره الأشقر المميز وبراعته الفنية وقيادته على أرض الملعب، تركت بصمة لا تُنسى في عالم اللعبة منذ الثمانينيات؟",
+          "fr": "Quelle légende néerlandaise, célèbre pour sa chevelure blonde, sa virtuosité technique et son charisme sur le terrain, a marqué l’histoire du football depuis les années 80 ?"
+        },
+        "answer": {
+          "en": "Gullit",
+          "ar": "جوليت",
+          "fr": "Gullit"
+        }
+      },
+     "H": {
+        "letter": "H",
+        "question": {
+          "en": "Which influential Slovak midfielder, celebrated for his creative playmaking, long-range goals, and leadership as Napoli’s longtime captain, has become an icon in Italian football?",
+          "ar": "أي لاعب وسط سلوفاكي شهير، معروف بإبداعه في صناعة اللعب وتسجيل الأهداف من مسافات بعيدة وقيادته كنقيب طويل الأمد لنابولي، وأصبح رمزاً في كرة القدم الإيطالية؟",
+          "fr": "Quel milieu de terrain slovaque, réputé pour sa créativité, ses buts spectaculaires et son leadership en tant que capitaine emblématique de Napoli, est devenu une icône du football italien ?"
+        },
+        "answer": {
+          "en": "Marek Hamšík",
+          "ar": "ماريك هامشيك",
+          "fr": "Marek Hamšík"
+        }
+      },
+      "I": {
+        "letter": "I",
+        "question": {
+          "en": "Which West African nation, renowned for producing world-class footballers like Drogba and Toure, has made a significant impact on both African and global football?",
+          "ar": "أي دولة غرب أفريقية معروفة بإنتاج لاعبين عالميين مثل دروغبا وتوري، وتركت بصمتها الكبيرة في كرة القدم على المستويين الأفريقي والعالمي؟",
+          "fr": "Quel pays d'Afrique de l'Ouest, célèbre pour avoir formé des stars telles que Drogba et Toure, a profondément marqué l'histoire du football africain et mondial ?"
+        },
+        "answer": {
+          "en": "Ivory Coast",
+          "ar": "ساحل العاج",
+          "fr": "Côte d'Ivoire"
+        }
+      },
+      "J": {
+        "letter": "J",
+        "question": {
+          "en": "Which charismatic manager, famous for his energetic 'gegenpressing' style and motivational leadership, has transformed his team into a European powerhouse?",
+          "ar": "أي مدرب كروي يتميز بالكاريزما وأسلوب 'الجينجبريسنج' النشط وكلماته التحفيزية التي حولت فريقه إلى قوة كروية أوروبية؟",
+          "fr": "Quel manager charismatique, connu pour son style de pressing intense et ses discours motivants, a métamorphosé son équipe en une puissance européenne ?"
+        },
+        "answer": {
+          "en": "Jurgen Klopp",
+          "ar": "يورغن كلوب",
+          "fr": "Jurgen Klopp"
+        }
+      },
+      "K": {
+        "letter": "K",
+        "question": {
+          "en": "Which stalwart defender, often hailed as the rock at the back with a commanding presence for Napoli and his national team, is known for his leadership and robust play?",
+          "ar": "أي مدافع قوي يُعتبر حجر الزاوية في صفوف نابولي ومنتخب بلاده بفضل حضوره المهيب ولعبه الصلب، يشتهر بقيادته؟",
+          "fr": "Quel défenseur robuste, considéré comme le pilier défensif de Napoli et de son équipe nationale, est réputé pour son leadership et sa solidité ?"
+        },
+        "answer": {
+          "en": "Koulibaly",
+          "ar": "كوليبالي",
+          "fr": "Koulibaly"
+        }
+      },
+      "L": {
+        "letter": "L",
+        "question": {
+          "en": "Which league featuring elite clubs like Real Madrid and Barcelona and celebrated for its technical and fast-paced style, is recognized worldwide?",
+          "ar": "ما هو الدوري الذي يضم أندية نخب مثل ريال مدريد وبرشلونة والمعروف بأسلوبه الفني والسريع، والذي يحظى باعتراف عالمي؟",
+          "fr": "Quelle ligue regroupant des clubs d'élite tels que le Real Madrid et le FC Barcelone et réputée pour son jeu technique et rapide, est reconnue dans le monde entier ?"
+        },
+        "answer": {
+          "en": "La Liga",
+          "ar": "لا ليغا",
+          "fr": "La Liga"
+        }
+      },
+      "M": {
+        "letter": "M",
+        "question": {
+          "en": "Which iconic stadium in Rio de Janeiro, Brazil, known for hosting historic matches like the 1950 FIFA World Cup Final and celebrated for its massive capacity and electric atmosphere, is considered a temple of football?",
+          "ar": "ما هو الملعب الشهير في ريو دي جانيرو، البرازيل، الذي استضاف مباريات تاريخية مثل نهائي كأس العالم 1950 والمعروف بسعته الضخمة وأجوائه الكهربائية، والذي يُعتبر معبدًا لكرة القدم؟",
+          "fr": "Quel stade emblématique de Rio de Janeiro, au Brésil, connu pour avoir accueilli des matchs historiques comme la finale de la Coupe du Monde 1950 et réputé pour sa capacité impressionnante et son ambiance électrisante, est considéré comme un temple du football ?"
+        },
+        "answer": {
+          "en": "Maracana",
+          "ar": "ماراكانا",
+          "fr": "Maracana"
+        }
+      },
+      "N": {
+        "letter": "N",
+        "question": {
+          "en": "Which European nation, a pioneer of the revolutionary 'Total Football' style and home to legends like Johan Cruyff, has had a lasting influence on modern football?",
+          "ar": "أي دولة أوروبية كانت رائدة في أسلوب 'كرة القدم الشاملة' وثروة من الأساطير مثل يوهان كرويف، وتركت أثراً دائماً على كرة القدم الحديثة؟",
+          "fr": "Quel pays européen, pionnier du concept de 'football total' et terre d’accueil de légendes telles que Johan Cruyff, a profondément marqué le football moderne ?"
+        },
+        "answer": {
+          "en": "Netherlands",
+          "ar": "هولندا",
+          "fr": "Pays-Bas"
+        }
+      },
+      "O": {
+        "letter": "O",
+        "question": {
+          "en": "Which essential football rule, designed to prevent attackers from merely loitering near the goal and encouraging dynamic play, remains one of the sport’s most debated principles?",
+          "ar": "ما هي القاعدة الأساسية في كرة القدم التي تهدف إلى منع المهاجمين من التواجد قرب المرمى دون مجهود وتشجيع اللعب الديناميكي، والتي لا تزال من أكثر القواعد إثارة للجدل؟",
+          "fr": "Quelle règle fondamentale, instaurée pour empêcher les attaquants de campé devant le but et favoriser un jeu dynamique, est l’un des principes les plus débattus du football ?"
+        },
+        "answer": {
+          "en": "Offside",
+          "ar": "التسلل",
+          "fr": "Hors-jeu"
+        }
+      },
+      "P": {
+        "letter": "P",
+        "question": {
+          "en": "Which Hungarian football legend, whose remarkable goal-scoring ability and elegance on the pitch inspired a prestigious award in his honor, is he?",
+          "ar": "أي أسطورة كروية هنغارية معروفة بقدرتها الرائعة على تسجيل الأهداف وأناقتها على أرض الملعب، والتي استلهم منها كأساً تقديرياً، هو؟",
+          "fr": "Quelle légende hongroise, célèbre pour sa capacité exceptionnelle à marquer et son élégance sur le terrain, a inspiré la création d’un prix prestigieux en son honneur ?"
+        },
+        "answer": {
+          "en": "Puskas",
+          "ar": "بوشكاش",
+          "fr": "Puskas"
+        }
+      },
+      "Q": {
+        "letter": "Q",
+        "question": {
+          "en": "Which English football club, based in London and commonly known by its initials, has a storied past in both the top flight and lower divisions of the game?",
+          "ar": "أي نادي كرة قدم إنجليزي، يقع في لندن ويُعرف غالبًا باختصاره، يتميز بتاريخ طويل في الدرجات الأولى والدوريات الدنيا في اللعبة؟",
+          "fr": "Quel club anglais, établi à Londres et connu sous ses initiales, possède un riche passé dans la première division ainsi que dans les divisions inférieures ?"
+        },
+        "answer": {
+          "en": "QPR",
+          "ar": "كيو بي آر",
+          "fr": "QPR"
+        }
+      },
+      "R": {
+        "letter": "R",
+        "question": {
+          "en": "Which Brazilian forward, celebrated for his mesmerizing dribbling, lightning speed, and prolific goal-scoring record, is widely regarded as one of the sport’s greatest talents?",
+          "ar": "أي مهاجم برازيلي مشهور بمراوغته الساحرة وسرعته البرقية وسجله الهائل في تسجيل الأهداف، ويُعتبر على نطاق واسع من أعظم المواهب في كرة القدم؟",
+          "fr": "Quel attaquant brésilien, reconnu pour sa virtuosité en dribble, sa vitesse fulgurante et son incroyable record de buts, est considéré comme l’un des plus grands talents du football ?"
+        },
+        "answer": {
+          "en": "Ronaldo",
+          "ar": "رونالدو",
+          "fr": "Ronaldo"
+        }
+      },
+      "S": {
+        "letter": "S",
+        "question": {
+          "en": "Which dynamic English winger, known for his blistering pace and exceptional dribbling skills, has been a key attacking force in the Premier League?",
+          "ar": "أي جناح إنجليزي ديناميكي مشهور بسرعته الفائقة ومهاراته الاستثنائية في المراوغة، والذي يُعد قوة هجومية أساسية في الدوري الإنجليزي؟",
+          "fr": "Quel ailier anglais dynamique, reconnu pour sa vitesse fulgurante et son dribble exceptionnel, est devenu un élément crucial de l’attaque en Premier League ?"
+        },
+        "answer": {
+          "en": "Sterling",
+          "ar": "ستيرلنغ",
+          "fr": "Sterling"
+        }
+      },
+      "T": {
+        "letter": "T",
+        "question": {
+          "en": "Which Spanish striker, noted for his precise finishing and acrobatic goals, made a significant impact during his tenures at top English clubs such as Liverpool and Chelsea?",
+          "ar": "أي مهاجم إسباني مشهور بقدراته الدقيقة في التهديف وأهدافه البهلوانية، الذي ترك بصمة كبيرة خلال فترات لعبه في أندية إنجليزية كبرى مثل ليفربول وتشيلسي؟",
+          "fr": "Quel attaquant espagnol, reconnu pour sa finition chirurgicale et ses buts acrobatiques, a marqué les esprits lors de ses passages dans des clubs anglais de premier plan comme Liverpool et Chelsea ?"
+        },
+        "answer": {
+          "en": "Torres",
+          "ar": "توريس",
+          "fr": "Torres"
+        }
+      },
+    
+      "U": {
+        "letter": "U",
+        "question": {
+          "en": "Which European governing body, responsible for organizing top-tier competitions like the Champions League and the European Championship ?",
+          "ar": "أي جهة إدارية أوروبية مسؤولة عن تنظيم البطولات الكبرى مثل دوري الأبطال وبطولة أوروبا ؟",
+          "fr": "Quel organisme européen, chargé d'organiser des compétitions majeures telles que la Ligue des Champions et le Championnat d'Europe ?"
+        },
+        "answer": {
+          "en": "UEFA",
+          "ar": "الاتحاد الأوروبي لكرة القدم",
+          "fr": "UEFA"
+        }
+      },
+      "V": {
+        "letter": "V",
+        "question": {
+          "en": "Which French midfielder, known for his robust and combative style as well as his leadership qualities during his time at Arsenal and Inter Milan, has become a legendary figure in modern football?",
+          "ar": "أي لاعب وسط فرنسي مشهور بأسلوبه القتالي القوي وقيادته خلال مسيرته مع أندية مثل أرسنال وإنتر ميلان، وأصبح رمزاً في كرة القدم الحديثة؟",
+          "fr": "Quel milieu de terrain français, reconnu pour son jeu puissant et son leadership chez Arsenal et Inter Milan, est devenu une figure emblématique du football moderne ?"
+        },
+        "answer": {
+          "en": "Vieira",
+          "ar": "فيفيرا",
+          "fr": "Vieira"
+        }
+      },
+      "W": {
+        "letter": "W",
+        "question": {
+          "en": "Which versatile Dutch midfielder, celebrated for his tireless work rate and ability to impact both defensive and offensive phases, has been a pivotal figure at clubs like Liverpool?",
+          "ar": "أي لاعب وسط هولندي متعدد الاستخدامات، مشهور بنشاطه الدائم وقدرته على التأثير في اللعب الدفاعي والهجومي على حد سواء، والذي كان عنصراً محورياً في ليفربول؟",
+          "fr": "Quel milieu de terrain néerlandais polyvalent, réputé pour son énergie inépuisable et sa capacité à influencer le jeu tant en défense qu’en attaque, a joué un rôle clé chez Liverpool ?"
+        },
+        "answer": {
+          "en": "Wijnaldum",
+          "ar": "وينالدوم",
+          "fr": "Wijnaldum"
+        }
+      },
+      "X": {
+        "letter": "X",
+        "question": {
+          "en": "Which modern statistical metric in football, is used to assess the quality of scoring chances and predict potential goal outcomes during a match?",
+          "ar": " ما هو المقياس الإحصائي الحديث في كرة القدم  والذي يُستخدم لتقييم جودة الفرص التهديفية والتنبؤ بعدد الأهداف المحتملة في المباراة؟",
+          "fr": "Quelle métrique statistique moderne, sert à mesurer la qualité des occasions de but et à prévoir le potentiel de marquage lors d’un match ?"
+        },
+        "answer": {
+          "en": "XG",
+          "ar": "XG",
+          "fr": "XG"
+        }
+      },
+    "Y": {
+        "letter": "Y",
+        "question": {
+          "en": "Which integral part of a football club is dedicated to nurturing young talent through structured training programs and often serves as the foundation for future first-team players?",
+          "ar": "أي جزء أساسي في نادي كرة القدم يُعنى بتنمية المواهب الشابة عبر برامج تدريبية منظمة وغالباً ما يُعتبر أساس الفريق الأول؟",
+          "fr": "Quelle section essentielle d’un club de football se consacre à l’épanouissement des jeunes talents par des programmes de formation structurés et constitue souvent la base des futurs titulaires ?"
+        },
+        "answer": {
+          "en": "Youth Academy",
+          "ar": "الأكاديمية الشبابية",
+          "fr": "Académie de jeunes"
+        }
+      },
+      "Z": {
+        "letter": "Z",
+        "question": {
+          "en": "Which esteemed Spanish goalkeeper, celebrated for his long and illustrious career with clubs such as Athletic Bilbao and Barcelona, is renowned for his exceptional reflexes and consistency between the posts?",
+          "ar": "أي حارس مرمى إسباني مرموق، مشهور بمسيرته الطويلة والمميزة مع أندية مثل أتلتيك بيلباو وبرشلونة، والمعروف بردود فعله الاستثنائية وثباته بين القوائم؟",
+          "fr": "Quel gardien espagnol respecté, ayant connu une carrière longue et illustre avec des clubs comme l'Athletic Bilbao et Barcelone, est renommé pour ses réflexes exceptionnels et sa constance ?"
+        },
+        "answer": {
+          "en": "Zubizarreta",
+          "ar": "زوبزاريتا",
+          "fr": "Zubizarreta"
+        }
+      }
     }
   }
 }
