@@ -3,8 +3,8 @@ import { getDatabase, ref, child, get, push } from "https://www.gstatic.com/fire
 import { app, db } from "./firebase-config.js";
 
 // Game State
-let timeLeftPlayer1 = 150;
-let timeLeftPlayer2 = 150;
+let timeLeftPlayer1 = 250;
+let timeLeftPlayer2 = 250;
 let currentPlayer = 1;
 let timerInterval = null;
 let player1Questions = {};
@@ -277,8 +277,8 @@ function endGame() {
 
 function restartGame() {
     clearInterval(timerInterval);
-    timeLeftPlayer1 = 150;
-    timeLeftPlayer2 = 150;
+    timeLeftPlayer1 = 250;
+    timeLeftPlayer2 = 250;
     player1Score = 0;
     player2Score = 0;
     currentPlayer = 1;
@@ -286,8 +286,8 @@ function restartGame() {
     player1Queue = [...alphabet];
     player2Queue = [...alphabet];
 
-    document.getElementById('time1').textContent = 150;
-    document.getElementById('time2').textContent = 150;
+    document.getElementById('time1').textContent = 250;
+    document.getElementById('time2').textContent = 250;
     document.getElementById('score1').textContent = 0;
     document.getElementById('score2').textContent = 0;
     document.getElementById('result').style.display = 'none';
