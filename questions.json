@@ -5789,9 +5789,9 @@
       "A": {
         "letter": "A",
         "question": {
-          "en": "Which Spanish club, nicknamed 'Los Rojiblancos' and led by tactician Diego Simeone, is famous for its gritty style and has featured stars like Diego Godín and Koke?",
+          "en": "Which Spanish club, nicknamed 'Rojiblancos' and led by tactician Diego Simeone, is famous for its gritty style and has featured stars like Diego Godín and Koke?",
           "ar": "أي نادي إسباني، معروف بلقب 'الروخيبلانكوس' ويتزعمه المدرب دييغو سيميوني، ويشتهر بأسلوب لعبه القتالي وقد ضم نجومًا مثل دييغو جودين وكوكي، هو؟",
-          "fr": "Quel club espagnol, surnommé 'Les Rojiblancos' et dirigé par le tacticien Diego Simeone, est réputé pour son jeu combatif et a vu passer des joueurs comme Diego Godín et Koke ?"
+          "fr": "Quel club espagnol, surnommé 'Rojiblancos' et dirigé par le tacticien Diego Simeone, est réputé pour son jeu combatif et a vu passer des joueurs comme Diego Godín et Koke ?"
         },
         "answer": {
           "en": "Atletico Madrid",
@@ -5802,9 +5802,9 @@
       "B": {
         "letter": "B",
         "question": {
-          "en": "Which German powerhouse, known as 'Die Bayern' and record champion of the Bundesliga, is synonymous with success, having featured legends like Franz Beckenbauer and Gerd Müller?",
-          "ar": "أي نادي ألماني، المعروف باسم 'دي بايرن' وبطلاً قياسياً في الدوري، يُعد رمزاً للنجاح وقد ضم أساطير مثل فرانس بيكنباور وغيررد مولر، هو؟",
-          "fr": "Quel club allemand, surnommé 'Die Bayern' et recordman de la Bundesliga, incarne le succès, ayant vu passer des légendes telles que Franz Beckenbauer et Gerd Müller ?"
+          "en": "Which German powerhouse, is synonymous with success and having featured legends like Franz Beckenbauer and Gerd Müller?",
+          "ar": "أي نادي ألماني، يُعد رمزاً للنجاح وقد ضم أساطير مثل فرانس بيكنباور وغيررد مولر، هو؟",
+          "fr": "Quel club allemand, incarne le succès and ayant vu passer des légendes telles que Franz Beckenbauer et Gerd Müller ?"
         },
         "answer": {
           "en": "Bayern Munich",
