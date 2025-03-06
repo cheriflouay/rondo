@@ -42,25 +42,21 @@ answerInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswer
 // Fetch Questions from Firebase
 async function fetchQuestions() {
     try {
-        const [player1SetsSnapshot, player2SetsSnapshot] = await Promise.all([
-            get(child(ref(db), 'player1_sets')),
-            get(child(ref(db), 'player2_sets'))
-        ]);
+        const setsSnapshot = await get(child(ref(db), 'player_sets'));
+        const sets = setsSnapshot.exists() ? setsSnapshot.val() : {};
 
-        const player1Sets = player1SetsSnapshot.exists() ? player1SetsSnapshot.val() : {};
-        const player2Sets = player2SetsSnapshot.exists() ? player2SetsSnapshot.val() : {};
+        const setKeys = Object.keys(sets);
 
-        const player1SetKeys = Object.keys(player1Sets);
-        const player2SetKeys = Object.keys(player2Sets);
-
-        player1Questions = player1Sets[player1SetKeys[Math.floor(Math.random() * player1SetKeys.length)]];
-        player2Questions = player2Sets[player2SetKeys[Math.floor(Math.random() * player2SetKeys.length)]];
+        // Randomly choose a set for each player from the common pool
+        player1Questions = sets[setKeys[Math.floor(Math.random() * setKeys.length)]];
+        player2Questions = sets[setKeys[Math.floor(Math.random() * setKeys.length)]];
 
         initializeGame();
     } catch (error) {
         console.error("Error loading questions:", error);
     }
 }
+
 
 function startGame() {
     document.getElementById('play-btn').style.display = 'none';
@@ -142,16 +138,39 @@ function startTimer() {
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
         if (!isPaused) {
-            if (currentPlayer === 1) timeLeftPlayer1--;
-            else timeLeftPlayer2--;
-
+            if (currentPlayer === 1) {
+                timeLeftPlayer1--;
+                if (timeLeftPlayer1 <= 0) {
+                    timeLeftPlayer1 = 0;
+                    time1Element.textContent = timeLeftPlayer1;
+                    // If player 1's time ended and player 2 still has time, switch turn
+                    if (timeLeftPlayer2 > 0) {
+                        switchPlayer(2);
+                    } else {
+                        endGame();
+                    }
+                    return;
+                }
+            } else {
+                timeLeftPlayer2--;
+                if (timeLeftPlayer2 <= 0) {
+                    timeLeftPlayer2 = 0;
+                    time2Element.textContent = timeLeftPlayer2;
+                    // If player 2's time ended and player 1 still has time, switch turn
+                    if (timeLeftPlayer1 > 0) {
+                        switchPlayer(1);
+                    } else {
+                        endGame();
+                    }
+                    return;
+                }
+            }
             time1Element.textContent = timeLeftPlayer1;
             time2Element.textContent = timeLeftPlayer2;
-
-            if (timeLeftPlayer1 <= 0 || timeLeftPlayer2 <= 0) endGame();
         }
     }, 1000);
 }
+
 
 function switchPlayer(player) {
     currentPlayer = player;
@@ -177,12 +196,22 @@ function switchPlayer(player) {
 function skipTurn() {
     if (currentPlayer === 1) {
         player1Queue.push(player1Queue.shift());
+        // Only switch if player 2 has remaining time
+        if (timeLeftPlayer2 > 0) {
+            switchPlayer(2);
+        } else {
+            loadNextQuestion();
+        }
     } else {
         player2Queue.push(player2Queue.shift());
+        if (timeLeftPlayer1 > 0) {
+            switchPlayer(1);
+        } else {
+            loadNextQuestion();
+        }
     }
-    
-    switchPlayer(currentPlayer === 1 ? 2 : 1);
 }
+
 
 function loadQuestion(letter, playerNumber) {
     currentQuestion = (playerNumber === 1) ? player1Questions[letter] : player2Questions[letter];
@@ -197,7 +226,7 @@ function checkAnswer() {
     const userAnswer = answerInput.value.trim().toLowerCase();
     if (!userAnswer || !currentQuestion) return;
 
-    // Gather all acceptable answers (for every language)
+    // Gather all acceptable answers
     const correctAnswers = Object.values(currentQuestion.answer).map(ans => ans.toLowerCase());
     let isCorrect = false;
     for (const ans of correctAnswers) {
@@ -213,7 +242,7 @@ function checkAnswer() {
         document.getElementById(`score${currentPlayer}`).textContent = currentPlayer === 1 ? player1Score : player2Score;
         selectedLetter.classList.add('correct', 'used');
         correctSound.play();
-
+        // Remove the letter since the question was answered correctly
         if (currentPlayer === 1) player1Queue.shift();
         else player2Queue.shift();
     } else {
@@ -222,17 +251,27 @@ function checkAnswer() {
         
         if (currentPlayer === 1) {
             player1Queue.push(player1Queue.shift());
+            // Switch only if player 2 has time
+            if (timeLeftPlayer2 > 0) {
+                switchPlayer(2);
+            } else {
+                loadNextQuestion();
+            }
         } else {
             player2Queue.push(player2Queue.shift());
+            if (timeLeftPlayer1 > 0) {
+                switchPlayer(1);
+            } else {
+                loadNextQuestion();
+            }
         }
-        
-        switchPlayer(currentPlayer === 1 ? 2 : 1);
     }
 
     answerInput.value = "";
     checkEndGame();
     loadNextQuestion();
 }
+
 
 function loadNextQuestion() {
     const currentQueue = currentPlayer === 1 ? player1Queue : player2Queue;
@@ -251,14 +290,22 @@ function checkEndGame() {
     const p1Done = player1Queue.length === 0;
     const p2Done = player2Queue.length === 0;
     
-    if (p1Done && p2Done) {
+    if (p1Done || p2Done) {
         endGame();
     }
 }
 
+
 function endGame() {
     clearInterval(timerInterval);
     gameOverSound.play();
+    
+    // Disable input and answer buttons
+    answerInput.disabled = true;
+    document.getElementById('submit-answer').disabled = true;
+    document.getElementById('skip-btn').disabled = true;
+    
+    // Display results
     document.getElementById('result').style.display = 'block';
     document.getElementById('score1').textContent = player1Score;
     document.getElementById('score2').textContent = player2Score;
@@ -274,6 +321,7 @@ function endGame() {
     else if (player2Score > player1Score) winnerElement.textContent = "Player 2 Wins! 🏆";
     else winnerElement.textContent = "It's a Draw! 🤝";
 }
+
 
 function restartGame() {
     clearInterval(timerInterval);
