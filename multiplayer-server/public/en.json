@@ -1,0 +1,12 @@
+{
+    "headerTitle": "Football Rondo",
+    "startGame": "Start Game",
+    "pause": "Pause",
+    "playerTime": "Player {player} Time: {time}s",
+    "gameOver": "Game Over!",
+    "restartGame": "Restart Game",
+    "skipTurn": "Skip Turn",
+    "submitAnswer": "Submit Answer",
+    "answerPlaceholder": "Type your answer here..."
+  }
+  

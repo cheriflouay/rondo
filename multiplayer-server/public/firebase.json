@@ -1,0 +1,18 @@
+{
+  "hosting": {
+    "target": "production",
+    "site": "football-rondo-by-louay",
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

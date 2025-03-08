@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Football Rondo</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="logo.jpg" type="image/jpeg">
+</head>
+<body>
+  <!-- Lobby Section for Room Creation/Joining -->
+  <div id="lobby" class="lobby-container">
+    <h2>Lobby</h2>
+    <button id="create-room-btn">Create Room</button>
+    <input type="text" id="room-code-input" placeholder="Enter Room Code">
+    <button id="join-room-btn">Join Room</button>
+    <p id="room-code-display"></p>
+  </div>
+
+  <!-- Game Container (Hidden until a room is set up) -->
+  <div class="game-container" id="game-container" style="display: none;">
+    <header class="header">
+      <div class="header-top">
+        <img src="logo.jpg" alt="Football Rondo Logo" class="logo">
+        <select id="languageSwitcher">
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+      <h1 data-i18n="headerTitle">Football Rondo</h1>
+      <!-- The Start Game button is hidden because room creation/joining triggers game start -->
+      <button id="play-btn" class="play-btn" data-i18n="startGame" style="display: none;">Start Game</button>
+    </header>
+    <button id="pause-btn">Pause</button>
+
+    <div id="player1-circle" class="player-circle active">
+      <div id="alphabet-circle-1" class="alphabet-circle"></div>
+    </div>
+    <div id="player2-circle" class="player-circle">
+      <div id="alphabet-circle-2" class="alphabet-circle"></div>
+    </div>
+
+    <!-- Question/Answer Section -->
+    <div id="question-container">
+      <p id="question">Select a letter to start!</p>
+    </div>
+    <div class="answer-container">
+      <input type="text" id="answer-input" placeholder="Type your answer here...">
+      <button id="submit-answer">Submit Answer</button>
+    </div>
+    <button id="skip-btn">Skip Turn</button>
+    <div class="timer-container">
+      <h3>Player 1 Time: <span id="time1">250</span>s</h3>
+      <h3>Player 2 Time: <span id="time2">250</span>s</h3>
+    </div>
+    <div id="result">
+      <h2>Game Over!</h2>
+      <p id="winner-message"></p>
+      <div class="score-board">
+        <div>Player 1 Score: <span id="score1">0</span></div>
+        <div>Player 2 Score: <span id="score2">0</span></div>
+      </div>
+      <button id="restart-btn">Restart Game</button>
+    </div>
+  </div>
+
+  <audio id="correct-sound" src="correct.mp3"></audio>
+  <audio id="incorrect-sound" src="incorrect.mp3"></audio>
+  <audio id="game-over-sound" src="game-over.mp3"></audio>
+
+  <script type="module" src="firebase-config.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="script.js"></script>  
+</body>
+</html>
