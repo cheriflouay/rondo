@@ -28,15 +28,17 @@ socket.on('roomJoined', (data) => {
   // Removed: startGame();
 });
 
-// This event is emitted by the server when both players are present.
-socket.on("startGame", ({ room, questions }) => {
+socket.on("startGame", ({ room }) => {
   console.log(`Game started in room: ${room}`);
-  
+
+  // Hide the lobby and show the game UI
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
 
-  initializeGame(questions); // Use server-sent questions
+  // Fetch different questions for each player
+  fetchQuestions();  
 });
+
 
 
 // Listen for moves from the server (from other players)
