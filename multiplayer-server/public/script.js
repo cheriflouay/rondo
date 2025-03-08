@@ -5,10 +5,15 @@ import { getDatabase, ref, child, get, push } from "https://www.gstatic.com/fire
 import { app, db } from "./firebase-config.js";
 
 // -----------------------
+// Global Variables for Multiplayer
+// -----------------------
+let myPlayer = null;       // Will be assigned as 1 or 2 when the room is created/joined
+let currentRoom = null;    // Current room code
+let currentPlayer = null;  // Whose turn it is (set by server)
+
+// -----------------------
 // Landing Page Navigation
 // -----------------------
-// When using the landing page, ensure the DOM elements exist.
-// "multiplayer" and "same-screen" are expected to be part of the landing page.
 document.getElementById('multiplayer')?.addEventListener('click', function() {
   document.getElementById('landing-page').style.display = 'none';
   document.getElementById('lobby').style.display = 'block';
@@ -17,7 +22,7 @@ document.getElementById('multiplayer')?.addEventListener('click', function() {
 document.getElementById('same-screen')?.addEventListener('click', function() {
   document.getElementById('landing-page').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
-  // For same-screen mode, start the game immediately.
+  // For same-screen mode, start game immediately (this client runs the full game logic)
   startGame();
 });
 
@@ -25,42 +30,73 @@ document.getElementById('same-screen')?.addEventListener('click', function() {
 // Socket.IO Integration
 // -----------------------
 const socket = io(); // Connect to your Socket.IO server
-let currentRoom = null; // Will hold the current room code
 
-// When a room is created, display the room code but do not start the game immediately.
+// When a room is created, assume the creator is Player 1.
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
+  myPlayer = 1; // assign creator as player 1
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Room Code: ${data.room}`;
-  roomDisplay.style.display = 'block'; // Ensure the room code is visible
+  roomDisplay.style.display = 'block';
   console.log("Room created:", data.room);
-  // Removed automatic game start: startGame();
+  // Wait for both players before starting the game.
 });
 
-// When a player joins a room, update the room display but wait for the 'startGame' event.
+// When a player joins a room, assign them as Player 2.
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
+  myPlayer = data.player; // The server sends the assigned player (e.g. 2)
   const roomDisplay = document.getElementById('room-code-display');
-  roomDisplay.textContent = `Joined Room: ${data.room}`;
+  roomDisplay.textContent = `Joined Room: ${data.room} as Player ${myPlayer}`;
   roomDisplay.style.display = 'block';
-  console.log("Room joined:", data.room);
-  // Removed automatic game start: startGame();
+  console.log("Room joined:", data.room, "as Player", myPlayer);
+  // Wait for server to start the game.
 });
 
 // When the server signals to start the game (for multiplayer mode)
-socket.on("startGame", ({ room }) => {
+// The server sends along which player starts (for example, Player 1).
+socket.on("startGame", ({ room, startingPlayer }) => {
   console.log(`Game started in room: ${room}`);
+  currentPlayer = startingPlayer; // Set the starting turn
   // Hide the lobby and show the game UI
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
-  // Fetch different questions for each player
   fetchQuestions();  
 });
 
-// Listen for moves from the server (from other players)
+// Listen for turn switches broadcasted by the server.
+socket.on('switchTurn', (data) => {
+  currentPlayer = data.currentPlayer;
+  console.log("Switch turn to Player", currentPlayer);
+  loadNextQuestion(); // Refresh the question display based on the new turn
+  // Enable input only if it’s my turn.
+  answerInput.disabled = (currentPlayer !== myPlayer);
+});
+
+// Listen for moves from the server (from the other player)
+// Update the opponent’s state based on the move.
 socket.on('playerMove', (data) => {
-  console.log("Received move from player", data.playerId, ":", data);
-  // Update game state accordingly (for example, update scores or switch turns)
+  if (data.playerId !== myPlayer) {
+    console.log("Received move from opponent:", data);
+    // Update opponent's score and queue based on the move.
+    if (data.isCorrect) {
+      if (data.playerId === 1) {
+        player1Queue.shift();
+        player1Score++;
+        document.getElementById('score1').textContent = player1Score;
+      } else {
+        player2Queue.shift();
+        player2Score++;
+        document.getElementById('score2').textContent = player2Score;
+      }
+    } else {
+      if (data.playerId === 1) {
+        player1Queue.push(player1Queue.shift());
+      } else {
+        player2Queue.push(player2Queue.shift());
+      }
+    }
+  }
 });
 
 // -----------------------
@@ -78,11 +114,10 @@ document.getElementById('join-room-btn').addEventListener('click', () => {
 });
 
 // -----------------------
-// Game State & Variables
+// Game State & Variables (Local copies per client)
 // -----------------------
 let timeLeftPlayer1 = 250;
 let timeLeftPlayer2 = 250;
-let currentPlayer = 1;
 let timerInterval = null;
 let player1Questions = {};
 let player2Questions = {};
@@ -92,6 +127,7 @@ let selectedLetter = null;
 let player1Score = 0;
 let player2Score = 0;
 let isPaused = false;
+// Each client maintains its own queue (only one of these will be used locally)
 let player1Queue = [...alphabet];
 let player2Queue = [...alphabet];
 
@@ -108,12 +144,24 @@ const correctSound = document.getElementById('correct-sound');
 const incorrectSound = document.getElementById('incorrect-sound');
 const gameOverSound = document.getElementById('game-over-sound');
 
-// Event Listeners for game actions
-document.getElementById('skip-btn').addEventListener('click', skipTurn);
-document.getElementById('submit-answer').addEventListener('click', checkAnswer);
+// -----------------------
+// Event Listeners for Game Actions
+// Only allow actions if it’s this client’s turn
+// -----------------------
+document.getElementById('skip-btn').addEventListener('click', () => {
+  if (currentPlayer !== myPlayer) return;
+  // Instead of locally switching turn, emit skip to server.
+  socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
+});
+
+document.getElementById('submit-answer').addEventListener('click', () => {
+  if (currentPlayer !== myPlayer) return;
+  checkAnswer();
+});
+
 document.getElementById('restart-btn').addEventListener('click', restartGame);
 document.getElementById('pause-btn').addEventListener('click', togglePause);
-answerInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswer());
+answerInput.addEventListener('keypress', (e) => e.key === 'Enter' && currentPlayer === myPlayer && checkAnswer());
 
 // -----------------------
 // Firebase: Fetch Questions
@@ -133,30 +181,29 @@ async function fetchQuestions() {
 }
 
 // -----------------------
-// Game Start Function (Used in Same Screen mode)
+// Game Start Function (for Same Screen or Multiplayer local start)
 // -----------------------
 function startGame() {
   console.log("Starting the game...");
-  // Hide lobby (if visible) and show game container
   document.getElementById('lobby').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
-  fetchQuestions(); // Load the questions from Firebase and initialize the game
+  fetchQuestions(); // Load questions and initialize the game
 }
 
 // -----------------------
 // Game Initialization
 // -----------------------
 function initializeGame() {
+  // Reset queues locally for each player.
   player1Queue = [...alphabet];
   player2Queue = [...alphabet];
   generateAlphabetCircles();
   startTimer();
-  switchPlayer(1);
   loadNextQuestion();
 }
 
 function generateAlphabetCircles() {
-  // Force both circles to display temporarily
+  // Generate both circles (to display both players' letters)
   player1Circle.style.display = 'block';
   player2Circle.style.display = 'block';
   
@@ -164,19 +211,17 @@ function generateAlphabetCircles() {
   document.getElementById('alphabet-circle-1').innerHTML = '';
   document.getElementById('alphabet-circle-2').innerHTML = '';
   
-  // Generate new circles for both players
+  // Generate new circles for both players (logic remains similar)
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
-  // Adjust display based on active player
+  // Highlight the circle corresponding to the active turn.
   if (currentPlayer === 1) {
     player1Circle.classList.add('active');
     player2Circle.classList.remove('active');
-    player2Circle.style.display = 'none';
   } else {
     player2Circle.classList.add('active');
     player1Circle.classList.remove('active');
-    player1Circle.style.display = 'none';
   }
 }
 
@@ -201,10 +246,12 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
 }
 
 function activateCurrentLetter() {
-  const currentPlayerCircleId = currentPlayer === 1 ? 'alphabet-circle-1' : 'alphabet-circle-2';
+  // Use the local player’s queue based on myPlayer
+  const currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
+  const currentPlayerCircleId = (myPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
   const circle = document.getElementById(currentPlayerCircleId);
   const letters = circle.querySelectorAll('.letter');
-  const currentLetter = currentPlayer === 1 ? player1Queue[0] : player2Queue[0];
+  const currentLetter = currentQueue[0];
 
   letters.forEach(letter => {
     letter.classList.remove('active');
@@ -219,16 +266,13 @@ function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     if (!isPaused) {
+      // Update timer for each player; each client tracks both times.
       if (currentPlayer === 1) {
         timeLeftPlayer1--;
         if (timeLeftPlayer1 <= 0) {
           timeLeftPlayer1 = 0;
           time1Element.textContent = timeLeftPlayer1;
-          if (timeLeftPlayer2 > 0) {
-            switchPlayer(2);
-          } else {
-            endGame();
-          }
+          // Let the server decide turn change instead of local switching.
           return;
         }
       } else {
@@ -236,11 +280,6 @@ function startTimer() {
         if (timeLeftPlayer2 <= 0) {
           timeLeftPlayer2 = 0;
           time2Element.textContent = timeLeftPlayer2;
-          if (timeLeftPlayer1 > 0) {
-            switchPlayer(1);
-          } else {
-            endGame();
-          }
           return;
         }
       }
@@ -250,41 +289,11 @@ function startTimer() {
   }, 1000);
 }
 
-function switchPlayer(player) {
-  currentPlayer = player;
-  player1Circle.classList.remove('active');
-  player2Circle.classList.remove('active');
-
-  if (player === 1) {
-    player1Circle.style.display = 'block';
-    player1Circle.classList.add('active');
-    player2Circle.style.display = 'none';
-  } else {
-    player2Circle.style.display = 'block';
-    player2Circle.classList.add('active');
-    player1Circle.style.display = 'none';
-  }
-
-  answerInput.value = "";
-  loadNextQuestion();
-}
-
 function skipTurn() {
-  if (currentPlayer === 1) {
-    player1Queue.push(player1Queue.shift());
-    if (timeLeftPlayer2 > 0) {
-      switchPlayer(2);
-    } else {
-      loadNextQuestion();
-    }
-  } else {
-    player2Queue.push(player2Queue.shift());
-    if (timeLeftPlayer1 > 0) {
-      switchPlayer(1);
-    } else {
-      loadNextQuestion();
-    }
-  }
+  // This function is now triggered only if it is my turn.
+  if (currentPlayer !== myPlayer) return;
+  socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
+  // Do not switch locally; wait for server's "switchTurn" event.
 }
 
 function loadQuestion(letter, playerNumber) {
@@ -296,6 +305,9 @@ function loadQuestion(letter, playerNumber) {
 }
 
 function checkAnswer() {
+  // Only process if it's my turn
+  if (currentPlayer !== myPlayer) return;
+
   const userAnswer = answerInput.value.trim().toLowerCase();
   if (!userAnswer || !currentQuestion) return;
 
@@ -309,56 +321,57 @@ function checkAnswer() {
     }
   }
 
+  // Update local score and queue for this player
   if (isCorrect) {
-    currentPlayer === 1 ? player1Score++ : player2Score++;
-    document.getElementById(`score${currentPlayer}`).textContent = currentPlayer === 1 ? player1Score : player2Score;
+    if (myPlayer === 1) {
+      player1Score++;
+      document.getElementById('score1').textContent = player1Score;
+      player1Queue.shift();
+    } else {
+      player2Score++;
+      document.getElementById('score2').textContent = player2Score;
+      player2Queue.shift();
+    }
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
-    if (currentPlayer === 1) player1Queue.shift();
-    else player2Queue.shift();
   } else {
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
-    if (currentPlayer === 1) {
+    if (myPlayer === 1) {
       player1Queue.push(player1Queue.shift());
-      if (timeLeftPlayer2 > 0) {
-        switchPlayer(2);
-      } else {
-        loadNextQuestion();
-      }
     } else {
       player2Queue.push(player2Queue.shift());
-      if (timeLeftPlayer1 > 0) {
-        switchPlayer(1);
-      } else {
-        loadNextQuestion();
-      }
     }
   }
 
-  // Emit move to server for synchronization
+  // Emit the move to the server so that the opponent's client may update
   socket.emit('playerMove', {
     room: currentRoom,
-    playerId: currentPlayer,
+    playerId: myPlayer,
     answer: userAnswer,
     isCorrect: isCorrect
   });
 
   answerInput.value = "";
+  // Let the server decide when to switch turn.
+  // Optionally, you could locally check for end-game conditions.
   checkEndGame();
-  loadNextQuestion();
+  // Do not immediately load next question; wait for the new turn.
 }
 
 function loadNextQuestion() {
-  const currentQueue = currentPlayer === 1 ? player1Queue : player2Queue;
+  // Each client loads its own question based on its assigned queue
+  const currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
   if (currentQueue.length === 0) {
     endGame();
     return;
   }
   const nextLetter = currentQueue[0];
-  loadQuestion(nextLetter, currentPlayer);
+  loadQuestion(nextLetter, myPlayer);
   activateCurrentLetter();
-  answerInput.focus();
+  // Enable input only if it is my turn.
+  answerInput.disabled = (currentPlayer !== myPlayer);
+  if (currentPlayer === myPlayer) answerInput.focus();
 }
 
 function checkEndGame() {
@@ -397,7 +410,7 @@ function restartGame() {
   timeLeftPlayer2 = 250;
   player1Score = 0;
   player2Score = 0;
-  currentPlayer = 1;
+  // Do not reset myPlayer or currentRoom
   isPaused = false;
   player1Queue = [...alphabet];
   player2Queue = [...alphabet];
@@ -410,7 +423,6 @@ function restartGame() {
   document.querySelectorAll('.letter').forEach(letter => {
     letter.classList.remove('correct', 'incorrect', 'used', 'active');
   });
-  // Re-enable game inputs
   answerInput.disabled = false;
   document.getElementById('submit-answer').disabled = false;
   document.getElementById('skip-btn').disabled = false;
