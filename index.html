@@ -9,7 +9,17 @@
   <link rel="icon" href="logo.jpg" type="image/jpeg">
 </head>
 <body>
-  <div class="game-container">
+  <!-- Lobby Section for Room Creation/Joining -->
+  <div id="lobby" class="lobby-container">
+    <h2>Lobby</h2>
+    <button id="create-room-btn">Create Room</button>
+    <input type="text" id="room-code-input" placeholder="Enter Room Code">
+    <button id="join-room-btn">Join Room</button>
+    <p id="room-code-display"></p>
+  </div>
+
+  <!-- Game Container (Hidden until a room is set up) -->
+  <div class="game-container" id="game-container" style="display: none;">
     <header class="header">
       <div class="header-top">
         <img src="logo.jpg" alt="Football Rondo Logo" class="logo">
@@ -20,7 +30,8 @@
         </select>
       </div>
       <h1 data-i18n="headerTitle">Football Rondo</h1>
-      <button id="play-btn" class="play-btn" data-i18n="startGame">Start Game</button>
+      <!-- The Start Game button is hidden because room creation/joining triggers game start -->
+      <button id="play-btn" class="play-btn" data-i18n="startGame" style="display: none;">Start Game</button>
     </header>
     <button id="pause-btn">Pause</button>
 
@@ -60,6 +71,7 @@
   <audio id="game-over-sound" src="game-over.mp3"></audio>
 
   <script type="module" src="firebase-config.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script type="module" src="script.js"></script>
 </body>
 </html>
