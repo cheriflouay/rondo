@@ -185,11 +185,16 @@ async function fetchQuestions() {
 // Game Start Function (for Same Screen or Multiplayer local start)
 // -----------------------
 function startGame() {
-  console.log("Starting the game...");
+  // Set a default for same-screen mode if myPlayer is not already set.
+  if (myPlayer === null) {
+    myPlayer = 1;
+    console.log("Defaulting myPlayer to 1 for same-screen mode.");
+  }
   document.getElementById('lobby').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
   fetchQuestions(); // Load questions and initialize game
 }
+
 
 // -----------------------
 // Game Initialization
@@ -389,7 +394,7 @@ function loadNextQuestion() {
       player2Circle.style.display = 'none';
     }
     answerInput.disabled = true;
-  }
+  }  
 }
 
 function checkEndGame() {
