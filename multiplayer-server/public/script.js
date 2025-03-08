@@ -1,6 +1,25 @@
-// script.js
+// -----------------------
+// Firebase & Socket.IO Imports
+// -----------------------
 import { getDatabase, ref, child, get, push } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 import { app, db } from "./firebase-config.js";
+
+// -----------------------
+// Landing Page Navigation
+// -----------------------
+// When using the landing page, ensure the DOM elements exist.
+// "multiplayer" and "same-screen" are expected to be part of the landing page.
+document.getElementById('multiplayer')?.addEventListener('click', function() {
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('lobby').style.display = 'block';
+});
+
+document.getElementById('same-screen')?.addEventListener('click', function() {
+  document.getElementById('landing-page').style.display = 'none';
+  document.getElementById('game-container').style.display = 'block';
+  // For same-screen mode, start the game immediately.
+  startGame();
+});
 
 // -----------------------
 // Socket.IO Integration
@@ -15,7 +34,7 @@ socket.on('roomCreated', (data) => {
   roomDisplay.textContent = `Room Code: ${data.room}`;
   roomDisplay.style.display = 'block'; // Ensure the room code is visible
   console.log("Room created:", data.room);
-  // Removed: startGame();
+  // Removed automatic game start: startGame();
 });
 
 // When a player joins a room, update the room display but wait for the 'startGame' event.
@@ -25,29 +44,24 @@ socket.on('roomJoined', (data) => {
   roomDisplay.textContent = `Joined Room: ${data.room}`;
   roomDisplay.style.display = 'block';
   console.log("Room joined:", data.room);
-  // Removed: startGame();
+  // Removed automatic game start: startGame();
 });
 
+// When the server signals to start the game (for multiplayer mode)
 socket.on("startGame", ({ room }) => {
   console.log(`Game started in room: ${room}`);
-
   // Hide the lobby and show the game UI
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
-
   // Fetch different questions for each player
   fetchQuestions();  
 });
-
-
 
 // Listen for moves from the server (from other players)
 socket.on('playerMove', (data) => {
   console.log("Received move from player", data.playerId, ":", data);
   // Update game state accordingly (for example, update scores or switch turns)
 });
-
-
 
 // -----------------------
 // Room Creation / Joining UI
@@ -118,15 +132,16 @@ async function fetchQuestions() {
   }
 }
 
-
+// -----------------------
+// Game Start Function (Used in Same Screen mode)
+// -----------------------
 function startGame() {
   console.log("Starting the game...");
-  document.getElementById('lobby').style.display = 'none';  // Hide lobby
-  document.getElementById('game-container').style.display = 'block';  // Show game
+  // Hide lobby (if visible) and show game container
+  document.getElementById('lobby').style.display = 'none';
+  document.getElementById('game-container').style.display = 'block';
   fetchQuestions(); // Load the questions from Firebase and initialize the game
 }
-
-
 
 // -----------------------
 // Game Initialization
@@ -173,7 +188,7 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
   const centerY = containerWidth / 2;
 
   alphabet.forEach((letter, index) => {
-    const angle = (index / alphabet.length) * Math.PI * 2 - Math.PI/2;
+    const angle = (index / alphabet.length) * Math.PI * 2 - Math.PI / 2;
     const x = centerX + radius * Math.cos(angle);
     const y = centerY + radius * Math.sin(angle);
     const letterDiv = document.createElement("div");
@@ -395,6 +410,10 @@ function restartGame() {
   document.querySelectorAll('.letter').forEach(letter => {
     letter.classList.remove('correct', 'incorrect', 'used', 'active');
   });
+  // Re-enable game inputs
+  answerInput.disabled = false;
+  document.getElementById('submit-answer').disabled = false;
+  document.getElementById('skip-btn').disabled = false;
   fetchQuestions();
 }
 
