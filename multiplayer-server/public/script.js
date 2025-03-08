@@ -5,24 +5,45 @@ import { getDatabase, ref, child, get, push } from "https://www.gstatic.com/fire
 import { app, db } from "./firebase-config.js";
 
 // -----------------------
-// Global Variables for Multiplayer
+// Global Variables for Multiplayer & Mode Flag
 // -----------------------
 let myPlayer = null;       // Will be assigned as 1 or 2 when the room is created/joined
 let currentRoom = null;    // Current room code
-let currentPlayer = null;  // Whose turn it is (set by server)
+let currentPlayer = null;  // Whose turn it is (set by server or locally)
+let isMultiplayer = true;  // true for multiplayer mode, false for same-screen mode
 
 // -----------------------
 // Landing Page Navigation
 // -----------------------
 document.getElementById('multiplayer')?.addEventListener('click', function() {
+  isMultiplayer = true;
   document.getElementById('landing-page').style.display = 'none';
   document.getElementById('lobby').style.display = 'block';
 });
 
 document.getElementById('same-screen')?.addEventListener('click', function() {
+  isMultiplayer = false;
   document.getElementById('landing-page').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
-  // For same-screen mode, start game immediately (this client runs the full game logic)
+  // In same-screen mode, show the Play button to start the game.
+  document.getElementById('play-btn').style.display = 'block';
+});
+
+// -----------------------
+// Play Button for Same-Screen Mode
+// -----------------------
+document.getElementById('play-btn').addEventListener('click', function() {
+  // Set defaults for same-screen mode if not already set.
+  if (myPlayer === null) {
+    myPlayer = 1; // Default as Player 1
+    console.log("Defaulting myPlayer to 1 for same-screen mode.");
+  }
+  if (currentPlayer === null) {
+    currentPlayer = myPlayer;
+    console.log("Defaulting currentPlayer to myPlayer:", myPlayer);
+  }
+  // Hide the Play button and start the game.
+  document.getElementById('play-btn').style.display = 'none';
   startGame();
 });
 
@@ -136,10 +157,15 @@ const gameOverSound = document.getElementById('game-over-sound');
 // -----------------------
 // Helper Function: Switch Turn
 // -----------------------
-// MODIFIED: Instead of toggling turn locally and calling loadNextQuestion,
-// we simply emit a switch-turn event and let the server broadcast the update.
+// In multiplayer mode, emit the event to the server.
+// In same-screen mode, toggle turn locally.
 function emitSwitchTurn() {
-  socket.emit('switchTurn', { room: currentRoom });
+  if (isMultiplayer) {
+    socket.emit('switchTurn', { room: currentRoom });
+  } else {
+    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+    loadNextQuestion();
+  }
 }
 
 // -----------------------
@@ -147,8 +173,14 @@ function emitSwitchTurn() {
 // -----------------------
 document.getElementById('skip-btn').addEventListener('click', () => {
   if (currentPlayer !== myPlayer) return;
-  socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
-  emitSwitchTurn();
+  if (isMultiplayer) {
+    socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
+    emitSwitchTurn();
+  } else {
+    // In same-screen mode, toggle turn locally.
+    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+    loadNextQuestion();
+  }
 });
 
 document.getElementById('submit-answer').addEventListener('click', () => {
@@ -185,22 +217,17 @@ async function fetchQuestions() {
 // Game Start Function (for Same Screen or Multiplayer local start)
 // -----------------------
 function startGame() {
-  // Set a default for same-screen mode if myPlayer is not already set.
-  if (myPlayer === null) {
-    myPlayer = 1;
-    console.log("Defaulting myPlayer to 1 for same-screen mode.");
-  }
+  console.log("Starting the game...");
   document.getElementById('lobby').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
   fetchQuestions(); // Load questions and initialize game
 }
 
-
 // -----------------------
 // Game Initialization
 // -----------------------
 function initializeGame() {
-  // If currentPlayer is not set (e.g., in same-screen mode), default it to myPlayer.
+  // If currentPlayer is not set, default it to myPlayer.
   if (!currentPlayer) {
     currentPlayer = myPlayer;
     console.log("Defaulting currentPlayer to myPlayer:", myPlayer);
@@ -215,8 +242,9 @@ function initializeGame() {
   loadNextQuestion();
 }
 
-
-// Modified: Show alphabet circle only for active player on this client.
+// -----------------------
+// Alphabet Circle Generation & Activation
+// -----------------------
 function generateAlphabetCircles() {
   // Clear existing circles.
   document.getElementById('alphabet-circle-1').innerHTML = '';
@@ -280,6 +308,9 @@ function activateCurrentLetter() {
   });
 }
 
+// -----------------------
+// Timer
+// -----------------------
 function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -307,6 +338,9 @@ function startTimer() {
   }, 1000);
 }
 
+// -----------------------
+// Question Handling
+// -----------------------
 function loadQuestion(letter, playerNumber) {
   currentQuestion = (playerNumber === 1) ? player1Questions[letter] : player2Questions[letter];
   const currentLang = document.getElementById('languageSwitcher').value;
@@ -352,18 +386,23 @@ function checkAnswer() {
     }
   }
 
-  // Emit move to server for synchronization.
-  socket.emit('playerMove', {
-    room: currentRoom,
-    playerId: myPlayer,
-    answer: userAnswer,
-    isCorrect: isCorrect
-  });
-
+  // Emit move to server for synchronization (only in multiplayer).
+  if (isMultiplayer) {
+    socket.emit('playerMove', {
+      room: currentRoom,
+      playerId: myPlayer,
+      answer: userAnswer,
+      isCorrect: isCorrect
+    });
+    emitSwitchTurn();
+  } else {
+    // In same-screen mode, switch turns locally.
+    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+    loadNextQuestion();
+  }
+  
   answerInput.value = "";
   checkEndGame();
-  // Instead of switching turn locally, notify the server.
-  emitSwitchTurn();
 }
 
 function loadNextQuestion() {
@@ -394,7 +433,7 @@ function loadNextQuestion() {
       player2Circle.style.display = 'none';
     }
     answerInput.disabled = true;
-  }  
+  }
 }
 
 function checkEndGame() {
