@@ -28,8 +28,8 @@ body {
 
 /* --- LOBBY SECTION --- */
 .lobby-container {
-  background: rgba(255, 255, 255, 0.2); /* Semi-transparent */
-  backdrop-filter: blur(10px); /* Glass effect */
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   color: #ffffff;
   padding: 40px;
   border-radius: 20px;
@@ -80,6 +80,7 @@ body {
 }
 
 #room-code-display {
+  display: block;
   margin-top: 15px;
   font-size: 1.3rem;
   font-weight: bold;
@@ -160,6 +161,7 @@ h3 {
   margin: 10px 0;
   font-weight: 500;
 }
+
 /* Language Switcher */
 #languageSwitcher {
   top: 20px;
@@ -178,19 +180,19 @@ h3 {
   background-repeat: no-repeat;
   background-position: right 12px center;
   padding-right: 40px;
-  position: relative; /* Change from absolute */
+  position: relative;
   display: block;
   z-index: 100;
-  position: relative;
   transform: translateY(-10px);
-  margin: 0 auto 20px auto; /* Centers horizontally, adds space below */
-  width: 200px; /* Fixed width for better control */
+  margin: 0 auto 20px auto;
+  width: 200px;
 }
 
 #languageSwitcher:hover {
   background: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
 /* Timer Container */
 .timer-container {
   margin: 20px 0;
@@ -241,10 +243,7 @@ h3 {
   align-items: center;
 }
 
-#player1-circle .alphabet-circle {
-  border-color: #9b59b6;
-}
-
+#player1-circle .alphabet-circle,
 #player2-circle .alphabet-circle {
   border-color: #9b59b6;
 }
@@ -307,6 +306,7 @@ h3 {
   100% { box-shadow: 0 0 15px rgba(147, 112, 219, 0.4); }
 }
 
+/* Question Container */
 #question-container {
   background-color: #ffffff;
   padding: 10px 10px;
@@ -440,6 +440,7 @@ button {
   margin-right: auto;
 }
 
+/* Play Button */
 .play-btn {
   background: linear-gradient(135deg, #2ecc71, #27ae60);
   padding: 20px 40px;
@@ -453,11 +454,13 @@ button {
   margin: 0 auto !important;
 }
 
+/* Start Button Hover */
 .start-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Score Board */
 .score-board {
   margin-top: 20px;
   display: flex;

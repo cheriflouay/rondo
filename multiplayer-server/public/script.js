@@ -8,24 +8,29 @@ import { app, db } from "./firebase-config.js";
 const socket = io(); // Connect to your Socket.IO server
 let currentRoom = null; // Will hold the current room code
 
-// Listen for room creation/join confirmation from the server
+// When a room is created, display the room code but do not start the game immediately.
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Room Code: ${data.room}`;
   roomDisplay.style.display = 'block'; // Ensure the room code is visible
   console.log("Room created:", data.room);
-  // Now start the game after room creation
-  startGame();
+  // Removed: startGame();
 });
 
+// When a player joins a room, update the room display but wait for the 'startGame' event.
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Joined Room: ${data.room}`;
   roomDisplay.style.display = 'block';
   console.log("Room joined:", data.room);
-  // Start the game when the room is joined
+  // Removed: startGame();
+});
+
+// This event is emitted by the server when both players are present.
+socket.on('startGame', (data) => {
+  console.log("Game started in room:", data.room);
   startGame();
 });
 
@@ -34,10 +39,7 @@ socket.on('playerMove', (data) => {
   console.log("Received move from player", data.playerId, ":", data);
   // Update game state accordingly (for example, update scores or switch turns)
 });
-socket.on('startGame', (data) => {
-  console.log("Game started in room:", data.room);
-  startGame();
-});
+
 
 
 // -----------------------
@@ -109,8 +111,7 @@ async function fetchQuestions() {
   }
 }
 
-// Instead of starting immediately on button click, we start once the room is set up.
-// This function is called after a room is created or joined.
+
 function startGame() {
   console.log("Starting the game...");
   document.getElementById('lobby').style.display = 'none';  // Hide lobby
