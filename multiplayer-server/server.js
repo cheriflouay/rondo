@@ -25,23 +25,25 @@ io.on('connection', (socket) => {
   });
   
 
-  // Join an existing room
-  socket.on('joinRoom', ({ room }) => {
-    if (rooms[room] && rooms[room].players.length < 2) {
-      rooms[room].players.push(socket.id);
-      socket.join(room);
-      console.log(`Player joined room: ${room}`);
-      io.to(room).emit('roomJoined', { room });
+  const questions = loadQuestions(); // Load questions once for all players
 
-      // Start the game when both players are present
-      if (rooms[room].players.length === 2) {
-        io.to(room).emit('startGame', { room });
-        console.log(`Game started in room: ${room}`);
+  socket.on("joinRoom", ({ room }) => {
+      if (rooms[room] && rooms[room].players.length < 2) {
+          rooms[room].players.push(socket.id);
+          socket.join(room);
+          console.log(`Player joined room: ${room}`);
+          io.to(room).emit("roomJoined", { room });
+  
+          // Start game when both players are present
+          if (rooms[room].players.length === 2) {
+              io.to(room).emit("startGame", { room, questions }); // Send same questions to both
+              console.log(`Game started in room: ${room}`);
+          }
+      } else {
+          socket.emit("error", { message: "Room is full or does not exist." });
       }
-    } else {
-      socket.emit('error', { message: 'Room is full or does not exist.' });
-    }
   });
+  
 
   // Handle player moves
   socket.on('playerMove', (data) => {

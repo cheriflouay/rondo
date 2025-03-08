@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node multiplayer-server/server.js"
+    "start": "cd multiplayer-server && npm install && node server.js"
   },
   "keywords": [],
   "author": "",
