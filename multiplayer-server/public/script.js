@@ -29,10 +29,15 @@ socket.on('roomJoined', (data) => {
 });
 
 // This event is emitted by the server when both players are present.
-socket.on('startGame', (data) => {
-  console.log("Game started in room:", data.room);
-  startGame();
+socket.on("startGame", ({ room, questions }) => {
+  console.log(`Game started in room: ${room}`);
+  
+  document.getElementById("lobby").style.display = "none";
+  document.getElementById("game-container").style.display = "block";
+
+  initializeGame(questions); // Use server-sent questions
 });
+
 
 // Listen for moves from the server (from other players)
 socket.on('playerMove', (data) => {
