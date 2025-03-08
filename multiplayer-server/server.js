@@ -25,8 +25,6 @@ io.on('connection', (socket) => {
   });
   
 
-  const questions = loadQuestions(); // Load questions once for all players
- 
   socket.on("joinRoom", ({ room }) => {
     if (rooms[room] && rooms[room].players.length < 2) {
         rooms[room].players.push(socket.id);
