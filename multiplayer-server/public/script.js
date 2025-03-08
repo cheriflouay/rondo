@@ -116,7 +116,9 @@ function startGame() {
   console.log("Starting the game...");
   document.getElementById('lobby').style.display = 'none';  // Hide lobby
   document.getElementById('game-container').style.display = 'block';  // Show game
+  fetchQuestions(); // Load the questions from Firebase and initialize the game
 }
+
 
 
 // -----------------------
