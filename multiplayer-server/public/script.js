@@ -7,47 +7,53 @@ import { app, db } from "./firebase-config.js";
 // -----------------------
 const socket = io(); // Connect to your Socket.IO server
 let currentRoom = null; // Will hold the current room code
+let myPlayerNumber = null; // Will be 1 or 2 depending on assignment
+let currentTurnSocketId = null; // Active socket id as provided by the server
 
-// When a room is created, display the room code but do not start the game immediately.
+// When a room is created, display the room code. Creator is always player 1.
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
+  myPlayerNumber = 1;
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Room Code: ${data.room}`;
-  roomDisplay.style.display = 'block'; // Ensure the room code is visible
+  roomDisplay.style.display = 'block';
   console.log("Room created:", data.room);
-  // Removed: startGame();
 });
 
-// When a player joins a room, update the room display but wait for the 'startGame' event.
+// When a player joins a room, update the room display and assign player number.
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
+  // Determine player number based on room players array sent from server
+  myPlayerNumber = (data.players[0] === socket.id) ? 1 : 2;
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Joined Room: ${data.room}`;
   roomDisplay.style.display = 'block';
   console.log("Room joined:", data.room);
-  // Removed: startGame();
 });
 
-socket.on("startGame", ({ room }) => {
-  console.log(`Game started in room: ${room}`);
-
-  // Hide the lobby and show the game UI
+// When the game starts, set the active turn from the server, hide the lobby, and load questions.
+socket.on("startGame", ({ room, currentTurn }) => {
+  currentRoom = room;
+  currentTurnSocketId = currentTurn;
+  console.log(`Game started in room: ${room}, current turn: ${currentTurn}`);
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
-
-  // Fetch different questions for each player
-  fetchQuestions();  
+  fetchQuestions();
+  updateTurnUI();
 });
 
+// When the turn changes, update the active turn and adjust UI controls.
+socket.on('turnChanged', ({ currentTurn }) => {
+  currentTurnSocketId = currentTurn;
+  console.log("Turn changed. New active socket:", currentTurn);
+  updateTurnUI();
+});
 
-
-// Listen for moves from the server (from other players)
+// Listen for moves from the server (if you need to sync other game state)
 socket.on('playerMove', (data) => {
   console.log("Received move from player", data.playerId, ":", data);
-  // Update game state accordingly (for example, update scores or switch turns)
+  // You can update additional shared state here if needed.
 });
-
-
 
 // -----------------------
 // Room Creation / Joining UI
@@ -68,7 +74,6 @@ document.getElementById('join-room-btn').addEventListener('click', () => {
 // -----------------------
 let timeLeftPlayer1 = 250;
 let timeLeftPlayer2 = 250;
-let currentPlayer = 1;
 let timerInterval = null;
 let player1Questions = {};
 let player2Questions = {};
@@ -77,7 +82,7 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 let selectedLetter = null;
 let player1Score = 0;
 let player2Score = 0;
-let isPaused = false;
+let isPaused = false;  // This is still here but we will hide its button.
 let player1Queue = [...alphabet];
 let player2Queue = [...alphabet];
 
@@ -89,17 +94,22 @@ const answerInput = document.getElementById('answer-input');
 const player1Circle = document.getElementById('player1-circle');
 const player2Circle = document.getElementById('player2-circle');
 
-// Sound Elements
-const correctSound = document.getElementById('correct-sound');
-const incorrectSound = document.getElementById('incorrect-sound');
-const gameOverSound = document.getElementById('game-over-sound');
+// Hide the pause button since it's not needed
+document.addEventListener('DOMContentLoaded', () => {
+  const pauseButton = document.getElementById('pause-btn');
+  if (pauseButton) {
+    pauseButton.style.display = 'none';
+  }
+});
 
 // Event Listeners for game actions
 document.getElementById('skip-btn').addEventListener('click', skipTurn);
 document.getElementById('submit-answer').addEventListener('click', checkAnswer);
 document.getElementById('restart-btn').addEventListener('click', restartGame);
-document.getElementById('pause-btn').addEventListener('click', togglePause);
-answerInput.addEventListener('keypress', (e) => e.key === 'Enter' && checkAnswer());
+// Note: The pause button is hidden, so its listener is not needed.
+answerInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') checkAnswer();
+});
 
 // -----------------------
 // Firebase: Fetch Questions
@@ -118,50 +128,41 @@ async function fetchQuestions() {
   }
 }
 
-
 function startGame() {
+  // This function is now handled by the 'startGame' socket event.
   console.log("Starting the game...");
-  document.getElementById('lobby').style.display = 'none';  // Hide lobby
-  document.getElementById('game-container').style.display = 'block';  // Show game
-  fetchQuestions(); // Load the questions from Firebase and initialize the game
+  document.getElementById('lobby').style.display = 'none';
+  document.getElementById('game-container').style.display = 'block';
+  fetchQuestions();
 }
-
-
 
 // -----------------------
 // Game Initialization
 // -----------------------
 function initializeGame() {
-  player1Queue = [...alphabet];
-  player2Queue = [...alphabet];
+  // Reset queues for the current player based on assigned number.
+  if (myPlayerNumber === 1) {
+    player1Queue = [...alphabet];
+  } else {
+    player2Queue = [...alphabet];
+  }
   generateAlphabetCircles();
   startTimer();
-  switchPlayer(1);
   loadNextQuestion();
 }
 
 function generateAlphabetCircles() {
-  // Force both circles to display temporarily
-  player1Circle.style.display = 'block';
-  player2Circle.style.display = 'block';
-  
-  // Clear existing circles
-  document.getElementById('alphabet-circle-1').innerHTML = '';
-  document.getElementById('alphabet-circle-2').innerHTML = '';
-  
-  // Generate new circles for both players
-  generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
-  generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
-  
-  // Adjust display based on active player
-  if (currentPlayer === 1) {
-    player1Circle.classList.add('active');
-    player2Circle.classList.remove('active');
+  // Only generate and display the circle for the current player.
+  if (myPlayerNumber === 1) {
+    player1Circle.style.display = 'block';
     player2Circle.style.display = 'none';
+    document.getElementById('alphabet-circle-1').innerHTML = '';
+    generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   } else {
-    player2Circle.classList.add('active');
-    player1Circle.classList.remove('active');
+    player2Circle.style.display = 'block';
     player1Circle.style.display = 'none';
+    document.getElementById('alphabet-circle-2').innerHTML = '';
+    generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   }
 }
 
@@ -186,10 +187,11 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
 }
 
 function activateCurrentLetter() {
-  const currentPlayerCircleId = currentPlayer === 1 ? 'alphabet-circle-1' : 'alphabet-circle-2';
-  const circle = document.getElementById(currentPlayerCircleId);
+  const circleId = (myPlayerNumber === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
+  const circle = document.getElementById(circleId);
   const letters = circle.querySelectorAll('.letter');
-  const currentLetter = currentPlayer === 1 ? player1Queue[0] : player2Queue[0];
+  const currentQueue = (myPlayerNumber === 1) ? player1Queue : player2Queue;
+  const currentLetter = currentQueue[0];
 
   letters.forEach(letter => {
     letter.classList.remove('active');
@@ -204,72 +206,43 @@ function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     if (!isPaused) {
-      if (currentPlayer === 1) {
+      // Only update local timer if it's this player's turn
+      if (myPlayerNumber === 1 && socket.id === currentTurnSocketId) {
         timeLeftPlayer1--;
         if (timeLeftPlayer1 <= 0) {
           timeLeftPlayer1 = 0;
           time1Element.textContent = timeLeftPlayer1;
-          if (timeLeftPlayer2 > 0) {
-            switchPlayer(2);
-          } else {
-            endGame();
-          }
+          socket.emit('playerAction', { room: currentRoom, action: 'timeout' });
           return;
         }
-      } else {
+        time1Element.textContent = timeLeftPlayer1;
+      } else if (myPlayerNumber === 2 && socket.id === currentTurnSocketId) {
         timeLeftPlayer2--;
         if (timeLeftPlayer2 <= 0) {
           timeLeftPlayer2 = 0;
           time2Element.textContent = timeLeftPlayer2;
-          if (timeLeftPlayer1 > 0) {
-            switchPlayer(1);
-          } else {
-            endGame();
-          }
+          socket.emit('playerAction', { room: currentRoom, action: 'timeout' });
           return;
         }
+        time2Element.textContent = timeLeftPlayer2;
       }
-      time1Element.textContent = timeLeftPlayer1;
-      time2Element.textContent = timeLeftPlayer2;
     }
   }, 1000);
 }
 
-function switchPlayer(player) {
-  currentPlayer = player;
-  player1Circle.classList.remove('active');
-  player2Circle.classList.remove('active');
-
-  if (player === 1) {
-    player1Circle.style.display = 'block';
-    player1Circle.classList.add('active');
-    player2Circle.style.display = 'none';
-  } else {
-    player2Circle.style.display = 'block';
-    player2Circle.classList.add('active');
-    player1Circle.style.display = 'none';
-  }
-
-  answerInput.value = "";
-  loadNextQuestion();
-}
-
 function skipTurn() {
-  if (currentPlayer === 1) {
+  // Only allow skip if it is your turn
+  if (socket.id !== currentTurnSocketId) return;
+  
+  // Update your local queue for the current player by moving the current letter to the back.
+  if (myPlayerNumber === 1) {
     player1Queue.push(player1Queue.shift());
-    if (timeLeftPlayer2 > 0) {
-      switchPlayer(2);
-    } else {
-      loadNextQuestion();
-    }
   } else {
     player2Queue.push(player2Queue.shift());
-    if (timeLeftPlayer1 > 0) {
-      switchPlayer(1);
-    } else {
-      loadNextQuestion();
-    }
   }
+  
+  // Emit the skip action to the server so it can change the turn.
+  socket.emit('playerAction', { room: currentRoom, action: 'skip' });
 }
 
 function loadQuestion(letter, playerNumber) {
@@ -281,6 +254,9 @@ function loadQuestion(letter, playerNumber) {
 }
 
 function checkAnswer() {
+  // Only process the answer if it is your turn
+  if (socket.id !== currentTurnSocketId) return;
+
   const userAnswer = answerInput.value.trim().toLowerCase();
   if (!userAnswer || !currentQuestion) return;
 
@@ -295,53 +271,54 @@ function checkAnswer() {
   }
 
   if (isCorrect) {
-    currentPlayer === 1 ? player1Score++ : player2Score++;
-    document.getElementById(`score${currentPlayer}`).textContent = currentPlayer === 1 ? player1Score : player2Score;
+    // Update score locally
+    if (myPlayerNumber === 1) {
+      player1Score++;
+      document.getElementById(`score1`).textContent = player1Score;
+      player1Queue.shift();
+    } else {
+      player2Score++;
+      document.getElementById(`score2`).textContent = player2Score;
+      player2Queue.shift();
+    }
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
-    if (currentPlayer === 1) player1Queue.shift();
-    else player2Queue.shift();
+    // Stay on the same turn since the answer was correct.
+    loadNextQuestion();
   } else {
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
-    if (currentPlayer === 1) {
+    // For a wrong answer, update the queue (move current letter to the back)
+    if (myPlayerNumber === 1) {
       player1Queue.push(player1Queue.shift());
-      if (timeLeftPlayer2 > 0) {
-        switchPlayer(2);
-      } else {
-        loadNextQuestion();
-      }
     } else {
       player2Queue.push(player2Queue.shift());
-      if (timeLeftPlayer1 > 0) {
-        switchPlayer(1);
-      } else {
-        loadNextQuestion();
-      }
     }
+    // Emit the wrong answer action so the server changes the turn.
+    socket.emit('playerAction', { room: currentRoom, action: 'wrongAnswer' });
+    // Do not load next question locally now; wait until your turn returns.
   }
 
-  // Emit move to server for synchronization
+  // Emit the move for synchronization (optional)
   socket.emit('playerMove', {
     room: currentRoom,
-    playerId: currentPlayer,
+    playerId: myPlayerNumber,
     answer: userAnswer,
     isCorrect: isCorrect
   });
 
   answerInput.value = "";
   checkEndGame();
-  loadNextQuestion();
 }
 
 function loadNextQuestion() {
-  const currentQueue = currentPlayer === 1 ? player1Queue : player2Queue;
+  const currentQueue = (myPlayerNumber === 1) ? player1Queue : player2Queue;
   if (currentQueue.length === 0) {
     endGame();
     return;
   }
   const nextLetter = currentQueue[0];
-  loadQuestion(nextLetter, currentPlayer);
+  loadQuestion(nextLetter, myPlayerNumber);
   activateCurrentLetter();
   answerInput.focus();
 }
@@ -382,27 +359,44 @@ function restartGame() {
   timeLeftPlayer2 = 250;
   player1Score = 0;
   player2Score = 0;
-  currentPlayer = 1;
   isPaused = false;
-  player1Queue = [...alphabet];
-  player2Queue = [...alphabet];
+  if (myPlayerNumber === 1) {
+    player1Queue = [...alphabet];
+  } else {
+    player2Queue = [...alphabet];
+  }
   document.getElementById('time1').textContent = 250;
   document.getElementById('time2').textContent = 250;
   document.getElementById('score1').textContent = 0;
   document.getElementById('score2').textContent = 0;
   document.getElementById('result').style.display = 'none';
-  document.getElementById('pause-btn').textContent = 'Pause';
+  // Reset letters’ classes
   document.querySelectorAll('.letter').forEach(letter => {
     letter.classList.remove('correct', 'incorrect', 'used', 'active');
   });
   fetchQuestions();
 }
 
-function togglePause() {
-  isPaused = !isPaused;
-  document.getElementById('pause-btn').textContent = isPaused ? 'Resume' : 'Pause';
+// -----------------------
+// UI Helpers
+// -----------------------
+function updateTurnUI() {
+  // Enable controls only if it's your turn
+  if (socket.id === currentTurnSocketId) {
+    answerInput.disabled = false;
+    document.getElementById('submit-answer').disabled = false;
+    document.getElementById('skip-btn').disabled = false;
+  } else {
+    answerInput.disabled = true;
+    document.getElementById('submit-answer').disabled = true;
+    document.getElementById('skip-btn').disabled = true;
+  }
+  // Optionally, you can also adjust the display of your alphabet circle here if desired.
 }
 
+// -----------------------
+// Language Switching
+// -----------------------
 function loadLanguage(lang) {
   fetch(`${lang}.json`)
     .then(response => response.json())
@@ -422,11 +416,11 @@ function loadLanguage(lang) {
     })
     .catch(err => console.error("Error loading language file:", err));
 }
-  
+
 document.getElementById('languageSwitcher').addEventListener('change', (event) => {
   loadLanguage(event.target.value);
 });
-  
+
 document.addEventListener("DOMContentLoaded", () => {
   loadLanguage("en");
 });
