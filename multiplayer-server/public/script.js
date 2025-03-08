@@ -65,7 +65,7 @@ socket.on("startGame", ({ room, startingPlayer }) => {
 
 // Listen for turn switches broadcasted by the server.
 socket.on('switchTurn', (data) => {
-  currentPlayer = data.currentPlayer;
+  currentPlayer = data.currentPlayer; // Use the server-provided turn info
   console.log("Switch turn to Player", currentPlayer);
   loadNextQuestion(); // Refresh question for the new turn
   // Enable input only if it’s this client's turn.
@@ -77,22 +77,14 @@ socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
     console.log("Received move from opponent:", data);
     // Update opponent's state (score and queue) based on the move
-    if (data.isCorrect) {
-      if (data.playerId === 1) {
-        player1Queue.shift();
-        player1Score++;
-        document.getElementById('score1').textContent = player1Score;
-      } else {
-        player2Queue.shift();
-        player2Score++;
-        document.getElementById('score2').textContent = player2Score;
-      }
+    if (data.playerId === 1) {
+      player1Queue.shift();
+      player1Score++;
+      document.getElementById('score1').textContent = player1Score;
     } else {
-      if (data.playerId === 1) {
-        player1Queue.push(player1Queue.shift());
-      } else {
-        player2Queue.push(player2Queue.shift());
-      }
+      player2Queue.shift();
+      player2Score++;
+      document.getElementById('score2').textContent = player2Score;
     }
   }
 });
@@ -144,19 +136,10 @@ const gameOverSound = document.getElementById('game-over-sound');
 // -----------------------
 // Helper Function: Switch Turn
 // -----------------------
+// MODIFIED: Instead of toggling turn locally and calling loadNextQuestion,
+// we simply emit a switch-turn event and let the server broadcast the update.
 function emitSwitchTurn() {
-  // Toggle turn locally: if 1 then switch to 2, else to 1.
-  const nextTurn = currentPlayer === 1 ? 2 : 1;
-  currentPlayer = nextTurn;
-  
-  // Emit turn switch so opponent updates
-  socket.emit('switchTurn', { room: currentRoom, currentPlayer: currentPlayer });
-  
-  // Load a new question for the active player
-  loadNextQuestion();
-  
-  // Enable input only if it’s this client's turn.
-  answerInput.disabled = (currentPlayer !== myPlayer);
+  socket.emit('switchTurn', { room: currentRoom });
 }
 
 // -----------------------
@@ -366,7 +349,7 @@ function checkAnswer() {
 
   answerInput.value = "";
   checkEndGame();
-  // Switch turn after processing the answer.
+  // Instead of switching turn locally, notify the server.
   emitSwitchTurn();
 }
 
