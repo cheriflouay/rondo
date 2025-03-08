@@ -195,13 +195,21 @@ function startGame() {
 // Game Initialization
 // -----------------------
 function initializeGame() {
+  // If currentPlayer is not set (e.g., in same-screen mode), default it to myPlayer.
+  if (!currentPlayer) {
+    currentPlayer = myPlayer;
+    console.log("Defaulting currentPlayer to myPlayer:", myPlayer);
+  }
+  
   // Reset queues locally for each player.
   player1Queue = [...alphabet];
   player2Queue = [...alphabet];
+  
   generateAlphabetCircles();
   startTimer();
   loadNextQuestion();
 }
+
 
 // Modified: Show alphabet circle only for active player on this client.
 function generateAlphabetCircles() {
