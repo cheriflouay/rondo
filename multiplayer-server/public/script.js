@@ -67,7 +67,8 @@ socket.on("startGame", ({ room, startingPlayer }) => {
 socket.on('switchTurn', (data) => {
   currentPlayer = data.currentPlayer;
   console.log("Switch turn to Player", currentPlayer);
-  loadNextQuestion(); // Both clients update their question and state here.
+  loadNextQuestion(); // Refresh question for the new turn
+  // Enable input only if it’s this client's turn.
   answerInput.disabled = (currentPlayer !== myPlayer);
 });
 
@@ -75,7 +76,7 @@ socket.on('switchTurn', (data) => {
 socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
     console.log("Received move from opponent:", data);
-    // Update opponent's state (score and queue) based on the move.
+    // Update opponent's state (score and queue) based on the move
     if (data.isCorrect) {
       if (data.playerId === 1) {
         player1Queue.shift();
@@ -143,10 +144,19 @@ const gameOverSound = document.getElementById('game-over-sound');
 // -----------------------
 // Helper Function: Switch Turn
 // -----------------------
-// Instead of switching locally, we just emit the next turn.
 function emitSwitchTurn() {
+  // Toggle turn locally: if 1 then switch to 2, else to 1.
   const nextTurn = currentPlayer === 1 ? 2 : 1;
-  socket.emit('switchTurn', { room: currentRoom, currentPlayer: nextTurn });
+  currentPlayer = nextTurn;
+  
+  // Emit turn switch so opponent updates
+  socket.emit('switchTurn', { room: currentRoom, currentPlayer: currentPlayer });
+  
+  // Load a new question for the active player
+  loadNextQuestion();
+  
+  // Enable input only if it’s this client's turn.
+  answerInput.disabled = (currentPlayer !== myPlayer);
 }
 
 // -----------------------
@@ -210,23 +220,29 @@ function initializeGame() {
   loadNextQuestion();
 }
 
-// Revised: Always display your own alphabet circle on your client.
+// Modified: Show alphabet circle only for active player on this client.
 function generateAlphabetCircles() {
   // Clear existing circles.
   document.getElementById('alphabet-circle-1').innerHTML = '';
   document.getElementById('alphabet-circle-2').innerHTML = '';
   
-  // Generate circles for both players.
+  // Generate new circles for both players.
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
-  // Always display the circle that belongs to you.
-  if (myPlayer === 1) {
-    player1Circle.style.display = 'block';
-    player2Circle.style.display = 'none';
+  // Display only the active player's circle on this client.
+  if (currentPlayer === myPlayer) {
+    if (myPlayer === 1) {
+      player1Circle.style.display = 'block';
+      player2Circle.style.display = 'none';
+    } else {
+      player2Circle.style.display = 'block';
+      player1Circle.style.display = 'none';
+    }
   } else {
-    player2Circle.style.display = 'block';
+    // Hide both circles if it's not our turn.
     player1Circle.style.display = 'none';
+    player2Circle.style.display = 'none';
   }
 }
 
@@ -251,9 +267,9 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
 }
 
 function activateCurrentLetter() {
-  // Use the local player's queue.
+  // Use the local player's queue based on myPlayer assignment.
   const currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
-  // Get the circle for this client.
+  // Get the circle corresponding to our player.
   const currentPlayerCircleId = (myPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
   const circle = document.getElementById(currentPlayerCircleId);
   const letters = circle.querySelectorAll('.letter');
@@ -340,7 +356,7 @@ function checkAnswer() {
     }
   }
 
-  // Emit move for synchronization.
+  // Emit move to server for synchronization.
   socket.emit('playerMove', {
     room: currentRoom,
     playerId: myPlayer,
@@ -350,11 +366,12 @@ function checkAnswer() {
 
   answerInput.value = "";
   checkEndGame();
+  // Switch turn after processing the answer.
   emitSwitchTurn();
 }
 
 function loadNextQuestion() {
-  // Use the local player's queue.
+  // Load the next question for the local player based on their own queue.
   const currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
   if (currentQueue.length === 0) {
     endGame();
@@ -363,19 +380,23 @@ function loadNextQuestion() {
   const nextLetter = currentQueue[0];
   loadQuestion(nextLetter, myPlayer);
   
-  // Always show your own alphabet circle.
-  if (myPlayer === 1) {
-    player1Circle.style.display = 'block';
-  } else {
-    player2Circle.style.display = 'block';
-  }
-  
-  // Highlight the current letter if it's your turn.
+  // Display the alphabet circle only if it's our turn.
   if (currentPlayer === myPlayer) {
+    if (myPlayer === 1) {
+      player1Circle.style.display = 'block';
+    } else {
+      player2Circle.style.display = 'block';
+    }
     activateCurrentLetter();
     answerInput.disabled = false;
     answerInput.focus();
   } else {
+    // Hide the alphabet circle if it's not our turn.
+    if (myPlayer === 1) {
+      player1Circle.style.display = 'none';
+    } else {
+      player2Circle.style.display = 'none';
+    }
     answerInput.disabled = true;
   }
 }
