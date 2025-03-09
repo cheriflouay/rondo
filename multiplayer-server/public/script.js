@@ -7,9 +7,9 @@ import { app, db } from "./firebase-config.js";
 // -----------------------
 // Global Variables for Multiplayer & Mode Flag
 // -----------------------
-let myPlayer = null;       // Will be assigned as 1 or 2 when the room is created/joined
+let myPlayer = null;       // Will be assigned as 1 or 2 when the room is created/joined (multiplayer)
 let currentRoom = null;    // Current room code
-let currentPlayer = null;  // Whose turn it is (set by server or locally)
+let currentPlayer = null;  // Whose turn it is (set by server in multiplayer or locally in same-screen)
 let isMultiplayer = true;  // true for multiplayer mode, false for same-screen mode
 
 // -----------------------
@@ -33,7 +33,7 @@ document.getElementById('same-screen')?.addEventListener('click', function() {
 // Play Button for Same-Screen Mode
 // -----------------------
 document.getElementById('play-btn').addEventListener('click', function() {
-  // Set defaults for same-screen mode if not already set.
+  // For same-screen mode, default myPlayer and currentPlayer if not set.
   if (myPlayer === null) {
     myPlayer = 1; // Default as Player 1
     console.log("Defaulting myPlayer to 1 for same-screen mode.");
@@ -48,56 +48,51 @@ document.getElementById('play-btn').addEventListener('click', function() {
 });
 
 // -----------------------
-// Socket.IO Integration
+// Socket.IO Integration (Multiplayer only)
 // -----------------------
 const socket = io(); // Connect to your Socket.IO server
 
-// When a room is created, assign the creator as Player 1.
+// When a room is created, assign creator as Player 1.
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
-  myPlayer = 1; // Creator is Player 1
+  myPlayer = 1;
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Room Code: ${data.room}`;
   roomDisplay.style.display = 'block';
   console.log("Room created:", data.room);
-  // Wait for the second player before starting the game.
 });
 
-// When a player joins a room, assign them as Player 2 (or as sent by server).
+// When a player joins, assign them as Player 2.
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
-  myPlayer = data.player; // Server sends the assigned player (typically 2)
+  myPlayer = data.player;
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Joined Room: ${data.room} as Player ${myPlayer}`;
   roomDisplay.style.display = 'block';
   console.log("Room joined:", data.room, "as Player", myPlayer);
-  // Wait for server to signal game start.
 });
 
-// When the server signals to start the game, it sends along which player starts.
+// When the server starts the game, set currentPlayer and fetch questions.
 socket.on("startGame", ({ room, startingPlayer }) => {
   console.log(`Game started in room: ${room}`);
-  currentPlayer = startingPlayer; // Set starting turn
-  // Hide the lobby and show the game UI
+  currentPlayer = startingPlayer;
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
   fetchQuestions();  
 });
 
-// Listen for turn switches broadcasted by the server.
+// Listen for turn switches from server.
 socket.on('switchTurn', (data) => {
-  currentPlayer = data.currentPlayer; // Use the server-provided turn info
+  currentPlayer = data.currentPlayer;
   console.log("Switch turn to Player", currentPlayer);
-  loadNextQuestion(); // Refresh question for the new turn
-  // Enable input only if it’s this client's turn.
+  loadNextQuestion();
   answerInput.disabled = (currentPlayer !== myPlayer);
 });
 
-// Listen for moves from the server (from the other player)
+// Listen for opponent moves.
 socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
     console.log("Received move from opponent:", data);
-    // Update opponent's state (score and queue) based on the move
     if (data.playerId === 1) {
       player1Queue.shift();
       player1Score++;
@@ -111,7 +106,7 @@ socket.on('playerMove', (data) => {
 });
 
 // -----------------------
-// Room Creation / Joining UI
+// Room Creation / Joining UI (Multiplayer only)
 // -----------------------
 document.getElementById('create-room-btn').addEventListener('click', () => {
   socket.emit('createRoom');
@@ -125,7 +120,7 @@ document.getElementById('join-room-btn').addEventListener('click', () => {
 });
 
 // -----------------------
-// Game State & Variables (Local copies per client)
+// Game State & Variables
 // -----------------------
 let timeLeftPlayer1 = 250;
 let timeLeftPlayer2 = 250;
@@ -157,41 +152,39 @@ const gameOverSound = document.getElementById('game-over-sound');
 // -----------------------
 // Helper Function: Switch Turn
 // -----------------------
-// In multiplayer mode, emit the event to the server.
-// In same-screen mode, toggle turn locally.
 function emitSwitchTurn() {
   if (isMultiplayer) {
     socket.emit('switchTurn', { room: currentRoom });
   } else {
+    // Toggle turn locally.
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     loadNextQuestion();
   }
 }
 
 // -----------------------
-// Event Listeners for Game Actions (Only act if it's my turn)
+// Event Listeners for Game Actions
 // -----------------------
 document.getElementById('skip-btn').addEventListener('click', () => {
-  if (currentPlayer !== myPlayer) return;
+  if (isMultiplayer && currentPlayer !== myPlayer) return;
   if (isMultiplayer) {
     socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
     emitSwitchTurn();
   } else {
-    // In same-screen mode, toggle turn locally.
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     loadNextQuestion();
   }
 });
 
 document.getElementById('submit-answer').addEventListener('click', () => {
-  if (currentPlayer !== myPlayer) return;
+  if (isMultiplayer && currentPlayer !== myPlayer) return;
   checkAnswer();
 });
 
 document.getElementById('restart-btn').addEventListener('click', restartGame);
 document.getElementById('pause-btn').addEventListener('click', togglePause);
 answerInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter' && currentPlayer === myPlayer) {
+  if (e.key === 'Enter' && (!isMultiplayer || currentPlayer === myPlayer)) {
     checkAnswer();
   }
 });
@@ -204,9 +197,21 @@ async function fetchQuestions() {
     const setsSnapshot = await get(child(ref(db), 'player_sets'));
     const sets = setsSnapshot.exists() ? setsSnapshot.val() : {};
     const setKeys = Object.keys(sets);
-    // Randomly choose a set for each player from the common pool
-    player1Questions = sets[setKeys[Math.floor(Math.random() * setKeys.length)]];
-    player2Questions = sets[setKeys[Math.floor(Math.random() * setKeys.length)]];
+    if (!setKeys.length) {
+      console.error("No question sets available.");
+      return;
+    }
+    // Select two independent random sets.
+    const randomIndex1 = Math.floor(Math.random() * setKeys.length);
+    let randomIndex2 = Math.floor(Math.random() * setKeys.length);
+    // Ensure different sets if possible.
+    if (setKeys.length > 1) {
+      while (randomIndex2 === randomIndex1) {
+        randomIndex2 = Math.floor(Math.random() * setKeys.length);
+      }
+    }
+    player1Questions = sets[setKeys[randomIndex1]];
+    player2Questions = sets[setKeys[randomIndex2]];
     initializeGame();
   } catch (error) {
     console.error("Error loading questions:", error);
@@ -214,26 +219,25 @@ async function fetchQuestions() {
 }
 
 // -----------------------
-// Game Start Function (for Same Screen or Multiplayer local start)
+// Game Start Function
 // -----------------------
 function startGame() {
   console.log("Starting the game...");
   document.getElementById('lobby').style.display = 'none';
   document.getElementById('game-container').style.display = 'block';
-  fetchQuestions(); // Load questions and initialize game
+  fetchQuestions();
 }
 
 // -----------------------
 // Game Initialization
 // -----------------------
 function initializeGame() {
-  // If currentPlayer is not set, default it to myPlayer.
   if (!currentPlayer) {
     currentPlayer = myPlayer;
     console.log("Defaulting currentPlayer to myPlayer:", myPlayer);
   }
   
-  // Reset queues locally for each player.
+  // Reset question queues.
   player1Queue = [...alphabet];
   player2Queue = [...alphabet];
   
@@ -246,17 +250,15 @@ function initializeGame() {
 // Alphabet Circle Generation & Activation
 // -----------------------
 function generateAlphabetCircles() {
-  // Clear existing circles.
   document.getElementById('alphabet-circle-1').innerHTML = '';
   document.getElementById('alphabet-circle-2').innerHTML = '';
   
-  // Generate new circles for both players.
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
-  // Display only the active player's circle on this client.
-  if (currentPlayer === myPlayer) {
-    if (myPlayer === 1) {
+  if (!isMultiplayer) {
+    // In same-screen mode, show the circle of the active player.
+    if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
       player2Circle.style.display = 'none';
     } else {
@@ -264,9 +266,14 @@ function generateAlphabetCircles() {
       player1Circle.style.display = 'none';
     }
   } else {
-    // Hide both circles if it's not our turn.
-    player1Circle.style.display = 'none';
-    player2Circle.style.display = 'none';
+    // In multiplayer mode, show your circle only if it's your turn.
+    if (currentPlayer === myPlayer) {
+      if (myPlayer === 1) player1Circle.style.display = 'block';
+      else player2Circle.style.display = 'block';
+    } else {
+      if (myPlayer === 1) player1Circle.style.display = 'none';
+      else player2Circle.style.display = 'none';
+    }
   }
 }
 
@@ -291,11 +298,15 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
 }
 
 function activateCurrentLetter() {
-  // Use the local player's queue based on myPlayer assignment.
-  const currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
-  // Get the circle corresponding to our player.
-  const currentPlayerCircleId = (myPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
-  const circle = document.getElementById(currentPlayerCircleId);
+  let currentQueue, currentCircleId;
+  if (!isMultiplayer) {
+    currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
+    currentCircleId = (currentPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
+  } else {
+    currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
+    currentCircleId = (myPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
+  }
+  const circle = document.getElementById(currentCircleId);
   const letters = circle.querySelectorAll('.letter');
   const currentLetter = currentQueue[0];
 
@@ -350,7 +361,7 @@ function loadQuestion(letter, playerNumber) {
 }
 
 function checkAnswer() {
-  if (currentPlayer !== myPlayer) return;
+  if (isMultiplayer && currentPlayer !== myPlayer) return;
   const userAnswer = answerInput.value.trim().toLowerCase();
   if (!userAnswer || !currentQuestion) return;
 
@@ -365,7 +376,7 @@ function checkAnswer() {
   }
 
   if (isCorrect) {
-    if (myPlayer === 1) {
+    if ((!isMultiplayer && currentPlayer === 1) || (isMultiplayer && myPlayer === 1)) {
       player1Score++;
       document.getElementById('score1').textContent = player1Score;
       player1Queue.shift();
@@ -379,14 +390,16 @@ function checkAnswer() {
   } else {
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
-    if (myPlayer === 1) {
+    if ((!isMultiplayer && currentPlayer === 1) || (isMultiplayer && myPlayer === 1)) {
       player1Queue.push(player1Queue.shift());
     } else {
       player2Queue.push(player2Queue.shift());
     }
   }
 
-  // Emit move to server for synchronization (only in multiplayer).
+  answerInput.value = "";
+  checkEndGame();
+
   if (isMultiplayer) {
     socket.emit('playerMove', {
       room: currentRoom,
@@ -396,43 +409,56 @@ function checkAnswer() {
     });
     emitSwitchTurn();
   } else {
-    // In same-screen mode, switch turns locally.
+    // In same-screen mode, toggle the active player regardless of correctness.
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     loadNextQuestion();
   }
-  
-  answerInput.value = "";
-  checkEndGame();
 }
 
 function loadNextQuestion() {
-  // Load the next question for the local player based on their own queue.
-  const currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
+  let currentQueue;
+  if (isMultiplayer) {
+    currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
+  } else {
+    currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
+  }
   if (currentQueue.length === 0) {
     endGame();
     return;
   }
   const nextLetter = currentQueue[0];
-  loadQuestion(nextLetter, myPlayer);
-  
-  // Display the alphabet circle only if it's our turn.
-  if (currentPlayer === myPlayer) {
-    if (myPlayer === 1) {
+  loadQuestion(nextLetter, isMultiplayer ? myPlayer : currentPlayer);
+
+  if (!isMultiplayer) {
+    // Always show the active player's circle and enable input.
+    if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
+      player2Circle.style.display = 'none';
     } else {
       player2Circle.style.display = 'block';
+      player1Circle.style.display = 'none';
     }
     activateCurrentLetter();
     answerInput.disabled = false;
     answerInput.focus();
   } else {
-    // Hide the alphabet circle if it's not our turn.
-    if (myPlayer === 1) {
-      player1Circle.style.display = 'none';
+    if (currentPlayer === myPlayer) {
+      if (myPlayer === 1) {
+        player1Circle.style.display = 'block';
+      } else {
+        player2Circle.style.display = 'block';
+      }
+      activateCurrentLetter();
+      answerInput.disabled = false;
+      answerInput.focus();
     } else {
-      player2Circle.style.display = 'none';
+      if (myPlayer === 1) {
+        player1Circle.style.display = 'none';
+      } else {
+        player2Circle.style.display = 'none';
+      }
+      answerInput.disabled = true;
     }
-    answerInput.disabled = true;
   }
 }
 
