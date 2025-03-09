@@ -52,7 +52,6 @@ document.getElementById('play-btn').addEventListener('click', function() {
 // -----------------------
 const socket = io(); // Connect to your Socket.IO server
 
-// When a room is created, assign creator as Player 1.
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
   myPlayer = 1;
@@ -62,7 +61,6 @@ socket.on('roomCreated', (data) => {
   console.log("Room created:", data.room);
 });
 
-// When a player joins, assign them as Player 2.
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
   myPlayer = data.player;
@@ -72,7 +70,6 @@ socket.on('roomJoined', (data) => {
   console.log("Room joined:", data.room, "as Player", myPlayer);
 });
 
-// When the server starts the game, set currentPlayer and fetch questions.
 socket.on("startGame", ({ room, startingPlayer }) => {
   console.log(`Game started in room: ${room}`);
   currentPlayer = startingPlayer;
@@ -81,7 +78,6 @@ socket.on("startGame", ({ room, startingPlayer }) => {
   fetchQuestions();  
 });
 
-// Listen for turn switches from server.
 socket.on('switchTurn', (data) => {
   currentPlayer = data.currentPlayer;
   console.log("Switch turn to Player", currentPlayer);
@@ -89,7 +85,6 @@ socket.on('switchTurn', (data) => {
   answerInput.disabled = (currentPlayer !== myPlayer);
 });
 
-// Listen for opponent moves.
 socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
     console.log("Received move from opponent:", data);
@@ -156,7 +151,7 @@ function emitSwitchTurn() {
   if (isMultiplayer) {
     socket.emit('switchTurn', { room: currentRoom });
   } else {
-    // Toggle turn locally.
+    // Toggle turn locally only on incorrect answer.
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     loadNextQuestion();
   }
@@ -171,6 +166,7 @@ document.getElementById('skip-btn').addEventListener('click', () => {
     socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
     emitSwitchTurn();
   } else {
+    // For same-screen, skip toggles turn.
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     loadNextQuestion();
   }
@@ -204,7 +200,6 @@ async function fetchQuestions() {
     // Select two independent random sets.
     const randomIndex1 = Math.floor(Math.random() * setKeys.length);
     let randomIndex2 = Math.floor(Math.random() * setKeys.length);
-    // Ensure different sets if possible.
     if (setKeys.length > 1) {
       while (randomIndex2 === randomIndex1) {
         randomIndex2 = Math.floor(Math.random() * setKeys.length);
@@ -256,23 +251,22 @@ function generateAlphabetCircles() {
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
+  // For both modes, hide both circles first.
+  player1Circle.style.display = 'none';
+  player2Circle.style.display = 'none';
+  
   if (!isMultiplayer) {
-    // In same-screen mode, show the circle of the active player.
+    // In same-screen mode, show the active player's circle.
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
-      player2Circle.style.display = 'none';
     } else {
       player2Circle.style.display = 'block';
-      player1Circle.style.display = 'none';
     }
   } else {
-    // In multiplayer mode, show your circle only if it's your turn.
+    // In multiplayer mode, show your circle if it's your turn.
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) player1Circle.style.display = 'block';
       else player2Circle.style.display = 'block';
-    } else {
-      if (myPlayer === 1) player1Circle.style.display = 'none';
-      else player2Circle.style.display = 'none';
     }
   }
 }
@@ -364,7 +358,7 @@ function checkAnswer() {
   if (isMultiplayer && currentPlayer !== myPlayer) return;
   const userAnswer = answerInput.value.trim().toLowerCase();
   if (!userAnswer || !currentQuestion) return;
-
+  
   let isCorrect = false;
   const correctAnswers = Object.values(currentQuestion.answer).map(ans => ans.toLowerCase());
   for (const ans of correctAnswers) {
@@ -374,45 +368,64 @@ function checkAnswer() {
       break;
     }
   }
-
+  
   if (isCorrect) {
-    if ((!isMultiplayer && currentPlayer === 1) || (isMultiplayer && myPlayer === 1)) {
-      player1Score++;
-      document.getElementById('score1').textContent = player1Score;
-      player1Queue.shift();
+    // Correct answer: update score and remove the current letter.
+    if (isMultiplayer) {
+      if (myPlayer === 1) {
+        player1Score++;
+        document.getElementById('score1').textContent = player1Score;
+        player1Queue.shift();
+      } else {
+        player2Score++;
+        document.getElementById('score2').textContent = player2Score;
+        player2Queue.shift();
+      }
     } else {
-      player2Score++;
-      document.getElementById('score2').textContent = player2Score;
-      player2Queue.shift();
+      if (currentPlayer === 1) {
+        player1Score++;
+        document.getElementById('score1').textContent = player1Score;
+        player1Queue.shift();
+      } else {
+        player2Score++;
+        document.getElementById('score2').textContent = player2Score;
+        player2Queue.shift();
+      }
     }
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
+    // On correct answer, keep the turn.
   } else {
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
-    if ((!isMultiplayer && currentPlayer === 1) || (isMultiplayer && myPlayer === 1)) {
-      player1Queue.push(player1Queue.shift());
+    if (isMultiplayer) {
+      if (myPlayer === 1) {
+        player1Queue.push(player1Queue.shift());
+      } else {
+        player2Queue.push(player2Queue.shift());
+      }
+      socket.emit('playerMove', {
+        room: currentRoom,
+        playerId: myPlayer,
+        answer: userAnswer,
+        isCorrect: isCorrect
+      });
+      // On incorrect answer, switch turn.
+      emitSwitchTurn();
     } else {
-      player2Queue.push(player2Queue.shift());
+      if (currentPlayer === 1) {
+        player1Queue.push(player1Queue.shift());
+      } else {
+        player2Queue.push(player2Queue.shift());
+      }
+      // In same-screen mode, toggle turn on incorrect answer.
+      currentPlayer = (currentPlayer === 1) ? 2 : 1;
     }
   }
-
+  
   answerInput.value = "";
   checkEndGame();
-
-  if (isMultiplayer) {
-    socket.emit('playerMove', {
-      room: currentRoom,
-      playerId: myPlayer,
-      answer: userAnswer,
-      isCorrect: isCorrect
-    });
-    emitSwitchTurn();
-  } else {
-    // In same-screen mode, toggle the active player regardless of correctness.
-    currentPlayer = (currentPlayer === 1) ? 2 : 1;
-    loadNextQuestion();
-  }
+  loadNextQuestion();
 }
 
 function loadNextQuestion() {
@@ -428,15 +441,16 @@ function loadNextQuestion() {
   }
   const nextLetter = currentQueue[0];
   loadQuestion(nextLetter, isMultiplayer ? myPlayer : currentPlayer);
-
+  
+  // Hide both circles first, then show the active player's circle.
+  player1Circle.style.display = 'none';
+  player2Circle.style.display = 'none';
+  
   if (!isMultiplayer) {
-    // Always show the active player's circle and enable input.
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
-      player2Circle.style.display = 'none';
     } else {
       player2Circle.style.display = 'block';
-      player1Circle.style.display = 'none';
     }
     activateCurrentLetter();
     answerInput.disabled = false;
@@ -479,13 +493,13 @@ function endGame() {
   document.getElementById('result').style.display = 'block';
   document.getElementById('score1').textContent = player1Score;
   document.getElementById('score2').textContent = player2Score;
-
+  
   push(ref(db, 'leaderboard'), {
     player1Score,
     player2Score,
     timestamp: new Date().toISOString()
   });
-
+  
   const winnerElement = document.getElementById('winner-message');
   if (player1Score > player2Score) winnerElement.textContent = "Player 1 Wins! 🏆";
   else if (player2Score > player1Score) winnerElement.textContent = "Player 2 Wins! 🏆";
