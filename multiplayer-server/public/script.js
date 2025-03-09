@@ -73,18 +73,20 @@ socket.on('roomCreated', (data) => {
   console.log("Room created:", data.room, "as Player", myPlayer);
 
   // Display the room code on screen
-  document.getElementById('room-code').textContent = data.room;
-  document.getElementById('room-display').style.display = 'block';
+  const roomDisplay = document.getElementById('room-code-display');
+  roomDisplay.textContent = `Room Code: ${data.room}`;
+  roomDisplay.style.display = 'block';
 });
-
 
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
   myPlayer = data.newPlayer; // Player 2
-  const roomDisplay = document.getElementById('room-code-display');
-  roomDisplay.textContent = `Joined Room: ${data.room} as Player ${myPlayer}`;
-  roomDisplay.style.display = 'block';
   console.log("Room joined:", data.room, "as Player", myPlayer);
+
+  // Display the room code on screen (keep it consistent with 'roomCreated')
+  const roomDisplay = document.getElementById('room-code-display');
+  roomDisplay.textContent = `Room Code: ${data.room}`;
+  roomDisplay.style.display = 'block';
 });
 
 socket.on("startGame", ({ room, currentTurn }) => {
