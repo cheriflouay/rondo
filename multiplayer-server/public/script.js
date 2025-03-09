@@ -164,42 +164,36 @@ const gameOverSound = document.getElementById('game-over-sound');
 // Event Listeners for Game Actions
 // -----------------------
 document.getElementById('skip-btn').addEventListener('click', () => {
-  if (isMultiplayer && currentPlayer !== myPlayer) return;
+  // For multiplayer, the original behavior remains.
   if (isMultiplayer) {
+    if (currentPlayer !== myPlayer) return;
     socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
-    // In multiplayer, switch turn only if the opponent is not finished.
     if (!isPlayerFinished(getOtherPlayer(myPlayer))) {
       emitSwitchTurn();
     } else {
       loadNextQuestion();
     }
+    return;
+  }
+  
+  // For same-screen mode:
+  // First, move the active player's current letter to the back of their queue.
+  if (currentPlayer === 1) {
+    player1Queue.push(player1Queue.shift());
   } else {
-    // In same-screen mode, move the current letter to the end of the active player's queue.
-    if (currentPlayer === 1) {
-      player1Queue.push(player1Queue.shift());
-    } else {
-      player2Queue.push(player2Queue.shift());
-    }
-    // Switch turn only if the opponent is not finished.
-    if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
-      currentPlayer = getOtherPlayer(currentPlayer);
-    }
-    loadNextQuestion();
+    player2Queue.push(player2Queue.shift());
   }
+  
+  // Check if the opponent is finished.
+  // If the opponent is NOT finished, switch turn.
+  // Otherwise, keep the turn with the current (active) player.
+  if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
+    currentPlayer = getOtherPlayer(currentPlayer);
+  }
+  
+  loadNextQuestion();
 });
 
-document.getElementById('submit-answer').addEventListener('click', () => {
-  if (isMultiplayer && currentPlayer !== myPlayer) return;
-  checkAnswer();
-});
-
-document.getElementById('restart-btn').addEventListener('click', restartGame);
-document.getElementById('pause-btn').addEventListener('click', togglePause);
-answerInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter' && (!isMultiplayer || currentPlayer === myPlayer)) {
-    checkAnswer();
-  }
-});
 
 // -----------------------
 // Firebase: Fetch Questions
@@ -596,7 +590,7 @@ function loadLanguage(lang) {
 document.getElementById('languageSwitcher').addEventListener('change', (event) => {
   loadLanguage(event.target.value);
 });
-  
+
 document.addEventListener("DOMContentLoaded", () => {
   loadLanguage("en");
 });
