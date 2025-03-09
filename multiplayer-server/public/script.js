@@ -554,26 +554,27 @@ function loadNextQuestion() {
     // New visibility control
     const isActivePlayer = (currentPlayer === socket.id);
     const questionContainer = document.getElementById('question-container');
+    const questionElement = document.getElementById('question');
     const answerContainer = document.querySelector('.answer-container');
     const skipBtn = document.getElementById('skip-btn');
-    const waitingMessage = document.getElementById('waiting-message');
+    const existingWaitingMessage = document.getElementById('waiting-message');
 
-    // Remove existing waiting message
-    if (waitingMessage) waitingMessage.remove();
+    // Clear previous waiting message
+    if (existingWaitingMessage) existingWaitingMessage.remove();
 
     if (isActivePlayer) {
-      // Show active player's UI
-      questionContainer.style.display = 'block';
+      // Show active player's interface
+      questionElement.style.display = 'block';
       answerContainer.style.display = 'flex';
       skipBtn.style.display = 'block';
       document.getElementById('submit-answer').style.display = 'block';
     } else {
-      // Show waiting state for opponent
-      questionContainer.style.display = 'block';
-      const waitingElement = document.createElement('div');
-      waitingElement.id = 'waiting-message';
-      waitingElement.textContent = 'Waiting for your turn...';
-      questionContainer.appendChild(waitingElement);
+      // Hide question and show waiting state
+      questionElement.style.display = 'none';
+      const waitingMessage = document.createElement('div');
+      waitingMessage.id = 'waiting-message';
+      waitingMessage.textContent = 'Waiting for your turn...';
+      questionContainer.appendChild(waitingMessage);
       answerContainer.style.display = 'none';
       skipBtn.style.display = 'none';
       document.getElementById('submit-answer').style.display = 'none';
@@ -582,7 +583,8 @@ function loadNextQuestion() {
     answerInput.disabled = !isActivePlayer;
     answerInput.focus();
 
-  } else { // Same-screen mode
+  } else { 
+    // Same-screen mode (existing code remains unchanged)
     let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
     if (currentQueue.length === 0) {
       endGame();

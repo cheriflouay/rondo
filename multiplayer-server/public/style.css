@@ -580,12 +580,18 @@ button {
   100% { transform: translateX(0) scale(1.1); }
 }
 
-/* Add to style.css */
 #waiting-message {
   color: #2a5298;
+  font-size: 1.4rem;
   font-weight: bold;
-  margin: 20px 0;
+  padding: 20px;
+  text-align: center;
   animation: pulse-scale 1.5s infinite;
+  margin-top: 20px;
+}
+
+#question {
+  transition: opacity 0.3s ease;
 }
 
 @keyframes pulse-scale {
