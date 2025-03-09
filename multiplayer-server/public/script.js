@@ -253,29 +253,29 @@ function initializeGame() {
 function generateAlphabetCircles() {
   document.getElementById('alphabet-circle-1').innerHTML = '';
   document.getElementById('alphabet-circle-2').innerHTML = '';
-  
+
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
-  
-  // Always hide both circles first.
+
+  // Hide both circles first
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
-  
+
   if (!isMultiplayer) {
-    // In same-screen mode, show only the active player's circle.
+    // In same-screen mode, show only the active player's circle
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
     } else {
       player2Circle.style.display = 'block';
     }
   } else {
-    // In multiplayer mode, show your circle if it's your turn.
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) player1Circle.style.display = 'block';
       else player2Circle.style.display = 'block';
     }
   }
 }
+
 
 function generateAlphabetCircle(circleId, questions, playerNumber) {
   const circle = document.getElementById(circleId);
@@ -442,26 +442,26 @@ function loadNextQuestion() {
   } else {
     currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
   }
+
   if (currentQueue.length === 0) {
     endGame();
     return;
   }
+
   const nextLetter = currentQueue[0];
   loadQuestion(nextLetter, isMultiplayer ? myPlayer : currentPlayer);
-  
-  // Hide both circles first, then show the active player's circle.
+
+  // Hide both alphabet circles first
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
-  
+
+  // Show only the active player's circle
   if (!isMultiplayer) {
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
     } else {
       player2Circle.style.display = 'block';
     }
-    activateCurrentLetter();
-    answerInput.disabled = false;
-    answerInput.focus();
   } else {
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) {
@@ -469,19 +469,15 @@ function loadNextQuestion() {
       } else {
         player2Circle.style.display = 'block';
       }
-      activateCurrentLetter();
-      answerInput.disabled = false;
-      answerInput.focus();
-    } else {
-      if (myPlayer === 1) {
-        player1Circle.style.display = 'none';
-      } else {
-        player2Circle.style.display = 'none';
-      }
-      answerInput.disabled = true;
     }
   }
+
+  // Activate the letter for the active player
+  activateCurrentLetter();
+  answerInput.disabled = false;
+  answerInput.focus();
 }
+
 
 function checkEndGame() {
   const p1Done = player1Queue.length === 0;
