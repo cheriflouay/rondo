@@ -7,7 +7,7 @@ import { app, db } from "./firebase-config.js";
 // -----------------------
 // Global Variables for Multiplayer & Mode Flag
 // -----------------------
-let myPlayer = null;       // Assigned as 1 or 2 when a room is created/joined (multiplayer)
+let myPlayer = null;       // Assigned as 1 or 2 in multiplayer mode
 let currentRoom = null;    // Current room code
 let currentPlayer = null;  // Whose turn it is (set by server in multiplayer or locally in same-screen)
 let isMultiplayer = true;  // true for multiplayer mode, false for same-screen mode
@@ -51,7 +51,7 @@ document.getElementById('same-screen')?.addEventListener('click', function() {
 document.getElementById('play-btn').addEventListener('click', function() {
   // For same-screen mode, default myPlayer and currentPlayer if not set.
   if (myPlayer === null) {
-    myPlayer = 1; // Default as Player 1
+    myPlayer = 1;
     console.log("Defaulting myPlayer to 1 for same-screen mode.");
   }
   if (currentPlayer === null) {
@@ -91,7 +91,7 @@ socket.on("startGame", ({ room, startingPlayer }) => {
   currentPlayer = startingPlayer;
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
-  fetchQuestions();  
+  fetchQuestions();
 });
 
 socket.on('switchTurn', (data) => {
@@ -163,37 +163,48 @@ const gameOverSound = document.getElementById('game-over-sound');
 // -----------------------
 // Event Listeners for Game Actions
 // -----------------------
+
+// Updated submit-answer listener with debug logs:
+document.getElementById('submit-answer').addEventListener('click', () => {
+  console.log("Submit Answer button clicked.");
+  if (isMultiplayer && currentPlayer !== myPlayer) {
+    console.log("Not your turn in multiplayer mode.");
+    return;
+  }
+  checkAnswer();
+});
+
 document.getElementById('skip-btn').addEventListener('click', () => {
-  // For multiplayer, the original behavior remains.
+  if (isMultiplayer && currentPlayer !== myPlayer) return;
   if (isMultiplayer) {
-    if (currentPlayer !== myPlayer) return;
     socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
     if (!isPlayerFinished(getOtherPlayer(myPlayer))) {
       emitSwitchTurn();
     } else {
       loadNextQuestion();
     }
-    return;
-  }
-  
-  // For same-screen mode:
-  // First, move the active player's current letter to the back of their queue.
-  if (currentPlayer === 1) {
-    player1Queue.push(player1Queue.shift());
   } else {
-    player2Queue.push(player2Queue.shift());
+    // In same-screen mode, move the current letter to the end.
+    if (currentPlayer === 1) {
+      player1Queue.push(player1Queue.shift());
+    } else {
+      player2Queue.push(player2Queue.shift());
+    }
+    // Switch turn only if the opponent is not finished.
+    if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
+      currentPlayer = getOtherPlayer(currentPlayer);
+    }
+    loadNextQuestion();
   }
-  
-  // Check if the opponent is finished.
-  // If the opponent is NOT finished, switch turn.
-  // Otherwise, keep the turn with the current (active) player.
-  if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
-    currentPlayer = getOtherPlayer(currentPlayer);
-  }
-  
-  loadNextQuestion();
 });
 
+document.getElementById('restart-btn').addEventListener('click', restartGame);
+document.getElementById('pause-btn').addEventListener('click', togglePause);
+answerInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && (!isMultiplayer || currentPlayer === myPlayer)) {
+    checkAnswer();
+  }
+});
 
 // -----------------------
 // Firebase: Fetch Questions
@@ -277,7 +288,6 @@ function generateAlphabetCircles() {
       player2Circle.classList.add('active');
     }
   } else {
-    // In multiplayer mode, show your circle if it's your turn.
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) {
         player1Circle.style.display = 'block';
@@ -344,7 +354,6 @@ function startTimer() {
         if (timeLeftPlayer1 <= 0) {
           timeLeftPlayer1 = 0;
           time1Element.textContent = timeLeftPlayer1;
-          // If opponent isn't finished, switch turn; otherwise, end game.
           if (!isPlayerFinished(2)) {
             currentPlayer = 2;
             loadNextQuestion();
@@ -385,9 +394,16 @@ function loadQuestion(letter, playerNumber) {
 }
 
 function checkAnswer() {
-  if (isMultiplayer && currentPlayer !== myPlayer) return;
+  console.log("checkAnswer() invoked.");
+  if (isMultiplayer && currentPlayer !== myPlayer) {
+    console.log("Not your turn in multiplayer mode in checkAnswer.");
+    return;
+  }
   const userAnswer = answerInput.value.trim().toLowerCase();
-  if (!userAnswer || !currentQuestion) return;
+  if (!userAnswer || !currentQuestion) {
+    console.log("No answer provided or no current question.");
+    return;
+  }
   
   let isCorrect = false;
   const correctAnswers = Object.values(currentQuestion.answer).map(ans => ans.toLowerCase());
@@ -440,7 +456,6 @@ function checkAnswer() {
         answer: userAnswer,
         isCorrect: isCorrect
       });
-      // Switch turn if the opponent is not finished.
       if (!isPlayerFinished(getOtherPlayer(myPlayer))) {
         emitSwitchTurn();
       } else {
@@ -452,7 +467,6 @@ function checkAnswer() {
       } else {
         player2Queue.push(player2Queue.shift());
       }
-      // In same-screen mode, switch turn only if the opponent is not finished.
       if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
         currentPlayer = getOtherPlayer(currentPlayer);
       }
@@ -477,7 +491,7 @@ function loadNextQuestion() {
   const nextLetter = currentQueue[0];
   loadQuestion(nextLetter, isMultiplayer ? myPlayer : currentPlayer);
   
-  // Hide both circles first and clear active classes.
+  // Hide both circles and clear active classes.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
   player1Circle.classList.remove('active');
@@ -510,7 +524,7 @@ function loadNextQuestion() {
 }
 
 function checkEndGame() {
-  // End game only when BOTH players are finished.
+  // End game when BOTH players are finished.
   if (isPlayerFinished(1) && isPlayerFinished(2)) {
     endGame();
   }
@@ -590,7 +604,7 @@ function loadLanguage(lang) {
 document.getElementById('languageSwitcher').addEventListener('change', (event) => {
   loadLanguage(event.target.value);
 });
-
+  
 document.addEventListener("DOMContentLoaded", () => {
   loadLanguage("en");
 });
