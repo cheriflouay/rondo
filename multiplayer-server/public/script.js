@@ -359,35 +359,69 @@ function startTimer() {
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     if (!isPaused) {
-      if (currentPlayer === 1) {
-        timeLeftPlayer1--;
-        if (timeLeftPlayer1 <= 0) {
-          timeLeftPlayer1 = 0;
-          time1Element.textContent = timeLeftPlayer1;
-          if (!isPlayerFinished(2)) {
-            currentPlayer = 2;
-            loadNextQuestion();
+      if (isMultiplayer) {
+        // In multiplayer mode, update only if it's your turn.
+        if (currentPlayer === socket.id) {
+          if (myPlayer === 1) {
+            timeLeftPlayer1--;
+            if (timeLeftPlayer1 <= 0) {
+              timeLeftPlayer1 = 0;
+              time1Element.textContent = timeLeftPlayer1;
+              if (!isPlayerFinished(getOtherPlayer(myPlayer))) {
+                socket.emit('playerAction', { room: currentRoom, action: 'skip' });
+              } else {
+                endGame();
+              }
+              return;
+            }
+            time1Element.textContent = timeLeftPlayer1;
           } else {
-            endGame();
+            timeLeftPlayer2--;
+            if (timeLeftPlayer2 <= 0) {
+              timeLeftPlayer2 = 0;
+              time2Element.textContent = timeLeftPlayer2;
+              if (!isPlayerFinished(getOtherPlayer(myPlayer))) {
+                socket.emit('playerAction', { room: currentRoom, action: 'skip' });
+              } else {
+                endGame();
+              }
+              return;
+            }
+            time2Element.textContent = timeLeftPlayer2;
           }
-          return;
         }
       } else {
-        timeLeftPlayer2--;
-        if (timeLeftPlayer2 <= 0) {
-          timeLeftPlayer2 = 0;
-          time2Element.textContent = timeLeftPlayer2;
-          if (!isPlayerFinished(1)) {
-            currentPlayer = 1;
-            loadNextQuestion();
-          } else {
-            endGame();
+        // Same-screen mode logic (unchanged)
+        if (currentPlayer === 1) {
+          timeLeftPlayer1--;
+          if (timeLeftPlayer1 <= 0) {
+            timeLeftPlayer1 = 0;
+            time1Element.textContent = timeLeftPlayer1;
+            if (!isPlayerFinished(2)) {
+              currentPlayer = 2;
+              loadNextQuestion();
+            } else {
+              endGame();
+            }
+            return;
           }
-          return;
+        } else {
+          timeLeftPlayer2--;
+          if (timeLeftPlayer2 <= 0) {
+            timeLeftPlayer2 = 0;
+            time2Element.textContent = timeLeftPlayer2;
+            if (!isPlayerFinished(1)) {
+              currentPlayer = 1;
+              loadNextQuestion();
+            } else {
+              endGame();
+            }
+            return;
+          }
         }
+        time1Element.textContent = timeLeftPlayer1;
+        time2Element.textContent = timeLeftPlayer2;
       }
-      time1Element.textContent = timeLeftPlayer1;
-      time2Element.textContent = timeLeftPlayer2;
     }
   }, 1000);
 }
@@ -396,7 +430,7 @@ function startTimer() {
 // Question Handling
 // -----------------------
 function loadQuestion(letter, playerNumber) {
-  // Use uppercase for question keys
+  // Use uppercase for question keys.
   const questionKey = letter.toUpperCase();
   currentQuestion = (playerNumber === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
   const currentLang = document.getElementById('languageSwitcher').value;
@@ -428,7 +462,7 @@ function checkAnswer() {
   }
   
   if (isCorrect) {
-    // Correct answer: update score and remove letter
+    // Correct answer: update score and remove letter.
     if (isMultiplayer) {
       if (myPlayer === 1) {
         player1Score++;
@@ -508,7 +542,7 @@ function loadNextQuestion() {
       return;
     }
     loadQuestion(nextLetter, myPlayer);
-    // Update only your own circle
+    // Update only your own circle.
     activatePlayerLetter(myPlayer);
   } else {
     let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
@@ -527,7 +561,7 @@ function loadNextQuestion() {
     loadQuestion(nextLetter, currentPlayer);
     activateCurrentLetter();
   }
-  // Enable input only if it's your turn (comparing socket id in multiplayer)
+  // Enable input only if it's your turn (comparing socket id in multiplayer).
   answerInput.disabled = isMultiplayer ? (currentPlayer !== socket.id) : false;
   answerInput.focus();
 }
