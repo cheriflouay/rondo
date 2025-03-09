@@ -105,6 +105,20 @@ socket.on('turnChanged', (data) => {
   answerInput.disabled = (currentPlayer !== socket.id);
 });
 
+socket.on('updateTimer', (data) => {
+  currentPlayer = data.currentTurn;
+
+  if (currentPlayer === socket.id) {
+    if (myPlayer === 1) {
+      timeLeftPlayer1 = data.timeLeft;
+      time1Element.textContent = timeLeftPlayer1;
+    } else {
+      timeLeftPlayer2 = data.timeLeft;
+      time2Element.textContent = timeLeftPlayer2;
+    }
+  }
+});
+
 socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
     console.log("Received move from opponent:", data);
@@ -525,18 +539,50 @@ function loadNextQuestion() {
       return;
     }
     const nextLetter = myQueue[0];
-    // Check if a question exists for this letter; if not, remove it and try the next one.
     const questionKey = nextLetter.toUpperCase();
     let questionData = (myPlayer === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
+    
     if (!questionData) {
       myQueue.shift();
       loadNextQuestion();
       return;
     }
+
     loadQuestion(nextLetter, myPlayer);
-    // Update only your own circle.
     activatePlayerLetter(myPlayer);
-  } else {
+
+    // New visibility control
+    const isActivePlayer = (currentPlayer === socket.id);
+    const questionContainer = document.getElementById('question-container');
+    const answerContainer = document.querySelector('.answer-container');
+    const skipBtn = document.getElementById('skip-btn');
+    const waitingMessage = document.getElementById('waiting-message');
+
+    // Remove existing waiting message
+    if (waitingMessage) waitingMessage.remove();
+
+    if (isActivePlayer) {
+      // Show active player's UI
+      questionContainer.style.display = 'block';
+      answerContainer.style.display = 'flex';
+      skipBtn.style.display = 'block';
+      document.getElementById('submit-answer').style.display = 'block';
+    } else {
+      // Show waiting state for opponent
+      questionContainer.style.display = 'block';
+      const waitingElement = document.createElement('div');
+      waitingElement.id = 'waiting-message';
+      waitingElement.textContent = 'Waiting for your turn...';
+      questionContainer.appendChild(waitingElement);
+      answerContainer.style.display = 'none';
+      skipBtn.style.display = 'none';
+      document.getElementById('submit-answer').style.display = 'none';
+    }
+
+    answerInput.disabled = !isActivePlayer;
+    answerInput.focus();
+
+  } else { // Same-screen mode
     let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
     if (currentQueue.length === 0) {
       endGame();
@@ -545,17 +591,18 @@ function loadNextQuestion() {
     const nextLetter = currentQueue[0];
     const questionKey = nextLetter.toUpperCase();
     let questionData = (currentPlayer === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
+    
     if (!questionData) {
       currentQueue.shift();
       loadNextQuestion();
       return;
     }
+
     loadQuestion(nextLetter, currentPlayer);
     activateCurrentLetter();
+    answerInput.disabled = false;
+    answerInput.focus();
   }
-  // Enable input only if it's your turn (comparing socket id in multiplayer).
-  answerInput.disabled = isMultiplayer ? (currentPlayer !== socket.id) : false;
-  answerInput.focus();
 }
 
 function checkEndGame() {
@@ -568,12 +615,15 @@ function endGame() {
   clearInterval(timerInterval);
   gameOverSound.play();
   answerInput.disabled = true;
-  document.getElementById('submit-answer').disabled = true;
-  document.getElementById('skip-btn').disabled = true;
-  document.getElementById('result').style.display = 'block';
   document.getElementById('score1').textContent = player1Score;
   document.getElementById('score2').textContent = player2Score;
-  
+  document.getElementById('pause-btn').style.display = 'none';
+  document.getElementById('player1-circle').style.display = 'none';
+  document.getElementById('player2-circle').style.display = 'none';
+  document.getElementById('answer-container').style.display = 'none';
+  document.getElementById('submit-answer').style.display = 'none';
+  document.getElementById('skip-btn').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
   push(ref(db, 'leaderboard'), {
     player1Score,
     player2Score,
