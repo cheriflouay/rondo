@@ -16,7 +16,7 @@ let isMultiplayer = true;  // true for multiplayer mode, false for same-screen m
 // Helper Functions for Player Status
 // -----------------------
 function isPlayerFinished(player) {
-  // A player is finished if his queue is empty or his time has run out.
+  // A player is finished if his queue is empty OR his time has run out.
   if (player === 1) {
     return (player1Queue.length === 0 || timeLeftPlayer1 <= 0);
   } else {
@@ -164,7 +164,7 @@ const gameOverSound = document.getElementById('game-over-sound');
 // Event Listeners for Game Actions
 // -----------------------
 
-// Updated submit-answer listener with debug logs:
+// Submit Answer button with debug logs.
 document.getElementById('submit-answer').addEventListener('click', () => {
   console.log("Submit Answer button clicked.");
   if (isMultiplayer && currentPlayer !== myPlayer) {
@@ -174,6 +174,8 @@ document.getElementById('submit-answer').addEventListener('click', () => {
   checkAnswer();
 });
 
+// Skip button logic: when a player skips, move the current letter to the back of their queue.
+// In same-screen mode, if the opponent is finished, the active player retains the turn.
 document.getElementById('skip-btn').addEventListener('click', () => {
   if (isMultiplayer && currentPlayer !== myPlayer) return;
   if (isMultiplayer) {
@@ -184,7 +186,7 @@ document.getElementById('skip-btn').addEventListener('click', () => {
       loadNextQuestion();
     }
   } else {
-    // In same-screen mode, move the current letter to the end.
+    // Same-screen mode: move current letter to back.
     if (currentPlayer === 1) {
       player1Queue.push(player1Queue.shift());
     } else {
@@ -288,6 +290,7 @@ function generateAlphabetCircles() {
       player2Circle.classList.add('active');
     }
   } else {
+    // In multiplayer mode, show your own circle if it's your turn.
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) {
         player1Circle.style.display = 'block';
@@ -354,6 +357,7 @@ function startTimer() {
         if (timeLeftPlayer1 <= 0) {
           timeLeftPlayer1 = 0;
           time1Element.textContent = timeLeftPlayer1;
+          // If opponent isn't finished, switch turn; otherwise, end game.
           if (!isPlayerFinished(2)) {
             currentPlayer = 2;
             loadNextQuestion();
@@ -416,7 +420,7 @@ function checkAnswer() {
   }
   
   if (isCorrect) {
-    // Correct answer: update score, remove letter; turn remains with the same player.
+    // Correct answer: update score, remove letter; turn remains with same player.
     if (isMultiplayer) {
       if (myPlayer === 1) {
         player1Score++;
@@ -440,7 +444,7 @@ function checkAnswer() {
     }
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
-    // Turn remains the same.
+    // On correct answer, the turn remains.
   } else {
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
@@ -524,14 +528,18 @@ function loadNextQuestion() {
 }
 
 function checkEndGame() {
-  // End game when BOTH players are finished.
-  if (isPlayerFinished(1) && isPlayerFinished(2)) {
+  // End game when both players have finished answering or time has run out.
+  if (player1Queue.length === 0 && player2Queue.length === 0) {
     endGame();
   }
+  // Alternatively, using our helper function:
+  // if (isPlayerFinished(1) && isPlayerFinished(2)) {
+  //   endGame();
+  // }
 }
 
 function endGame() {
-  clearInterval(timerInterval);
+  clearInterval(timerInterval);  // Stop the timer
   gameOverSound.play();
   answerInput.disabled = true;
   document.getElementById('submit-answer').disabled = true;
@@ -547,9 +555,13 @@ function endGame() {
   });
   
   const winnerElement = document.getElementById('winner-message');
-  if (player1Score > player2Score) winnerElement.textContent = "Player 1 Wins! 🏆";
-  else if (player2Score > player1Score) winnerElement.textContent = "Player 2 Wins! 🏆";
-  else winnerElement.textContent = "It's a Draw! 🤝";
+  if (player1Score > player2Score) {
+    winnerElement.textContent = "Player 1 Wins! 🏆";
+  } else if (player2Score > player1Score) {
+    winnerElement.textContent = "Player 2 Wins! 🏆";
+  } else {
+    winnerElement.textContent = "It's a Draw! 🤝";
+  }
 }
 
 function restartGame() {
