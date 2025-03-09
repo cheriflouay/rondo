@@ -7,10 +7,26 @@ import { app, db } from "./firebase-config.js";
 // -----------------------
 // Global Variables for Multiplayer & Mode Flag
 // -----------------------
-let myPlayer = null;       // Will be assigned as 1 or 2 when the room is created/joined (multiplayer)
+let myPlayer = null;       // Assigned as 1 or 2 when a room is created/joined (multiplayer)
 let currentRoom = null;    // Current room code
 let currentPlayer = null;  // Whose turn it is (set by server in multiplayer or locally in same-screen)
 let isMultiplayer = true;  // true for multiplayer mode, false for same-screen mode
+
+// -----------------------
+// Helper Functions for Player Status
+// -----------------------
+function isPlayerFinished(player) {
+  // A player is finished if his queue is empty or his time has run out.
+  if (player === 1) {
+    return (player1Queue.length === 0 || timeLeftPlayer1 <= 0);
+  } else {
+    return (player2Queue.length === 0 || timeLeftPlayer2 <= 0);
+  }
+}
+
+function getOtherPlayer(player) {
+  return (player === 1) ? 2 : 1;
+}
 
 // -----------------------
 // Landing Page Navigation
@@ -145,35 +161,29 @@ const incorrectSound = document.getElementById('incorrect-sound');
 const gameOverSound = document.getElementById('game-over-sound');
 
 // -----------------------
-// Helper Function: Switch Turn
-// -----------------------
-function emitSwitchTurn() {
-  if (isMultiplayer) {
-    socket.emit('switchTurn', { room: currentRoom });
-  } else {
-    // In same-screen mode, we switch turn only on incorrect answer.
-    currentPlayer = (currentPlayer === 1) ? 2 : 1;
-    loadNextQuestion();
-  }
-}
-
-// -----------------------
 // Event Listeners for Game Actions
 // -----------------------
 document.getElementById('skip-btn').addEventListener('click', () => {
   if (isMultiplayer && currentPlayer !== myPlayer) return;
   if (isMultiplayer) {
     socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
-    emitSwitchTurn();
+    // In multiplayer, switch turn only if the opponent is not finished.
+    if (!isPlayerFinished(getOtherPlayer(myPlayer))) {
+      emitSwitchTurn();
+    } else {
+      loadNextQuestion();
+    }
   } else {
-    // In same-screen mode, move the current letter to the end of the queue.
+    // In same-screen mode, move the current letter to the end of the active player's queue.
     if (currentPlayer === 1) {
       player1Queue.push(player1Queue.shift());
     } else {
       player2Queue.push(player2Queue.shift());
     }
-    // Then switch turn.
-    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+    // Switch turn only if the opponent is not finished.
+    if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
+      currentPlayer = getOtherPlayer(currentPlayer);
+    }
     loadNextQuestion();
   }
 });
@@ -251,14 +261,13 @@ function initializeGame() {
 // Alphabet Circle Generation & Activation
 // -----------------------
 function generateAlphabetCircles() {
-  // Clear existing circle content.
   document.getElementById('alphabet-circle-1').innerHTML = '';
   document.getElementById('alphabet-circle-2').innerHTML = '';
   
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
-  // Hide both circles and remove active classes.
+  // Hide both circles and clear active classes.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
   player1Circle.classList.remove('active');
@@ -274,7 +283,7 @@ function generateAlphabetCircles() {
       player2Circle.classList.add('active');
     }
   } else {
-    // In multiplayer mode, show your own circle if it's your turn.
+    // In multiplayer mode, show your circle if it's your turn.
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) {
         player1Circle.style.display = 'block';
@@ -286,7 +295,6 @@ function generateAlphabetCircles() {
     }
   }
 }
-
 
 function generateAlphabetCircle(circleId, questions, playerNumber) {
   const circle = document.getElementById(circleId);
@@ -342,7 +350,13 @@ function startTimer() {
         if (timeLeftPlayer1 <= 0) {
           timeLeftPlayer1 = 0;
           time1Element.textContent = timeLeftPlayer1;
-          emitSwitchTurn();
+          // If opponent isn't finished, switch turn; otherwise, end game.
+          if (!isPlayerFinished(2)) {
+            currentPlayer = 2;
+            loadNextQuestion();
+          } else {
+            endGame();
+          }
           return;
         }
       } else {
@@ -350,7 +364,12 @@ function startTimer() {
         if (timeLeftPlayer2 <= 0) {
           timeLeftPlayer2 = 0;
           time2Element.textContent = timeLeftPlayer2;
-          emitSwitchTurn();
+          if (!isPlayerFinished(1)) {
+            currentPlayer = 1;
+            loadNextQuestion();
+          } else {
+            endGame();
+          }
           return;
         }
       }
@@ -387,8 +406,7 @@ function checkAnswer() {
   }
   
   if (isCorrect) {
-    // On correct answer, update score and remove the letter,
-    // and keep the turn for the same player.
+    // Correct answer: update score, remove letter; turn remains with the same player.
     if (isMultiplayer) {
       if (myPlayer === 1) {
         player1Score++;
@@ -412,7 +430,7 @@ function checkAnswer() {
     }
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
-    // On correct answer, the turn remains with the same player.
+    // Turn remains the same.
   } else {
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
@@ -428,16 +446,22 @@ function checkAnswer() {
         answer: userAnswer,
         isCorrect: isCorrect
       });
-      // On incorrect answer, switch turn.
-      emitSwitchTurn();
+      // Switch turn if the opponent is not finished.
+      if (!isPlayerFinished(getOtherPlayer(myPlayer))) {
+        emitSwitchTurn();
+      } else {
+        loadNextQuestion();
+      }
     } else {
       if (currentPlayer === 1) {
         player1Queue.push(player1Queue.shift());
       } else {
         player2Queue.push(player2Queue.shift());
       }
-      // In same-screen mode, switch turn on incorrect answer.
-      currentPlayer = (currentPlayer === 1) ? 2 : 1;
+      // In same-screen mode, switch turn only if the opponent is not finished.
+      if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
+        currentPlayer = getOtherPlayer(currentPlayer);
+      }
     }
   }
   
@@ -447,19 +471,19 @@ function checkAnswer() {
 }
 
 function loadNextQuestion() {
-  let currentQueue = !isMultiplayer 
-    ? (currentPlayer === 1 ? player1Queue : player2Queue) 
-    : (myPlayer === 1 ? player1Queue : player2Queue);
-    
+  let currentQueue = isMultiplayer 
+      ? (myPlayer === 1 ? player1Queue : player2Queue)
+      : (currentPlayer === 1 ? player1Queue : player2Queue);
+      
   if (currentQueue.length === 0) {
     endGame();
     return;
   }
   
   const nextLetter = currentQueue[0];
-  loadQuestion(nextLetter, !isMultiplayer ? currentPlayer : myPlayer);
+  loadQuestion(nextLetter, isMultiplayer ? myPlayer : currentPlayer);
   
-  // Hide both circles and clear active classes.
+  // Hide both circles first and clear active classes.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
   player1Circle.classList.remove('active');
@@ -491,11 +515,9 @@ function loadNextQuestion() {
   answerInput.focus();
 }
 
-
 function checkEndGame() {
-  const p1Done = player1Queue.length === 0;
-  const p2Done = player2Queue.length === 0;
-  if (p1Done || p2Done) {
+  // End game only when BOTH players are finished.
+  if (isPlayerFinished(1) && isPlayerFinished(2)) {
     endGame();
   }
 }
