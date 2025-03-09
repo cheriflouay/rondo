@@ -105,6 +105,20 @@ socket.on('turnChanged', (data) => {
   answerInput.disabled = (currentPlayer !== socket.id);
 });
 
+socket.on('updateTimer', (data) => {
+  currentPlayer = data.currentTurn;
+
+  if (currentPlayer === socket.id) {
+    if (myPlayer === 1) {
+      timeLeftPlayer1 = data.timeLeft;
+      time1Element.textContent = timeLeftPlayer1;
+    } else {
+      timeLeftPlayer2 = data.timeLeft;
+      time2Element.textContent = timeLeftPlayer2;
+    }
+  }
+});
+
 socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
     console.log("Received move from opponent:", data);
@@ -367,26 +381,24 @@ function startTimer() {
   timerInterval = setInterval(() => {
     if (!isPaused) {
       if (isMultiplayer) {
-        // In multiplayer mode, only the active player's timer should decrement
+        // In multiplayer, only decrement the active player's timer and update both screens
         if (currentPlayer === socket.id) {
           if (myPlayer === 1) {
             timeLeftPlayer1--;
-            time1Element.textContent = timeLeftPlayer1;
+            io.emit('updateTimer', { currentTurn: currentPlayer, timeLeft: timeLeftPlayer1 });
             if (timeLeftPlayer1 <= 0) {
-              timeLeftPlayer1 = 0;
               socket.emit('playerAction', { room: currentRoom, action: 'skip' });
             }
           } else {
             timeLeftPlayer2--;
-            time2Element.textContent = timeLeftPlayer2;
+            io.emit('updateTimer', { currentTurn: currentPlayer, timeLeft: timeLeftPlayer2 });
             if (timeLeftPlayer2 <= 0) {
-              timeLeftPlayer2 = 0;
               socket.emit('playerAction', { room: currentRoom, action: 'skip' });
             }
           }
         }
       } else {
-        // Same-screen mode: Only the active player's timer should count down
+        // Same-screen mode: Regular countdown logic
         if (currentPlayer === 1) {
           timeLeftPlayer1--;
           time1Element.textContent = timeLeftPlayer1;
@@ -416,6 +428,7 @@ function startTimer() {
     }
   }, 1000);
 }
+
 
 
 // -----------------------

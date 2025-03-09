@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
     const roomCode = Math.random().toString(36).substr(2, 6).toUpperCase();
     rooms[roomCode] = { 
       players: [socket.id],
-      currentTurn: socket.id  // use socket id for turn tracking
+      currentTurn: socket.id  // using socket id for turn tracking
     };
     socket.join(roomCode);
     console.log(`Room created: ${roomCode}`);
@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
       socket.join(room);
       console.log(`Player joined room: ${room}`);
       
-      // Determine player number based on the order in the room
+      // Determine player number based on order in the room
       const playerNumber = rooms[room].players.indexOf(socket.id) + 1;
       
       // Inform all players in the room (include new player's number)
@@ -63,20 +63,24 @@ io.on('connection', (socket) => {
   socket.on('playerAction', (data) => {
     const { room, action } = data;
     if (!rooms[room]) return;
-    
-    // Only process the action if it's the acting player's turn
-    if (rooms[room].currentTurn !== socket.id) return;
-    
+  
+    if (rooms[room].currentTurn !== socket.id) return; // Only allow action from the active player
+  
     if (action === 'skip' || action === 'wrongAnswer') {
-      // Switch turn to the other player in the room
+      // Find the other player in the room
       const otherPlayer = rooms[room].players.find(player => player !== socket.id);
       if (otherPlayer) {
         rooms[room].currentTurn = otherPlayer;
+  
+        // Reset timer for the next player and send update
         io.to(room).emit('turnChanged', { currentTurn: otherPlayer });
+        io.to(room).emit('updateTimer', { currentTurn: otherPlayer, timeLeft: 250 });
+  
         console.log(`Turn changed in room ${room} to ${otherPlayer}`);
       }
     }
   });
+  
 
   // Handle player moves (for correct answers)
   socket.on('playerMove', (data) => {
@@ -90,7 +94,7 @@ io.on('connection', (socket) => {
     for (const room in rooms) {
       if (rooms[room].players.includes(socket.id)) {
         rooms[room].players = rooms[room].players.filter(player => player !== socket.id);
-        // If the disconnected player was the current turn, assign turn to the remaining player
+        // If the disconnected player held the turn, assign it to the remaining player
         if (rooms[room].currentTurn === socket.id && rooms[room].players.length > 0) {
           rooms[room].currentTurn = rooms[room].players[0];
           io.to(room).emit('turnChanged', { currentTurn: rooms[room].currentTurn });
