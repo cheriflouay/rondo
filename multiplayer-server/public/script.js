@@ -7,9 +7,9 @@ import { app, db } from "./firebase-config.js";
 // -----------------------
 // Global Variables for Multiplayer & Mode Flag
 // -----------------------
-let myPlayer = null;       // Assigned as 1 or 2 in multiplayer mode
+let myPlayer = null;       // Will be set to 1 or 2 in multiplayer mode
 let currentRoom = null;    // Current room code
-let currentPlayer = null;  // Whose turn it is (set by server in multiplayer or locally in same-screen)
+let currentPlayer = null;  // Holds the socket id of the player whose turn it is
 let isMultiplayer = true;  // true for multiplayer mode, false for same-screen mode
 
 // -----------------------
@@ -69,13 +69,13 @@ const socket = io(); // Connect to your Socket.IO server
 
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
-  myPlayer = data.player; // Assigned as 1
+  myPlayer = data.player; // Player 1
   console.log("Room created:", data.room, "as Player", myPlayer);
 });
 
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
-  myPlayer = data.newPlayer; // Assigned as 2 for the joining player
+  myPlayer = data.newPlayer; // Player 2
   const roomDisplay = document.getElementById('room-code-display');
   roomDisplay.textContent = `Joined Room: ${data.room} as Player ${myPlayer}`;
   roomDisplay.style.display = 'block';
@@ -84,7 +84,7 @@ socket.on('roomJoined', (data) => {
 
 socket.on("startGame", ({ room, currentTurn }) => {
   console.log(`Game started in room: ${room}`);
-  currentPlayer = currentTurn;
+  currentPlayer = currentTurn; // This is a socket id
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
   fetchQuestions();
@@ -94,7 +94,7 @@ socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
   loadNextQuestion();
-  // Enable input only if it's your turn (using your socket id)
+  // Enable input only if it's your turn (by comparing to socket.id)
   answerInput.disabled = (currentPlayer !== socket.id);
 });
 
@@ -172,8 +172,15 @@ document.getElementById('submit-answer').addEventListener('click', () => {
 });
 
 document.getElementById('skip-btn').addEventListener('click', () => {
+  // Only allow skipping if it is your turn
   if (isMultiplayer && currentPlayer !== socket.id) return;
   if (isMultiplayer) {
+    // Rotate your own letter queue before emitting the skip action
+    if (myPlayer === 1) {
+      player1Queue.push(player1Queue.shift());
+    } else {
+      player2Queue.push(player2Queue.shift());
+    }
     socket.emit('playerAction', { room: currentRoom, action: 'skip' });
   } else {
     if (currentPlayer === 1) {
@@ -263,7 +270,7 @@ function generateAlphabetCircles() {
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
   if (isMultiplayer) {
-    // In multiplayer mode, show only the circle corresponding to your player number
+    // In multiplayer, show only the circle for your own player number
     if (myPlayer === 1) {
       player1Circle.style.display = 'block';
       player2Circle.style.display = 'none';
@@ -281,7 +288,7 @@ function generateAlphabetCircles() {
       player2Circle.style.display = 'block';
     }
   }
-  // Add active class only to the displayed circle (optional)
+  // Optionally add an active class to the displayed circle
   if (myPlayer === 1 || (!isMultiplayer && currentPlayer === 1)) {
     player1Circle.classList.add('active');
   }
@@ -311,10 +318,9 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
 }
 
 function activateCurrentLetter() {
-  // For same-screen mode
-  let currentQueue, currentCircleId;
-  currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
-  currentCircleId = (currentPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
+  // For same-screen mode only
+  let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
+  let currentCircleId = (currentPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
   const circle = document.getElementById(currentCircleId);
   const letters = circle.querySelectorAll('.letter');
   const currentLetter = currentQueue[0];
@@ -390,11 +396,13 @@ function startTimer() {
 // Question Handling
 // -----------------------
 function loadQuestion(letter, playerNumber) {
-  currentQuestion = (playerNumber === 1) ? player1Questions[letter] : player2Questions[letter];
+  // Use uppercase for question keys
+  const questionKey = letter.toUpperCase();
+  currentQuestion = (playerNumber === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
   const currentLang = document.getElementById('languageSwitcher').value;
   questionElement.textContent = (currentQuestion && currentQuestion.question && currentQuestion.question[currentLang])
     ? currentQuestion.question[currentLang]
-    : "Question not found";
+    : `Question not found for ${letter}`;
 }
 
 function checkAnswer() {
@@ -491,8 +499,16 @@ function loadNextQuestion() {
       return;
     }
     const nextLetter = myQueue[0];
+    // Check if a question exists for this letter; if not, remove it and try the next one.
+    const questionKey = nextLetter.toUpperCase();
+    let questionData = (myPlayer === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
+    if (!questionData) {
+      myQueue.shift();
+      loadNextQuestion();
+      return;
+    }
     loadQuestion(nextLetter, myPlayer);
-    // Only update your own circle in multiplayer mode
+    // Update only your own circle
     activatePlayerLetter(myPlayer);
   } else {
     let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
@@ -501,10 +517,17 @@ function loadNextQuestion() {
       return;
     }
     const nextLetter = currentQueue[0];
+    const questionKey = nextLetter.toUpperCase();
+    let questionData = (currentPlayer === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
+    if (!questionData) {
+      currentQueue.shift();
+      loadNextQuestion();
+      return;
+    }
     loadQuestion(nextLetter, currentPlayer);
     activateCurrentLetter();
   }
-  // Enable input only if it's your turn (socket.id in multiplayer)
+  // Enable input only if it's your turn (comparing socket id in multiplayer)
   answerInput.disabled = isMultiplayer ? (currentPlayer !== socket.id) : false;
   answerInput.focus();
 }
