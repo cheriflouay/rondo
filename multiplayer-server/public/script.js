@@ -263,11 +263,16 @@ function generateAlphabetCircles() {
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
   if (isMultiplayer) {
-    // Always display both circles in multiplayer
-    player1Circle.style.display = 'block';
-    player2Circle.style.display = 'block';
+    // In multiplayer mode, show only the circle corresponding to your player number
+    if (myPlayer === 1) {
+      player1Circle.style.display = 'block';
+      player2Circle.style.display = 'none';
+    } else {
+      player1Circle.style.display = 'none';
+      player2Circle.style.display = 'block';
+    }
   } else {
-    // Same-screen: only show the active player's circle
+    // Same-screen mode: show the active player's circle
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
       player2Circle.style.display = 'none';
@@ -276,8 +281,13 @@ function generateAlphabetCircles() {
       player2Circle.style.display = 'block';
     }
   }
-  player1Circle.classList.add('active');
-  player2Circle.classList.add('active');
+  // Add active class only to the displayed circle (optional)
+  if (myPlayer === 1 || (!isMultiplayer && currentPlayer === 1)) {
+    player1Circle.classList.add('active');
+  }
+  if (myPlayer === 2 || (!isMultiplayer && currentPlayer === 2)) {
+    player2Circle.classList.add('active');
+  }
 }
 
 function generateAlphabetCircle(circleId, questions, playerNumber) {
@@ -301,14 +311,10 @@ function generateAlphabetCircle(circleId, questions, playerNumber) {
 }
 
 function activateCurrentLetter() {
+  // For same-screen mode
   let currentQueue, currentCircleId;
-  if (!isMultiplayer) {
-    currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
-    currentCircleId = (currentPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
-  } else {
-    currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
-    currentCircleId = (myPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
-  }
+  currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
+  currentCircleId = (currentPlayer === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
   const circle = document.getElementById(currentCircleId);
   const letters = circle.querySelectorAll('.letter');
   const currentLetter = currentQueue[0];
@@ -317,15 +323,13 @@ function activateCurrentLetter() {
     letter.classList.remove('active');
     if (letter.textContent === currentLetter) {
       letter.classList.add('active');
-      // Update selectedLetter if this is your own circle (or in same-screen mode)
-      if ((!isMultiplayer) || (isMultiplayer && myPlayer === (currentPlayer === socket.id ? myPlayer : myPlayer))) {
-        selectedLetter = letter;
-      }
+      selectedLetter = letter;
     }
   });
 }
 
 function activatePlayerLetter(playerNumber) {
+  // For multiplayer mode: update only your own circle
   let queue = (playerNumber === 1) ? player1Queue : player2Queue;
   let circleId = (playerNumber === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
   const circle = document.getElementById(circleId);
@@ -488,9 +492,8 @@ function loadNextQuestion() {
     }
     const nextLetter = myQueue[0];
     loadQuestion(nextLetter, myPlayer);
-    // Update both players’ circles
-    activatePlayerLetter(1);
-    activatePlayerLetter(2);
+    // Only update your own circle in multiplayer mode
+    activatePlayerLetter(myPlayer);
   } else {
     let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
     if (currentQueue.length === 0) {
