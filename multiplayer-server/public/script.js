@@ -71,7 +71,12 @@ socket.on('roomCreated', (data) => {
   currentRoom = data.room;
   myPlayer = data.player; // Player 1
   console.log("Room created:", data.room, "as Player", myPlayer);
+
+  // Display the room code on screen
+  document.getElementById('room-code').textContent = data.room;
+  document.getElementById('room-display').style.display = 'block';
 });
+
 
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
