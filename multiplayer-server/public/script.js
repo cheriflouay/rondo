@@ -151,7 +151,7 @@ function emitSwitchTurn() {
   if (isMultiplayer) {
     socket.emit('switchTurn', { room: currentRoom });
   } else {
-    // Toggle turn locally only on incorrect answer.
+    // In same-screen mode, we switch turn only on incorrect answer.
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     loadNextQuestion();
   }
@@ -166,7 +166,13 @@ document.getElementById('skip-btn').addEventListener('click', () => {
     socket.emit('skipTurn', { room: currentRoom, player: myPlayer });
     emitSwitchTurn();
   } else {
-    // For same-screen, skip toggles turn.
+    // In same-screen mode, move the current letter to the end of the queue.
+    if (currentPlayer === 1) {
+      player1Queue.push(player1Queue.shift());
+    } else {
+      player2Queue.push(player2Queue.shift());
+    }
+    // Then switch turn.
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
     loadNextQuestion();
   }
@@ -251,12 +257,12 @@ function generateAlphabetCircles() {
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
-  // For both modes, hide both circles first.
+  // Always hide both circles first.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
   
   if (!isMultiplayer) {
-    // In same-screen mode, show the active player's circle.
+    // In same-screen mode, show only the active player's circle.
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
     } else {
@@ -370,7 +376,8 @@ function checkAnswer() {
   }
   
   if (isCorrect) {
-    // Correct answer: update score and remove the current letter.
+    // On correct answer, update score and remove the letter,
+    // and keep the turn for the same player.
     if (isMultiplayer) {
       if (myPlayer === 1) {
         player1Score++;
@@ -394,7 +401,7 @@ function checkAnswer() {
     }
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
-    // On correct answer, keep the turn.
+    // On correct answer, the turn remains with the same player.
   } else {
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
@@ -418,7 +425,7 @@ function checkAnswer() {
       } else {
         player2Queue.push(player2Queue.shift());
       }
-      // In same-screen mode, toggle turn on incorrect answer.
+      // In same-screen mode, switch turn on incorrect answer.
       currentPlayer = (currentPlayer === 1) ? 2 : 1;
     }
   }
