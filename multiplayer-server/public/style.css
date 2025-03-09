@@ -243,7 +243,9 @@ h3 {
   margin: 20px 0;
   position: relative;
 }
-
+.timer-container:not(.active-turn) {
+  opacity: 0.5;
+}
 .timer-container h3::after {
   content: '';
   position: absolute;

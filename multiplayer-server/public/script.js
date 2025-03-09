@@ -97,18 +97,34 @@ socket.on("startGame", ({ room, currentTurn }) => {
   fetchQuestions();
 });
 
+// Update turnChanged handler to use server-sent time
 socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
+  
+  // Update timers from server data
+  if (isMultiplayer) {
+    if (myPlayer === 1) {
+      timeLeftPlayer1 = data.timeLeft || timeLeftPlayer1;
+      time1Element.textContent = timeLeftPlayer1;
+    } else {
+      timeLeftPlayer2 = data.timeLeft || timeLeftPlayer2;
+      time2Element.textContent = timeLeftPlayer2;
+    }
+  }
+
+  // Start timer with remaining time
+  startTimer(data.timeLeft);
   loadNextQuestion();
-  // Enable input only if it's your turn (by comparing to socket.id)
+  
+  // Enable input only for active player
   answerInput.disabled = (currentPlayer !== socket.id);
 });
 
+// Update timer values from server sync
 socket.on('updateTimer', (data) => {
-  currentPlayer = data.currentTurn;
-
-  if (currentPlayer === socket.id) {
+  // Only update if it's our own player data
+  if (data.playerId === socket.id) {
     if (myPlayer === 1) {
       timeLeftPlayer1 = data.timeLeft;
       time1Element.textContent = timeLeftPlayer1;
@@ -376,61 +392,80 @@ function activatePlayerLetter(playerNumber) {
 // -----------------------
 // Timer
 // -----------------------
-function startTimer() {
+function startTimer(initialTime = null) {
   clearInterval(timerInterval);
+  
+  // Initialize timers from server data if available
+  if (isMultiplayer) {
+    if (initialTime !== null) {
+      if (myPlayer === 1) timeLeftPlayer1 = initialTime;
+      if (myPlayer === 2) timeLeftPlayer2 = initialTime;
+    }
+    
+    // Sync with server every 5 seconds
+    const syncInterval = setInterval(() => {
+      if (currentPlayer === socket.id) {
+        const currentTime = myPlayer === 1 ? timeLeftPlayer1 : timeLeftPlayer2;
+        socket.emit('updateTimer', { 
+          room: currentRoom, 
+          timeLeft: currentTime 
+        });
+      }
+    }, 5000);
+  }
+
   timerInterval = setInterval(() => {
     if (!isPaused) {
       if (isMultiplayer) {
-        // In multiplayer mode, only the active player's timer should decrement
+        // Only active player's timer runs
         if (currentPlayer === socket.id) {
           if (myPlayer === 1) {
             timeLeftPlayer1--;
             time1Element.textContent = timeLeftPlayer1;
             if (timeLeftPlayer1 <= 0) {
+              clearInterval(syncInterval);
               timeLeftPlayer1 = 0;
-              socket.emit('playerAction', { room: currentRoom, action: 'skip' });
+              socket.emit('playerAction', { 
+                room: currentRoom, 
+                action: 'skip',
+                currentTime: timeLeftPlayer1 
+              });
             }
           } else {
             timeLeftPlayer2--;
             time2Element.textContent = timeLeftPlayer2;
             if (timeLeftPlayer2 <= 0) {
+              clearInterval(syncInterval);
               timeLeftPlayer2 = 0;
-              socket.emit('playerAction', { room: currentRoom, action: 'skip' });
+              socket.emit('playerAction', { 
+                room: currentRoom, 
+                action: 'skip',
+                currentTime: timeLeftPlayer2 
+              });
             }
           }
         }
       } else {
-        // Same-screen mode: Only the active player's timer should count down
-        if (currentPlayer === 1) {
-          timeLeftPlayer1--;
-          time1Element.textContent = timeLeftPlayer1;
-          if (timeLeftPlayer1 <= 0) {
-            timeLeftPlayer1 = 0;
-            if (!isPlayerFinished(2)) {
-              currentPlayer = 2;
-              loadNextQuestion();
-            } else {
-              endGame();
-            }
+        // Same-screen mode - continuous timer
+        const currentTime = currentPlayer === 1 ? timeLeftPlayer1 : timeLeftPlayer2;
+        if (currentTime > 0) {
+          if (currentPlayer === 1) {
+            timeLeftPlayer1--;
+            time1Element.textContent = timeLeftPlayer1;
+          } else {
+            timeLeftPlayer2--;
+            time2Element.textContent = timeLeftPlayer2;
           }
-        } else {
-          timeLeftPlayer2--;
-          time2Element.textContent = timeLeftPlayer2;
-          if (timeLeftPlayer2 <= 0) {
-            timeLeftPlayer2 = 0;
-            if (!isPlayerFinished(1)) {
-              currentPlayer = 1;
-              loadNextQuestion();
-            } else {
-              endGame();
-            }
+          
+          if ((currentPlayer === 1 && timeLeftPlayer1 <= 0) || 
+              (currentPlayer === 2 && timeLeftPlayer2 <= 0)) {
+            handleTimeout();
           }
         }
       }
     }
   }, 1000);
 }
-
 
 // -----------------------
 // Question Handling
