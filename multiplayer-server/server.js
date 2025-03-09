@@ -15,33 +15,38 @@ app.use(express.static('public'));
 io.on('connection', (socket) => {
   console.log(`Client connected: ${socket.id}`);
 
-  // Create a new room and set the first player as the active turn
+  // Create a new room and assign the first player as player 1
   socket.on('createRoom', () => {
     const roomCode = Math.random().toString(36).substr(2, 6).toUpperCase();
     rooms[roomCode] = { 
       players: [socket.id],
-      currentTurn: socket.id  // first player gets the turn
+      currentTurn: socket.id  // use socket id for turn tracking
     };
     socket.join(roomCode);
     console.log(`Room created: ${roomCode}`);
-    socket.emit('roomCreated', { room: roomCode });
+    // Send room code and assign player number 1
+    socket.emit('roomCreated', { room: roomCode, player: 1 });
   });
 
-  // Join an existing room
+  // Join an existing room and assign the joining player as player 2
   socket.on("joinRoom", ({ room }) => {
     if (rooms[room] && rooms[room].players.length < 2) {
       rooms[room].players.push(socket.id);
       socket.join(room);
       console.log(`Player joined room: ${room}`);
       
-      // Inform all players that someone has joined along with current turn info
+      // Determine player number based on the order in the room
+      const playerNumber = rooms[room].players.indexOf(socket.id) + 1;
+      
+      // Inform all players in the room (include new player's number)
       io.to(room).emit("roomJoined", { 
         room, 
         players: rooms[room].players, 
-        currentTurn: rooms[room].currentTurn 
+        currentTurn: rooms[room].currentTurn,
+        newPlayer: playerNumber 
       });
 
-      // Start the game when both players have joined
+      // Start the game when two players have joined
       if (rooms[room].players.length === 2) {
         io.to(room).emit("startGame", { 
           room, 
@@ -54,23 +59,16 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Optional: Handle player moves (if needed for your game)
-  socket.on('playerMove', (data) => {
-    // Broadcast the move to other players in the same room
-    socket.to(data.room).emit('playerMove', data);
-  });
-
-  // Handle player actions that require a turn change (e.g., skip or wrong answer)
+  // Handle player actions (skip or wrong answer)
   socket.on('playerAction', (data) => {
     const { room, action } = data;
     if (!rooms[room]) return;
     
-    // Ensure that the player performing the action is the one whose turn it is
+    // Only process the action if it's the acting player's turn
     if (rooms[room].currentTurn !== socket.id) return;
     
-    // Check for valid actions that cause turn changes
     if (action === 'skip' || action === 'wrongAnswer') {
-      // Find the other player in the room
+      // Switch turn to the other player in the room
       const otherPlayer = rooms[room].players.find(player => player !== socket.id);
       if (otherPlayer) {
         rooms[room].currentTurn = otherPlayer;
@@ -80,14 +78,19 @@ io.on('connection', (socket) => {
     }
   });
 
+  // Handle player moves (for correct answers)
+  socket.on('playerMove', (data) => {
+    // Broadcast the move to other players in the same room
+    socket.to(data.room).emit('playerMove', data);
+  });
+
   // Handle disconnects and clean up rooms
   socket.on('disconnect', () => {
     console.log(`Client disconnected: ${socket.id}`);
     for (const room in rooms) {
       if (rooms[room].players.includes(socket.id)) {
-        // Remove the player from the room's player list
         rooms[room].players = rooms[room].players.filter(player => player !== socket.id);
-        // If the disconnected player was the current turn, assign the turn to the remaining player (if any)
+        // If the disconnected player was the current turn, assign turn to the remaining player
         if (rooms[room].currentTurn === socket.id && rooms[room].players.length > 0) {
           rooms[room].currentTurn = rooms[room].players[0];
           io.to(room).emit('turnChanged', { currentTurn: rooms[room].currentTurn });
