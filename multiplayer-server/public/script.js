@@ -251,27 +251,38 @@ function initializeGame() {
 // Alphabet Circle Generation & Activation
 // -----------------------
 function generateAlphabetCircles() {
+  // Clear the circles’ content.
   document.getElementById('alphabet-circle-1').innerHTML = '';
   document.getElementById('alphabet-circle-2').innerHTML = '';
-
+  
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
-
-  // Hide both circles first
+  
+  // Hide both circles and remove any active classes.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
-
+  player1Circle.classList.remove('active');
+  player2Circle.classList.remove('active');
+  
+  // In same-screen mode, show the circle for the active player.
   if (!isMultiplayer) {
-    // In same-screen mode, show only the active player's circle
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
+      player1Circle.classList.add('active');
     } else {
       player2Circle.style.display = 'block';
+      player2Circle.classList.add('active');
     }
   } else {
+    // In multiplayer mode, show your circle if it's your turn.
     if (currentPlayer === myPlayer) {
-      if (myPlayer === 1) player1Circle.style.display = 'block';
-      else player2Circle.style.display = 'block';
+      if (myPlayer === 1) {
+        player1Circle.style.display = 'block';
+        player1Circle.classList.add('active');
+      } else {
+        player2Circle.style.display = 'block';
+        player2Circle.classList.add('active');
+      }
     }
   }
 }
@@ -442,37 +453,43 @@ function loadNextQuestion() {
   } else {
     currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
   }
-
+  
   if (currentQueue.length === 0) {
     endGame();
     return;
   }
-
+  
   const nextLetter = currentQueue[0];
+  // Use the appropriate player number: in same-screen, currentPlayer; in multiplayer, myPlayer.
   loadQuestion(nextLetter, isMultiplayer ? myPlayer : currentPlayer);
-
-  // Hide both alphabet circles first
+  
+  // Hide both circles and remove active classes.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
-
-  // Show only the active player's circle
+  player1Circle.classList.remove('active');
+  player2Circle.classList.remove('active');
+  
+  // Show only the active player's circle.
   if (!isMultiplayer) {
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
+      player1Circle.classList.add('active');
     } else {
       player2Circle.style.display = 'block';
+      player2Circle.classList.add('active');
     }
   } else {
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) {
         player1Circle.style.display = 'block';
+        player1Circle.classList.add('active');
       } else {
         player2Circle.style.display = 'block';
+        player2Circle.classList.add('active');
       }
     }
   }
-
-  // Activate the letter for the active player
+  
   activateCurrentLetter();
   answerInput.disabled = false;
   answerInput.focus();
