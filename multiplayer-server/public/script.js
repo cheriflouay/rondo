@@ -251,20 +251,20 @@ function initializeGame() {
 // Alphabet Circle Generation & Activation
 // -----------------------
 function generateAlphabetCircles() {
-  // Clear the circles’ content.
+  // Clear existing circle content.
   document.getElementById('alphabet-circle-1').innerHTML = '';
   document.getElementById('alphabet-circle-2').innerHTML = '';
   
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
-  // Hide both circles and remove any active classes.
+  // Hide both circles and remove active classes.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
   player1Circle.classList.remove('active');
   player2Circle.classList.remove('active');
   
-  // In same-screen mode, show the circle for the active player.
+  // In same-screen mode, show the active player's circle.
   if (!isMultiplayer) {
     if (currentPlayer === 1) {
       player1Circle.style.display = 'block';
@@ -274,7 +274,7 @@ function generateAlphabetCircles() {
       player2Circle.classList.add('active');
     }
   } else {
-    // In multiplayer mode, show your circle if it's your turn.
+    // In multiplayer mode, show your own circle if it's your turn.
     if (currentPlayer === myPlayer) {
       if (myPlayer === 1) {
         player1Circle.style.display = 'block';
@@ -447,23 +447,19 @@ function checkAnswer() {
 }
 
 function loadNextQuestion() {
-  let currentQueue;
-  if (isMultiplayer) {
-    currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
-  } else {
-    currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
-  }
-  
+  let currentQueue = !isMultiplayer 
+    ? (currentPlayer === 1 ? player1Queue : player2Queue) 
+    : (myPlayer === 1 ? player1Queue : player2Queue);
+    
   if (currentQueue.length === 0) {
     endGame();
     return;
   }
   
   const nextLetter = currentQueue[0];
-  // Use the appropriate player number: in same-screen, currentPlayer; in multiplayer, myPlayer.
-  loadQuestion(nextLetter, isMultiplayer ? myPlayer : currentPlayer);
+  loadQuestion(nextLetter, !isMultiplayer ? currentPlayer : myPlayer);
   
-  // Hide both circles and remove active classes.
+  // Hide both circles and clear active classes.
   player1Circle.style.display = 'none';
   player2Circle.style.display = 'none';
   player1Circle.classList.remove('active');
