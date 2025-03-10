@@ -12,6 +12,10 @@ let currentRoom = null;    // Current room code
 let currentPlayer = null;  // Holds the socket id of the player whose turn it is
 let isMultiplayer = true;  // true for multiplayer mode, false for same-screen mode
 
+// We'll store the two players' socket IDs here once available
+let player1SocketId = null;
+let player2SocketId = null;
+
 // -----------------------
 // Helper Functions for Player Status
 // -----------------------
@@ -71,6 +75,8 @@ const socket = io(); // Connect to your Socket.IO server
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
   myPlayer = data.player; // Player 1
+  // For room creator, store their socket id as player1SocketId
+  player1SocketId = socket.id;
   console.log("Room created:", data.room, "as Player", myPlayer);
 
   // Display the room code on screen
@@ -82,6 +88,8 @@ socket.on('roomCreated', (data) => {
 socket.on('roomJoined', (data) => {
   currentRoom = data.room;
   myPlayer = data.newPlayer; // Player 2
+  // For joiner, store their socket id as player2SocketId
+  player2SocketId = socket.id;
   console.log("Room joined:", data.room, "as Player", myPlayer);
 
   // Display the room code on screen (keep it consistent with 'roomCreated')
@@ -101,37 +109,37 @@ socket.on("startGame", ({ room, currentTurn }) => {
 // -----------------------
 // Updated Turn Changed Handler
 // -----------------------
+// Note: Ensure your server emits turnChanged with a full timers object, for example:
+// io.to(room).emit('turnChanged', { 
+//   currentTurn: otherPlayer,
+//   timers: rooms[room].timers
+// });
 socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
   
-  // Update both timers using the timers object sent from the server
-  if (isMultiplayer && data.timers) {
-    // Update current client's timer
-    if (data.timers[socket.id] !== undefined) {
-      if (myPlayer === 1) {
-        timeLeftPlayer1 = data.timers[socket.id];
-        time1Element.textContent = timeLeftPlayer1;
-      } else {
-        timeLeftPlayer2 = data.timers[socket.id];
-        time2Element.textContent = timeLeftPlayer2;
-      }
-    }
-    // Update the other player's timer
-    for (let id in data.timers) {
-      if (id !== socket.id) {
-        if (myPlayer === 1) {
-          timeLeftPlayer2 = data.timers[id];
-          time2Element.textContent = timeLeftPlayer2;
-        } else {
-          timeLeftPlayer1 = data.timers[id];
-          time1Element.textContent = timeLeftPlayer1;
-        }
-      }
+  // If we haven't set the player socket IDs from the timers object, do so now.
+  // (This is a fallback if for some reason the join events didn't provide them.)
+  if (!player1SocketId || !player2SocketId) {
+    const keys = Object.keys(data.timers);
+    if (keys.length === 2) {
+      // Assume the first key is player1's socket id (room creator) and the second is player2's.
+      player1SocketId = keys[0];
+      player2SocketId = keys[1];
     }
   }
   
-  // Restart timer without an initialTime parameter (timers are now managed via the timers object)
+  // Update each timer explicitly.
+  if (data.timers[player1SocketId] !== undefined) {
+    timeLeftPlayer1 = data.timers[player1SocketId];
+    time1Element.textContent = timeLeftPlayer1;
+  }
+  if (data.timers[player2SocketId] !== undefined) {
+    timeLeftPlayer2 = data.timers[player2SocketId];
+    time2Element.textContent = timeLeftPlayer2;
+  }
+  
+  // Restart timer (without initialTime parameter, as we now use timers object)
   startTimer();
   loadNextQuestion();
   
