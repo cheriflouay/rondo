@@ -147,29 +147,18 @@ socket.on('turnChanged', (data) => {
     time2Element.textContent = timeLeftPlayer2;
   }
   
-  // Restart timer (without initialTime parameter, as we now use timers object)
+  // Restart timer and load the next question.
   startTimer();
   loadNextQuestion();
   
-  // Enable input only for active player
+  // Enable input only for the active player.
   answerInput.disabled = (currentPlayer !== socket.id);
 });
+
 
 // -----------------------
 // Update Timer from Server (for the active player)
 // -----------------------
-socket.on('updateTimer', (data) => {
-  // Only update if it's our own player data
-  if (data.playerId === socket.id) {
-    if (myPlayer === 1) {
-      timeLeftPlayer1 = data.timeLeft;
-      time1Element.textContent = timeLeftPlayer1;
-    } else {
-      timeLeftPlayer2 = data.timeLeft;
-      time2Element.textContent = timeLeftPlayer2;
-    }
-  }
-});
 
 socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
@@ -438,7 +427,6 @@ function startTimer(initialTime = null) {
   timerInterval = setInterval(() => {
     if (!isPaused) {
       if (isMultiplayer) {
-        // Only active player's timer runs locally
         if (currentPlayer === socket.id) {
           if (myPlayer === 1) {
             timeLeftPlayer1--;

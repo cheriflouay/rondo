@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const rooms = {}; // Structure: 
+// Structure of rooms:
 // {
 //   [roomCode]: {
 //     players: [socketId1, socketId2],
@@ -18,6 +18,7 @@ const rooms = {}; // Structure:
 //     }
 //   }
 // }
+const rooms = {};
 
 app.use(express.static('public'));
 
@@ -31,9 +32,7 @@ io.on('connection', (socket) => {
       players: [socket.id],
       currentTurn: socket.id,
       timers: {
-        [socket.id]: 250,
-        // Initialize opponent timer placeholder
-        'opponent': 250
+        [socket.id]: 250, // Only the creator's timer for now
       }
     };
     socket.join(roomCode);
@@ -51,20 +50,18 @@ io.on('connection', (socket) => {
       rooms[room].players.push(socket.id);
       socket.join(room);
       
-      // Initialize timers for both players
-      rooms[room].timers = {
-        [rooms[room].players[0]]: 250,
-        [socket.id]: 250
-      };
+      // Add second player's timer without overwriting the first
+      rooms[room].timers[socket.id] = 250;
 
-      const playerNumber = 2;
-      io.to(room).emit("roomJoined", { 
+      // Tell the new socket it joined as player 2
+      socket.emit("roomJoined", { 
         room,
         currentTurn: rooms[room].currentTurn,
-        newPlayer: playerNumber,
+        newPlayer: 2,
         initialTime: 250
       });
 
+      // If room now has 2 players, start the game
       if (rooms[room].players.length === 2) {
         io.to(room).emit("startGame", { 
           room,
@@ -78,7 +75,7 @@ io.on('connection', (socket) => {
     }
   });
 
-  // Handle player actions
+  // Handle a player's action (e.g. submitting an answer)
   socket.on('playerAction', (data) => {
     const { room, action, currentTime } = data;
     if (!rooms[room] || rooms[room].currentTurn !== socket.id) return;
@@ -86,23 +83,24 @@ io.on('connection', (socket) => {
     // Update current player's remaining time
     rooms[room].timers[socket.id] = currentTime;
 
+    // Switch turn to the other player
     const otherPlayer = rooms[room].players.find(player => player !== socket.id);
     rooms[room].currentTurn = otherPlayer;
 
     io.to(room).emit('turnChanged', { 
       currentTurn: otherPlayer,
       timers: rooms[room].timers
-    });    
+    });
   });
 
-  // Handle timer updates from clients
+  // Handle incremental timer updates
   socket.on('updateTimer', ({ room, timeLeft }) => {
     if (rooms[room]) {
       rooms[room].timers[socket.id] = timeLeft;
     }
   });
 
-  // Handle correct answers
+  // Broadcast moves or actions to the opponent
   socket.on('playerMove', (data) => {
     socket.to(data.room).emit('playerMove', data);
   });
@@ -113,6 +111,7 @@ io.on('connection', (socket) => {
       if (rooms[room].players.includes(socket.id)) {
         rooms[room].players = rooms[room].players.filter(player => player !== socket.id);
         
+        // If the disconnecting player had the current turn, give it to whoever remains
         if (rooms[room].currentTurn === socket.id && rooms[room].players.length > 0) {
           const remainingPlayer = rooms[room].players[0];
           rooms[room].currentTurn = remainingPlayer;
@@ -122,6 +121,7 @@ io.on('connection', (socket) => {
           });
         }
         
+        // If nobody left in the room, remove the room entirely
         if (rooms[room].players.length === 0) {
           delete rooms[room];
         }
