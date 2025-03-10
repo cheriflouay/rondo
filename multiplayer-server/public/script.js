@@ -101,18 +101,14 @@ socket.on('roomJoined', (data) => {
 // -----------------------
 // Start Game & Initialize Timers Using Server Data
 // -----------------------
-socket.on("startGame", ({ room, currentTurn, timers }) => {
+socket.on("startGame", ({ room, currentTurn, timers, players }) => {
   console.log(`Game started in room: ${room}`);
   currentPlayer = currentTurn;  // This is a socket id
 
-  // Map the timers keys to player1 and player2.
-  // Assuming the server sends timers as { [socketId1]: time, [socketId2]: time }
-  const socketIds = Object.keys(timers);
-  if (socketIds.length === 2) {
-    // Assign based on room creator/joiner order.
-    player1SocketId = socketIds[0];
-    player2SocketId = socketIds[1];
-  }
+  // Use the players array to unambiguously map player socket IDs.
+  player1SocketId = players[0];
+  player2SocketId = players[1];
+
   // Set local timers using mapped socket IDs
   timeLeftPlayer1 = timers[player1SocketId];
   timeLeftPlayer2 = timers[player2SocketId];
@@ -123,6 +119,7 @@ socket.on("startGame", ({ room, currentTurn, timers }) => {
   document.getElementById("game-container").style.display = "block";
   fetchQuestions();
 });
+
 
 // -----------------------
 // Updated Turn Changed Handler

@@ -69,8 +69,9 @@ io.on('connection', (socket) => {
         io.to(room).emit("startGame", { 
           room,
           currentTurn: rooms[room].currentTurn,
-          timers: rooms[room].timers
-        });
+          timers: rooms[room].timers,
+          players: rooms[room].players
+        });        
       }
     } else {
       socket.emit("error", { message: "Room is full or does not exist." });
