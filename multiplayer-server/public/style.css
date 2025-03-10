@@ -176,15 +176,11 @@ button {
   background-color: #ffffff;
   color: #333;
   padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  /* max-width: 500px;  <-- remove or comment out */
-  width: 100%;          /* let it stretch across the whole page */
-  min-height: 100vh;    /* fill full browser height */
-  margin: 0;            /* remove top/bottom margins if you want full coverage */
-  border-radius: 0;     /* optional: remove rounded corners */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* Remove or override any max-width restrictions */
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  border-radius: 0;
   box-sizing: border-box;
 }
 
@@ -286,15 +282,27 @@ h3 {
 
 
 /* Player Circles */
-.player-circle {
-  display: none;
-  position: relative;
-  width: 300px;  /* or smaller/larger if you prefer */
-  height: 300px;
-  /* margin: 50px auto;     <-- remove or override
-     left: 34%;            
-     transform: translateX(-50%); */
+.circles-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 40px; /* Adjust spacing between circles as needed */
+  width: 100%;
+  margin-bottom: 20px; /* Space between circles and next content */
 }
+
+/* Override any old positioning rules on player circles */
+.player-circle {
+  /* Remove any positioning like left or transform from previous rules */
+  position: relative;
+  width: 300px;  /* Adjust circle size if needed */
+  height: 300px;
+  margin: 0;     /* Let the container handle spacing */
+  left: auto !important;
+  transform: none !important;
+}
+
 
 
 .player-circle.active {
