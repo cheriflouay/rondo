@@ -39,7 +39,9 @@ document.getElementById('multiplayer')?.addEventListener('click', function() {
 document.getElementById('same-screen')?.addEventListener('click', function() {
   isMultiplayer = false;
   document.getElementById('landing-page').style.display = 'none';
-  document.getElementById('game-container').style.display = 'block';
+  const gameContainer = document.getElementById('game-container');
+  gameContainer.style.display = 'block';
+  gameContainer.classList.add('same-screen'); // add new class for styling
   // In same-screen mode, show the Play button to start the game.
   document.getElementById('play-btn').style.display = 'block';
 });
@@ -316,14 +318,9 @@ function generateAlphabetCircles() {
       player2Circle.style.display = 'block';
     }
   } else {
-    // Same-screen mode: show the active player's circle
-    if (currentPlayer === 1) {
-      player1Circle.style.display = 'block';
-      player2Circle.style.display = 'none';
-    } else {
-      player1Circle.style.display = 'none';
-      player2Circle.style.display = 'block';
-    }
+    // Same-screen mode: display both circles
+    player1Circle.style.display = 'block';
+    player2Circle.style.display = 'block';
   }
   // Optionally add an active class to the displayed circle
   if (myPlayer === 1 || (!isMultiplayer && currentPlayer === 1)) {

@@ -264,6 +264,12 @@ h3 {
   100% { opacity: 0.3; }
 }
 
+.game-container.same-screen .player-circle {
+  left: 0;
+  transform: none;
+  margin-bottom: 20px; /* adds spacing between circles */
+}
+
 /* Player Circles */
 .player-circle {
   display: none;
