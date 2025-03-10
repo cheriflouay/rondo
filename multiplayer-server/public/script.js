@@ -135,16 +135,21 @@ socket.on('letterStatusUpdate', (data) => {
 // Start Game & Initialize Timers Using Server Data
 // -----------------------
 socket.on("startGame", ({ room, currentTurn, timers, players }) => {
-  console.log(`Game started in room: ${room}`);
-  currentPlayer = currentTurn;  // This is a socket id
+  console.log(`Game started in room: ${room}`, { timers, players });
+  
+  if (!timers || !players || players.length !== 2) {
+    console.error('Invalid startGame data:', { timers, players });
+    return;
+  }
 
-  // Use the players array to unambiguously map player socket IDs.
+  currentPlayer = currentTurn;
   player1SocketId = players[0];
   player2SocketId = players[1];
 
-  // Set local timers using mapped socket IDs
-  timeLeftPlayer1 = timers[player1SocketId];
-  timeLeftPlayer2 = timers[player2SocketId];
+  // Safely access timers with fallbacks
+  timeLeftPlayer1 = timers[player1SocketId] ?? 250;
+  timeLeftPlayer2 = timers[player2SocketId] ?? 250;
+  
   time1Element.textContent = timeLeftPlayer1;
   time2Element.textContent = timeLeftPlayer2;
 
