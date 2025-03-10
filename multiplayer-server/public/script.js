@@ -577,6 +577,7 @@ function checkAnswer() {
 
 function loadNextQuestion() {
   if (isMultiplayer) {
+    // Use the local player's queue to check for end-game.
     let myQueue = (myPlayer === 1) ? player1Queue : player2Queue;
     if (myQueue.length === 0) {
       endGame();
@@ -591,11 +592,17 @@ function loadNextQuestion() {
       loadNextQuestion();
       return;
     }
-
-    loadQuestion(nextLetter, myPlayer);
-    activatePlayerLetter(myPlayer);
-
-    // New visibility control
+    
+    // Load question only for the active player
+    if (currentPlayer === socket.id) {
+      loadQuestion(nextLetter, myPlayer);
+    }
+    
+    // Update both players' alphabet circles.
+    activatePlayerLetter(1);
+    activatePlayerLetter(2);
+    
+    // UI controls to indicate turn status
     const isActivePlayer = (currentPlayer === socket.id);
     const questionContainer = document.getElementById('question-container');
     const questionElement = document.getElementById('question');
@@ -603,17 +610,14 @@ function loadNextQuestion() {
     const skipBtn = document.getElementById('skip-btn');
     const existingWaitingMessage = document.getElementById('waiting-message');
 
-    // Clear previous waiting message
     if (existingWaitingMessage) existingWaitingMessage.remove();
-
+    
     if (isActivePlayer) {
-      // Show active player's interface
       questionElement.style.display = 'block';
       answerContainer.style.display = 'flex';
       skipBtn.style.display = 'block';
       document.getElementById('submit-answer').style.display = 'block';
     } else {
-      // Hide question and show waiting state
       questionElement.style.display = 'none';
       const waitingMessage = document.createElement('div');
       waitingMessage.id = 'waiting-message';
@@ -623,12 +627,12 @@ function loadNextQuestion() {
       skipBtn.style.display = 'none';
       document.getElementById('submit-answer').style.display = 'none';
     }
-
+    
     answerInput.disabled = !isActivePlayer;
     answerInput.focus();
-
-  } else { 
-    // Same-screen mode (existing code remains unchanged)
+    
+  } else {
+    // Same-screen mode remains unchanged.
     let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
     if (currentQueue.length === 0) {
       endGame();
@@ -643,13 +647,13 @@ function loadNextQuestion() {
       loadNextQuestion();
       return;
     }
-
     loadQuestion(nextLetter, currentPlayer);
     activateCurrentLetter();
     answerInput.disabled = false;
     answerInput.focus();
   }
 }
+
 
 function checkEndGame() {
   if (player1Queue.length === 0 && player2Queue.length === 0) {
