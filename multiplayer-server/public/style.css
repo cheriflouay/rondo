@@ -15,7 +15,7 @@ html[dir="rtl"] {
 .logo {
   width: 300px;  /* Adjust this value to make logo bigger/smaller */
   height: auto; /* Maintain aspect ratio */
-  margin-right: 15px; /* Optional spacing adjustment */
+  margin-right: 1px; /* Optional spacing adjustment */
 }
 /* --- LANDING PAGE STYLES --- */
 .landing-container {
