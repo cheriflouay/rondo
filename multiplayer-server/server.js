@@ -105,6 +105,10 @@ io.on('connection', (socket) => {
     socket.to(data.room).emit('playerMove', data);
   });
 
+  socket.on('alphabetUpdate', (data) => {
+    socket.to(data.room).emit('alphabetUpdate', data);
+  });  
+
   // Handle disconnects
   socket.on('disconnect', () => {
     for (const room in rooms) {

@@ -98,6 +98,18 @@ socket.on('roomJoined', (data) => {
   roomDisplay.style.display = 'block';
 });
 
+// Listen for opponent's alphabet queue updates
+socket.on('alphabetUpdate', (data) => {
+  // Update the opponent's queue and redraw their alphabet circle.
+  if (data.player === 1) {
+    player1Queue = data.queue;
+    activatePlayerLetter(1);
+  } else if (data.player === 2) {
+    player2Queue = data.queue;
+    activatePlayerLetter(2);
+  }
+});
+
 // -----------------------
 // Start Game & Initialize Timers Using Server Data
 // -----------------------
@@ -119,7 +131,6 @@ socket.on("startGame", ({ room, currentTurn, timers, players }) => {
   document.getElementById("game-container").style.display = "block";
   fetchQuestions();
 });
-
 
 // -----------------------
 // Updated Turn Changed Handler
@@ -155,11 +166,9 @@ socket.on('turnChanged', (data) => {
   answerInput.disabled = (currentPlayer !== socket.id);
 });
 
-
 // -----------------------
-// Update Timer from Server (for the active player)
+// Player Move Handler
 // -----------------------
-
 socket.on('playerMove', (data) => {
   if (data.playerId !== myPlayer) {
     console.log("Received move from opponent:", data);
@@ -223,7 +232,6 @@ const gameOverSound = document.getElementById('game-over-sound');
 // -----------------------
 // Event Listeners for Game Actions
 // -----------------------
-
 document.getElementById('submit-answer').addEventListener('click', () => {
   console.log("Submit Answer button clicked.");
   if (isMultiplayer && currentPlayer !== socket.id) {
@@ -243,6 +251,12 @@ document.getElementById('skip-btn').addEventListener('click', () => {
     } else {
       player2Queue.push(player2Queue.shift());
     }
+    // Emit updated alphabet queue
+    socket.emit('alphabetUpdate', {
+      room: currentRoom,
+      player: myPlayer,
+      queue: myPlayer === 1 ? player1Queue : player2Queue
+    });
     socket.emit('playerAction', { room: currentRoom, action: 'skip' });
   } else {
     if (currentPlayer === 1) {
@@ -382,7 +396,7 @@ function activateCurrentLetter() {
 }
 
 function activatePlayerLetter(playerNumber) {
-  // For multiplayer mode: update only your own circle
+  // Update the circle for the given player number
   let queue = (playerNumber === 1) ? player1Queue : player2Queue;
   let circleId = (playerNumber === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
   const circle = document.getElementById(circleId);
@@ -529,6 +543,12 @@ function checkAnswer() {
         answer: userAnswer,
         isCorrect: true
       });
+      // Emit updated alphabet queue for your player.
+      socket.emit('alphabetUpdate', {
+        room: currentRoom,
+        player: myPlayer,
+        queue: myPlayer === 1 ? player1Queue : player2Queue
+      });
     } else {
       if (currentPlayer === 1) {
         player1Score++;
@@ -558,6 +578,12 @@ function checkAnswer() {
         isCorrect: false
       });
       socket.emit('playerAction', { room: currentRoom, action: 'wrongAnswer' });
+      // Emit updated alphabet queue after rotating
+      socket.emit('alphabetUpdate', {
+        room: currentRoom,
+        player: myPlayer,
+        queue: myPlayer === 1 ? player1Queue : player2Queue
+      });
     } else {
       if (currentPlayer === 1) {
         player1Queue.push(player1Queue.shift());
@@ -653,7 +679,6 @@ function loadNextQuestion() {
     answerInput.focus();
   }
 }
-
 
 function checkEndGame() {
   if (player1Queue.length === 0 && player2Queue.length === 0) {
