@@ -109,6 +109,10 @@ io.on('connection', (socket) => {
     socket.to(data.room).emit('alphabetUpdate', data);
   });  
 
+  socket.on('letterStatusUpdate', (data) => {
+    socket.to(data.room).emit('letterStatusUpdate', data);
+  });
+  
   // Handle disconnects
   socket.on('disconnect', () => {
     for (const room in rooms) {

@@ -110,6 +110,27 @@ socket.on('alphabetUpdate', (data) => {
   }
 });
 
+// Listen for letter status updates (correct, incorrect, skipped)
+socket.on('letterStatusUpdate', (data) => {
+  // Determine which circle to update based on the player number.
+  let circleId = data.player === 1 ? 'alphabet-circle-1' : 'alphabet-circle-2';
+  const circle = document.getElementById(circleId);
+  const letters = circle.querySelectorAll('.letter');
+  letters.forEach(letter => {
+    if (letter.textContent === data.letter) {
+      // Remove any previous status classes.
+      letter.classList.remove('correct', 'incorrect', 'skipped');
+      if (data.status === 'correct') {
+         letter.classList.add('correct', 'used');
+      } else if (data.status === 'incorrect') {
+         letter.classList.add('incorrect', 'used');
+      } else if (data.status === 'skipped') {
+         letter.classList.add('skipped', 'used');
+      }
+    }
+  });
+});
+
 // -----------------------
 // Start Game & Initialize Timers Using Server Data
 // -----------------------
@@ -245,13 +266,27 @@ document.getElementById('skip-btn').addEventListener('click', () => {
   // Only allow skipping if it is your turn
   if (isMultiplayer && currentPlayer !== socket.id) return;
   if (isMultiplayer) {
-    // Rotate your own letter queue before emitting the skip action
+    // Before rotating, capture the letter to mark as skipped.
     if (myPlayer === 1) {
+      const skippedLetter = player1Queue[0];
+      socket.emit('letterStatusUpdate', {
+        room: currentRoom,
+        player: myPlayer,
+        letter: skippedLetter,
+        status: 'skipped'
+      });
       player1Queue.push(player1Queue.shift());
     } else {
+      const skippedLetter = player2Queue[0];
+      socket.emit('letterStatusUpdate', {
+        room: currentRoom,
+        player: myPlayer,
+        letter: skippedLetter,
+        status: 'skipped'
+      });
       player2Queue.push(player2Queue.shift());
     }
-    // Emit updated alphabet queue
+    // Emit updated alphabet queue after skipping.
     socket.emit('alphabetUpdate', {
       room: currentRoom,
       player: myPlayer,
@@ -396,7 +431,7 @@ function activateCurrentLetter() {
 }
 
 function activatePlayerLetter(playerNumber) {
-  // Update the circle for the given player number
+  // Update the circle for the given player number.
   let queue = (playerNumber === 1) ? player1Queue : player2Queue;
   let circleId = (playerNumber === 1) ? 'alphabet-circle-1' : 'alphabet-circle-2';
   const circle = document.getElementById(circleId);
@@ -543,7 +578,14 @@ function checkAnswer() {
         answer: userAnswer,
         isCorrect: true
       });
-      // Emit updated alphabet queue for your player.
+      // Emit letter status update for correct answer.
+      socket.emit('letterStatusUpdate', {
+        room: currentRoom,
+        player: myPlayer,
+        letter: selectedLetter.textContent,
+        status: 'correct'
+      });
+      // Emit updated alphabet queue.
       socket.emit('alphabetUpdate', {
         room: currentRoom,
         player: myPlayer,
@@ -578,7 +620,14 @@ function checkAnswer() {
         isCorrect: false
       });
       socket.emit('playerAction', { room: currentRoom, action: 'wrongAnswer' });
-      // Emit updated alphabet queue after rotating
+      // Emit letter status update for incorrect answer.
+      socket.emit('letterStatusUpdate', {
+        room: currentRoom,
+        player: myPlayer,
+        letter: selectedLetter.textContent,
+        status: 'incorrect'
+      });
+      // Emit updated alphabet queue.
       socket.emit('alphabetUpdate', {
         room: currentRoom,
         player: myPlayer,
@@ -731,7 +780,7 @@ function restartGame() {
   document.getElementById('result').style.display = 'none';
   document.getElementById('pause-btn').textContent = 'Pause';
   document.querySelectorAll('.letter').forEach(letter => {
-    letter.classList.remove('correct', 'incorrect', 'used', 'active');
+    letter.classList.remove('correct', 'incorrect', 'used', 'active', 'skipped');
   });
   answerInput.disabled = false;
   document.getElementById('submit-answer').disabled = false;
