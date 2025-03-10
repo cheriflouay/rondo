@@ -98,31 +98,50 @@ socket.on("startGame", ({ room, currentTurn }) => {
   fetchQuestions();
 });
 
-// Update turnChanged handler to use server-sent time
+// -----------------------
+// Updated Turn Changed Handler
+// -----------------------
 socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
   
-  // Update timers from server data
-  if (isMultiplayer) {
-    if (myPlayer === 1) {
-      timeLeftPlayer1 = data.timeLeft || timeLeftPlayer1;
-      time1Element.textContent = timeLeftPlayer1;
-    } else {
-      timeLeftPlayer2 = data.timeLeft || timeLeftPlayer2;
-      time2Element.textContent = timeLeftPlayer2;
+  // Update both timers using the timers object sent from the server
+  if (isMultiplayer && data.timers) {
+    // Update current client's timer
+    if (data.timers[socket.id] !== undefined) {
+      if (myPlayer === 1) {
+        timeLeftPlayer1 = data.timers[socket.id];
+        time1Element.textContent = timeLeftPlayer1;
+      } else {
+        timeLeftPlayer2 = data.timers[socket.id];
+        time2Element.textContent = timeLeftPlayer2;
+      }
+    }
+    // Update the other player's timer
+    for (let id in data.timers) {
+      if (id !== socket.id) {
+        if (myPlayer === 1) {
+          timeLeftPlayer2 = data.timers[id];
+          time2Element.textContent = timeLeftPlayer2;
+        } else {
+          timeLeftPlayer1 = data.timers[id];
+          time1Element.textContent = timeLeftPlayer1;
+        }
+      }
     }
   }
-
-  // Start timer with remaining time
-  startTimer(data.timeLeft);
+  
+  // Restart timer without an initialTime parameter (timers are now managed via the timers object)
+  startTimer();
   loadNextQuestion();
   
   // Enable input only for active player
   answerInput.disabled = (currentPlayer !== socket.id);
 });
 
-// Update timer values from server sync
+// -----------------------
+// Update Timer from Server (for the active player)
+// -----------------------
 socket.on('updateTimer', (data) => {
   // Only update if it's our own player data
   if (data.playerId === socket.id) {
@@ -381,14 +400,13 @@ function activatePlayerLetter(playerNumber) {
 function startTimer(initialTime = null) {
   clearInterval(timerInterval);
   
-  // Initialize timers from server data if available
   if (isMultiplayer) {
     if (initialTime !== null) {
       if (myPlayer === 1) timeLeftPlayer1 = initialTime;
       if (myPlayer === 2) timeLeftPlayer2 = initialTime;
     }
     
-    // Sync with server every 5 seconds
+    // Sync with server every 5 seconds for the active player's timer
     const syncInterval = setInterval(() => {
       if (currentPlayer === socket.id) {
         const currentTime = myPlayer === 1 ? timeLeftPlayer1 : timeLeftPlayer2;
@@ -403,7 +421,7 @@ function startTimer(initialTime = null) {
   timerInterval = setInterval(() => {
     if (!isPaused) {
       if (isMultiplayer) {
-        // Only active player's timer runs
+        // Only active player's timer runs locally
         if (currentPlayer === socket.id) {
           if (myPlayer === 1) {
             timeLeftPlayer1--;

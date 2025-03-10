@@ -90,8 +90,8 @@ io.on('connection', (socket) => {
 
     io.to(room).emit('turnChanged', { 
       currentTurn: otherPlayer,
-      timeLeft: rooms[room].timers[otherPlayer]
-    });
+      timers: rooms[room].timers
+    });    
   });
 
   // Handle timer updates from clients
