@@ -98,9 +98,27 @@ socket.on('roomJoined', (data) => {
   roomDisplay.style.display = 'block';
 });
 
-socket.on("startGame", ({ room, currentTurn }) => {
+// -----------------------
+// Start Game & Initialize Timers Using Server Data
+// -----------------------
+socket.on("startGame", ({ room, currentTurn, timers }) => {
   console.log(`Game started in room: ${room}`);
-  currentPlayer = currentTurn; // This is a socket id
+  currentPlayer = currentTurn;  // This is a socket id
+
+  // Map the timers keys to player1 and player2.
+  // Assuming the server sends timers as { [socketId1]: time, [socketId2]: time }
+  const socketIds = Object.keys(timers);
+  if (socketIds.length === 2) {
+    // Assign based on room creator/joiner order.
+    player1SocketId = socketIds[0];
+    player2SocketId = socketIds[1];
+  }
+  // Set local timers using mapped socket IDs
+  timeLeftPlayer1 = timers[player1SocketId];
+  timeLeftPlayer2 = timers[player2SocketId];
+  time1Element.textContent = timeLeftPlayer1;
+  time2Element.textContent = timeLeftPlayer2;
+
   document.getElementById("lobby").style.display = "none";
   document.getElementById("game-container").style.display = "block";
   fetchQuestions();
@@ -109,21 +127,14 @@ socket.on("startGame", ({ room, currentTurn }) => {
 // -----------------------
 // Updated Turn Changed Handler
 // -----------------------
-// Note: Ensure your server emits turnChanged with a full timers object, for example:
-// io.to(room).emit('turnChanged', { 
-//   currentTurn: otherPlayer,
-//   timers: rooms[room].timers
-// });
 socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
   
   // If we haven't set the player socket IDs from the timers object, do so now.
-  // (This is a fallback if for some reason the join events didn't provide them.)
   if (!player1SocketId || !player2SocketId) {
     const keys = Object.keys(data.timers);
     if (keys.length === 2) {
-      // Assume the first key is player1's socket id (room creator) and the second is player2's.
       player1SocketId = keys[0];
       player2SocketId = keys[1];
     }
@@ -407,6 +418,7 @@ function activatePlayerLetter(playerNumber) {
 // -----------------------
 function startTimer(initialTime = null) {
   clearInterval(timerInterval);
+  let syncInterval = null;
   
   if (isMultiplayer) {
     if (initialTime !== null) {
@@ -415,7 +427,7 @@ function startTimer(initialTime = null) {
     }
     
     // Sync with server every 5 seconds for the active player's timer
-    const syncInterval = setInterval(() => {
+    syncInterval = setInterval(() => {
       if (currentPlayer === socket.id) {
         const currentTime = myPlayer === 1 ? timeLeftPlayer1 : timeLeftPlayer2;
         socket.emit('updateTimer', { 
