@@ -70,7 +70,9 @@ document.getElementById('play-btn').addEventListener('click', function() {
 // -----------------------
 // Socket.IO Integration (Multiplayer only)
 // -----------------------
-const socket = io(); // Connect to your Socket.IO server
+const socket = io('https://rondo-2os2.onrender.com', {
+  transports: ['websocket']
+});
 
 socket.on('roomCreated', (data) => {
   currentRoom = data.room;
@@ -520,6 +522,19 @@ function startTimer(initialTime = null) {
 }
 
 // -----------------------
+// Timeout Handler
+// -----------------------
+function handleTimeout() {
+  if (currentPlayer === 1) {
+    timeLeftPlayer1 = 0;
+    time1Element.textContent = 0;
+  } else {
+    timeLeftPlayer2 = 0;
+    time2Element.textContent = 0;
+  }
+  checkEndGame(); // Trigger end game checks
+}
+// -----------------------
 // Question Handling
 // -----------------------
 function loadQuestion(letter, playerNumber) {
@@ -534,18 +549,31 @@ function loadQuestion(letter, playerNumber) {
 
 function checkAnswer() {
   console.log("checkAnswer() invoked.");
+  
+  // 1. Add null check for selectedLetter first
+  if (!selectedLetter) {
+    console.error("Cannot check answer - no active letter selected!");
+    return;
+  }
+
+  // 2. Multiplayer turn validation
   if (isMultiplayer && currentPlayer !== socket.id) {
     console.log("Not your turn in multiplayer mode in checkAnswer.");
     return;
   }
+
   const userAnswer = answerInput.value.trim().toLowerCase();
+  
+  // 3. Validate answer input and current question
   if (!userAnswer || !currentQuestion) {
     console.log("No answer provided or no current question.");
     return;
   }
-  
+
   let isCorrect = false;
   const correctAnswers = Object.values(currentQuestion.answer).map(ans => ans.toLowerCase());
+  
+  // 4. Answer validation logic
   for (const ans of correctAnswers) {
     const ansWords = ans.split(/\s+/);
     if (userAnswer === ans || ansWords.includes(userAnswer)) {
@@ -553,9 +581,9 @@ function checkAnswer() {
       break;
     }
   }
-  
+
+  // 5. Handle correct answer
   if (isCorrect) {
-    // Correct answer: update score and remove letter from the queue.
     if (isMultiplayer) {
       if (myPlayer === 1) {
         player1Score++;
@@ -572,14 +600,12 @@ function checkAnswer() {
         answer: userAnswer,
         isCorrect: true
       });
-      // Emit letter status update for correct answer.
       socket.emit('letterStatusUpdate', {
         room: currentRoom,
         player: myPlayer,
         letter: selectedLetter.textContent,
         status: 'correct'
       });
-      // Emit updated alphabet queue.
       socket.emit('alphabetUpdate', {
         room: currentRoom,
         player: myPlayer,
@@ -599,7 +625,7 @@ function checkAnswer() {
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
   } else {
-    // Incorrect answer: remove the letter from the queue.
+    // 6. Handle incorrect answer
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
     if (isMultiplayer) {
@@ -615,14 +641,12 @@ function checkAnswer() {
         isCorrect: false
       });
       socket.emit('playerAction', { room: currentRoom, action: 'wrongAnswer' });
-      // Emit letter status update for incorrect answer.
       socket.emit('letterStatusUpdate', {
         room: currentRoom,
         player: myPlayer,
         letter: selectedLetter.textContent,
         status: 'incorrect'
       });
-      // Emit updated alphabet queue.
       socket.emit('alphabetUpdate', {
         room: currentRoom,
         player: myPlayer,
@@ -639,8 +663,10 @@ function checkAnswer() {
       }
     }
   }
-  
+
+  // 7. Cleanup and next steps
   answerInput.value = "";
+  console.log("Checking end game conditions...");
   checkEndGame();
   loadNextQuestion();
 }
@@ -726,8 +752,13 @@ function loadNextQuestion() {
 }
 
 function checkEndGame() {
+  // Add these logs
+  console.log("[Debug] Player 1 Queue:", player1Queue.length, "Time:", timeLeftPlayer1);
+  console.log("[Debug] Player 2 Queue:", player2Queue.length, "Time:", timeLeftPlayer2);
+
   if ((player1Queue.length === 0 && player2Queue.length === 0) ||
       (timeLeftPlayer1 <= 0 && timeLeftPlayer2 <= 0)) {
+    console.log("[Debug] End game condition met!");
     endGame();
   }
 }
@@ -745,7 +776,7 @@ function endGame() {
   document.getElementById('answer-container').style.display = 'none';
   document.getElementById('submit-answer').style.display = 'none';
   document.getElementById('skip-btn').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').classList.add('show');
   push(ref(db, 'leaderboard'), {
     player1Score,
     player2Score,
