@@ -13,7 +13,7 @@ html[dir="rtl"] {
 }
 /* Add this to your style.css */
 .logo {
-  width: 80px;  /* Adjust this value to make logo bigger/smaller */
+  width: 300px;  /* Adjust this value to make logo bigger/smaller */
   height: auto; /* Maintain aspect ratio */
   margin-right: 15px; /* Optional spacing adjustment */
 }
