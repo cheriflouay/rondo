@@ -76,22 +76,24 @@ io.on('connection', (socket) => {
   });
 
   // Handle a player's action (e.g. submitting an answer)
-  socket.on('playerAction', (data) => {
-    const { room, action, currentTime } = data;
-    if (!rooms[room] || rooms[room].currentTurn !== socket.id) return;
+// Inside the 'playerAction' handler:
+socket.on('playerAction', (data) => {
+  const { room, action, currentTime } = data;
+  if (!rooms[room] || rooms[room].currentTurn !== socket.id) return;
 
-    // Update current player's remaining time
-    rooms[room].timers[socket.id] = currentTime;
+  // Update the current player's timer
+  rooms[room].timers[socket.id] = currentTime;
 
-    // Switch turn to the other player
-    const otherPlayer = rooms[room].players.find(player => player !== socket.id);
-    rooms[room].currentTurn = otherPlayer;
+  // Switch turn
+  const otherPlayer = rooms[room].players.find(player => player !== socket.id);
+  rooms[room].currentTurn = otherPlayer;
 
-    io.to(room).emit('turnChanged', { 
-      currentTurn: otherPlayer,
-      timers: rooms[room].timers
-    });
+  // Sync both timers explicitly
+  io.to(room).emit('turnChanged', {
+    currentTurn: otherPlayer,
+    timers: rooms[room].timers // Contains both players' timers
   });
+});
 
   // Handle incremental timer updates
   socket.on('updateTimer', ({ room, timeLeft }) => {

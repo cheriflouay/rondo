@@ -135,21 +135,19 @@ socket.on('letterStatusUpdate', (data) => {
 // Start Game & Initialize Timers Using Server Data
 // -----------------------
 socket.on("startGame", ({ room, currentTurn, timers, players }) => {
-  console.log(`Game started in room: ${room}`, { timers, players });
-  
-  if (!timers || !players || players.length !== 2) {
-    console.error('Invalid startGame data:', { timers, players });
+  if (!room || !timers || !players || players.length !== 2) {
+    console.error("Invalid startGame data:", { room, timers, players });
     return;
   }
 
-  currentPlayer = currentTurn;
   player1SocketId = players[0];
   player2SocketId = players[1];
+  currentPlayer = currentTurn;
 
-  // Safely access timers with fallbacks
+  // Fallback to 250 if timer values are missing
   timeLeftPlayer1 = timers[player1SocketId] ?? 250;
   timeLeftPlayer2 = timers[player2SocketId] ?? 250;
-  
+
   time1Element.textContent = timeLeftPlayer1;
   time2Element.textContent = timeLeftPlayer2;
 
@@ -165,30 +163,21 @@ socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
   
-  // If we haven't set the player socket IDs from the timers object, do so now.
-  if (!player1SocketId || !player2SocketId) {
-    const keys = Object.keys(data.timers);
-    if (keys.length === 2) {
-      player1SocketId = keys[0];
-      player2SocketId = keys[1];
-    }
-  }
+  // Remove the code that guesses player IDs from timers
+  // Ensure player1SocketId and player2SocketId are already set via startGame
   
-  // Update each timer explicitly.
-  if (data.timers[player1SocketId] !== undefined) {
+  // Update timers safely
+  if (player1SocketId && data.timers[player1SocketId] !== undefined) {
     timeLeftPlayer1 = data.timers[player1SocketId];
     time1Element.textContent = timeLeftPlayer1;
   }
-  if (data.timers[player2SocketId] !== undefined) {
+  if (player2SocketId && data.timers[player2SocketId] !== undefined) {
     timeLeftPlayer2 = data.timers[player2SocketId];
     time2Element.textContent = timeLeftPlayer2;
   }
   
-  // Restart timer and load the next question.
   startTimer();
   loadNextQuestion();
-  
-  // Enable input only for the active player.
   answerInput.disabled = (currentPlayer !== socket.id);
 });
 
