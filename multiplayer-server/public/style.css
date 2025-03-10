@@ -265,9 +265,9 @@ h3 {
 }
 
 .game-container.same-screen .player-circle {
-  left: 0;
+  left: -50px;
   transform: none;
-  margin-bottom: 20px; /* adds spacing between circles */
+  margin-bottom: 150px; /* adds spacing between circles */
 }
 
 /* Player Circles */
@@ -275,8 +275,8 @@ h3 {
   display: none;
   position: relative;
   width: 100%;
-  max-width: 350px;
-  height: 350px;
+  max-width: 300px;
+  height: 300px;
   margin: 50px auto;
   left: 34%;
   transform: translateX(-50%);
