@@ -41,10 +41,10 @@ document.getElementById('same-screen')?.addEventListener('click', function() {
   document.getElementById('landing-page').style.display = 'none';
   const gameContainer = document.getElementById('game-container');
   gameContainer.style.display = 'block';
-  gameContainer.classList.add('same-screen'); // add new class for styling
-  // In same-screen mode, show the Play button to start the game.
+  gameContainer.classList.add('same-screen'); // <-- important
   document.getElementById('play-btn').style.display = 'block';
 });
+
 
 // -----------------------
 // Play Button for Same-Screen Mode

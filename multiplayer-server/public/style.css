@@ -176,16 +176,18 @@ button {
   background-color: #ffffff;
   color: #333;
   padding: 30px;
-  border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  max-width: 500px;
-  width: 90%;
-  text-align: center;
-  margin: 20px 0;
+  /* max-width: 500px;  <-- remove or comment out */
+  width: 100%;          /* let it stretch across the whole page */
+  min-height: 100vh;    /* fill full browser height */
+  margin: 0;            /* remove top/bottom margins if you want full coverage */
+  border-radius: 0;     /* optional: remove rounded corners */
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: border-box;
 }
+
 
 /* Headings */
 h1 {
@@ -264,23 +266,36 @@ h3 {
   100% { opacity: 0.3; }
 }
 
-.game-container.same-screen .player-circle {
-  left: -50px;
-  transform: none;
-  margin-bottom: 150px; /* adds spacing between circles */
+.game-container.same-screen {
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
 }
+
+.game-container.same-screen .player-circle {
+  display: block;
+  position: relative;
+  width: 300px;     /* or 250px, 350px, etc. */
+  height: 300px;    
+  margin: 20px;     /* spacing around each circle */
+  left: auto !important;
+  transform: none !important;
+}
+
 
 /* Player Circles */
 .player-circle {
   display: none;
   position: relative;
-  width: 100%;
-  max-width: 300px;
+  width: 300px;  /* or smaller/larger if you prefer */
   height: 300px;
-  margin: 50px auto;
-  left: 34%;
-  transform: translateX(-50%);
+  /* margin: 50px auto;     <-- remove or override
+     left: 34%;            
+     transform: translateX(-50%); */
 }
+
 
 .player-circle.active {
   display: block;
