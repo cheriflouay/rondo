@@ -561,7 +561,7 @@ function checkAnswer() {
   }
   
   if (isCorrect) {
-    // Correct answer: update score and remove letter.
+    // Correct answer: update score and remove letter from the queue.
     if (isMultiplayer) {
       if (myPlayer === 1) {
         player1Score++;
@@ -605,13 +605,14 @@ function checkAnswer() {
     selectedLetter.classList.add('correct', 'used');
     correctSound.play();
   } else {
+    // Incorrect answer: remove the letter from the queue.
     selectedLetter.classList.add('incorrect', 'used');
     incorrectSound.play();
     if (isMultiplayer) {
       if (myPlayer === 1) {
-        player1Queue.push(player1Queue.shift());
+        player1Queue.shift();
       } else {
-        player2Queue.push(player2Queue.shift());
+        player2Queue.shift();
       }
       socket.emit('playerMove', {
         room: currentRoom,
@@ -635,9 +636,9 @@ function checkAnswer() {
       });
     } else {
       if (currentPlayer === 1) {
-        player1Queue.push(player1Queue.shift());
+        player1Queue.shift();
       } else {
-        player2Queue.push(player2Queue.shift());
+        player2Queue.shift();
       }
       if (!isPlayerFinished(getOtherPlayer(currentPlayer))) {
         currentPlayer = getOtherPlayer(currentPlayer);
@@ -649,6 +650,7 @@ function checkAnswer() {
   checkEndGame();
   loadNextQuestion();
 }
+
 
 function loadNextQuestion() {
   if (isMultiplayer) {
@@ -730,10 +732,12 @@ function loadNextQuestion() {
 }
 
 function checkEndGame() {
-  if (player1Queue.length === 0 && player2Queue.length === 0) {
+  if ((player1Queue.length === 0 && player2Queue.length === 0) ||
+      (timeLeftPlayer1 <= 0 && timeLeftPlayer2 <= 0)) {
     endGame();
   }
 }
+
 
 function endGame() {
   clearInterval(timerInterval);
