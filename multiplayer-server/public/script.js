@@ -45,7 +45,6 @@ document.getElementById('same-screen')?.addEventListener('click', function() {
   document.getElementById('play-btn').style.display = 'block';
 });
 
-
 // -----------------------
 // Play Button for Same-Screen Mode
 // -----------------------
@@ -308,20 +307,10 @@ function generateAlphabetCircles() {
   generateAlphabetCircle('alphabet-circle-1', player1Questions, 1);
   generateAlphabetCircle('alphabet-circle-2', player2Questions, 2);
   
-  if (isMultiplayer) {
-    // In multiplayer, show only the circle for your own player number
-    if (myPlayer === 1) {
-      player1Circle.style.display = 'block';
-      player2Circle.style.display = 'none';
-    } else {
-      player1Circle.style.display = 'none';
-      player2Circle.style.display = 'block';
-    }
-  } else {
-    // Same-screen mode: display both circles
-    player1Circle.style.display = 'block';
-    player2Circle.style.display = 'block';
-  }
+  // Always show both circles regardless of mode
+  player1Circle.style.display = 'block';
+  player2Circle.style.display = 'block';
+  
   // Optionally add an active class to the displayed circle
   if (myPlayer === 1 || (!isMultiplayer && currentPlayer === 1)) {
     player1Circle.classList.add('active');

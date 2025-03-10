@@ -280,6 +280,10 @@ h3 {
   transform: none !important;
 }
 
+.game-container.multiplayer .player-circle {
+  display: flex !important; /* Ensures they are visible */
+}
+
 
 /* Player Circles */
 .circles-container {
