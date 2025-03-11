@@ -154,9 +154,12 @@ socket.on("startGame", ({ room, currentTurn, timers, players }) => {
   time2Element.textContent = timeLeftPlayer2;
 
   document.getElementById("lobby").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
+  const gameContainer = document.getElementById("game-container");
+  gameContainer.style.display = "block";
+  gameContainer.classList.add("same-screen"); 
   fetchQuestions();
 });
+
 
 // -----------------------
 // Updated Turn Changed Handler
