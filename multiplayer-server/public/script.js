@@ -775,6 +775,7 @@ function endGame() {
   document.getElementById('pause-btn').style.display = 'none';
   document.getElementById('player1-circle').style.display = 'none';
   document.getElementById('player2-circle').style.display = 'none';
+  document.getElementById('question-container').style.display = 'none';
   document.querySelector('.answer-container').style.display = 'none';
   document.querySelector('.timer-container').style.display = 'none';
   document.getElementById('result').classList.add('show');
