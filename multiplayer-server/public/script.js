@@ -771,24 +771,21 @@ function endGame() {
   document.getElementById('score1').textContent = player1Score;
   document.getElementById('score2').textContent = player2Score;
   
-  // Hide various game UI elements
+  // Hide game UI elements using class selectors
   document.getElementById('pause-btn').style.display = 'none';
   document.getElementById('player1-circle').style.display = 'none';
   document.getElementById('player2-circle').style.display = 'none';
-  document.getElementById('question-container').style.display = 'none';
-  document.getElementById('answer-container').style.display = 'none';
-  document.getElementById('timer-container').style.display = 'none';  
-  // Show result container by adding the 'show' class (which sets display: block)
+  document.querySelector('.answer-container').style.display = 'none';
+  document.querySelector('.timer-container').style.display = 'none';
   document.getElementById('result').classList.add('show');
-
-  // Push the result to the leaderboard (Firebase)
+  
+  // Push leaderboard data to Firebase
   push(ref(db, 'leaderboard'), {
     player1Score,
     player2Score,
     timestamp: new Date().toISOString()
   });
   
-  // Set winner message
   const winnerElement = document.getElementById('winner-message');
   if (player1Score > player2Score) {
     winnerElement.textContent = "Player 1 Wins! 🏆";
@@ -798,6 +795,7 @@ function endGame() {
     winnerElement.textContent = "It's a Draw! 🤝";
   }
 }
+
 
 
 function restartGame() {
