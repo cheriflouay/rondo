@@ -146,18 +146,22 @@ socket.on("startGame", ({ room, currentTurn, timers, players }) => {
   player2SocketId = players[1];
   currentPlayer = currentTurn;
 
-  // Ensure both timers are displayed at the start
+  // Initialize timers
   timeLeftPlayer1 = timers[player1SocketId] ?? 250;
   timeLeftPlayer2 = timers[player2SocketId] ?? 250;
   document.getElementById("time1").textContent = timeLeftPlayer1;
   document.getElementById("time2").textContent = timeLeftPlayer2;
 
+  // Hide lobby, show game container, and add same-screen class
   document.getElementById("lobby").style.display = "none";
-  document.getElementById("game-container").style.display = "block";
+  const gameContainer = document.getElementById("game-container");
+  gameContainer.style.display = "block";
+  gameContainer.classList.add("same-screen"); // Force same layout
 
   startTimer();
   fetchQuestions();
 });
+
 
 
 // -----------------------

@@ -625,6 +625,7 @@ button {
 .player-timer h3 {
   font-size: 1.1rem;
   color: #2a5298;
+  padding-left: 60px;
   margin: 0;
 }
 
