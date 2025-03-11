@@ -614,6 +614,20 @@ button {
   pointer-events: none;
 }
 
+/* --- Player Containers & Timer Styles --- */
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Adjust spacing as needed */
+}
+
+.player-timer h3 {
+  font-size: 1.1rem;
+  color: #2a5298;
+  margin: 0;
+}
+
 /* Animations */
 @keyframes correct-pulse {
   0% { transform: scale(1); }

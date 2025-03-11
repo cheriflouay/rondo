@@ -30,62 +30,69 @@
     <p id="room-code-display"></p>
   </div>
 
- <!-- Game Container (Hidden until a room is set up or same-screen mode is chosen) -->
-<div class="game-container" id="game-container" style="display: none;">
-  <header class="header">
-    <div class="header-top">
-      <img src="logo.jpg" alt="Football Rondo Logo" class="logo">
-      <select id="languageSwitcher">
-        <option value="en">English</option>
-        <option value="ar">العربية</option>
-        <option value="fr">Français</option>
-      </select>
-    </div>
-    <h1 data-i18n="headerTitle">Football Rondo</h1>
-    <!-- The Start Game button is hidden because room creation/joining triggers game start -->
-    <button id="play-btn" class="play-btn" data-i18n="startGame" style="display: none;">Start Game</button>
-  </header>
-  <button id="pause-btn">Pause</button>
+  <!-- Game Container (Hidden until a room is set up or same-screen mode is chosen) -->
+  <div class="game-container" id="game-container" style="display: none;">
+    <header class="header">
+      <div class="header-top">
+        <img src="logo.jpg" alt="Football Rondo Logo" class="logo">
+        <select id="languageSwitcher">
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+          <option value="fr">Français</option>
+        </select>
+      </div>
+      <h1 data-i18n="headerTitle">Football Rondo</h1>
+      <!-- The Start Game button is hidden because room creation/joining triggers game start -->
+      <button id="play-btn" class="play-btn" data-i18n="startGame" style="display: none;">Start Game</button>
+    </header>
+    <button id="pause-btn">Pause</button>
 
-  <!-- Wrap the circles in a new container -->
-  <div class="circles-container">
-    <div id="player1-circle" class="player-circle active">
-      <div id="alphabet-circle-1" class="alphabet-circle"></div>
+    <!-- Player Circles and Timers Container -->
+    <div class="circles-container">
+      <div class="player-container">
+        <div id="player1-circle" class="player-circle active">
+          <div id="alphabet-circle-1" class="alphabet-circle"></div>
+        </div>
+        <div class="player-timer">
+          <h3>Time: <span id="time1">250</span>s</h3>
+        </div>
+      </div>
+      <div class="player-container">
+        <div id="player2-circle" class="player-circle active">
+          <div id="alphabet-circle-2" class="alphabet-circle"></div>
+        </div>
+        <div class="player-timer">
+          <h3>Time: <span id="time2">250</span>s</h3>
+        </div>
+      </div>
     </div>
-    <div id="player2-circle" class="player-circle active">
-      <div id="alphabet-circle-2" class="alphabet-circle"></div>
+
+    <!-- Question/Answer Section -->
+    <div id="question-container">
+      <p id="question">Select a letter to start!</p>
+    </div>
+    <div class="answer-container">
+      <input type="text" id="answer-input" placeholder="Type your answer here...">
+      <button id="submit-answer">Submit Answer</button>
+      <button id="skip-btn">Skip Turn</button>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result">
+      <h2>Game Over!</h2>
+      <p id="winner-message"></p>
+      <div class="score-board">
+        <div>Player 1 Score: <span id="score1">0</span></div>
+        <div>Player 2 Score: <span id="score2">0</span></div>
+      </div>
+      <button id="restart-btn">Restart Game</button>
     </div>
   </div>
 
-  <!-- Question/Answer Section -->
-  <div id="question-container">
-    <p id="question">Select a letter to start!</p>
-  </div>
-  <div class="answer-container">
-    <input type="text" id="answer-input" placeholder="Type your answer here...">
-    <button id="submit-answer">Submit Answer</button>
-    <button id="skip-btn">Skip Turn</button>
-  </div>
-  <div class="timer-container">
-    <h3>Player 1 Time: <span id="time1">250</span>s</h3>
-    <h3>Player 2 Time: <span id="time2">250</span>s</h3>
-  </div>
-  <div id="result">
-    <h2>Game Over!</h2>
-    <p id="winner-message"></p>
-    <div class="score-board">
-      <div>Player 1 Score: <span id="score1">0</span></div>
-      <div>Player 2 Score: <span id="score2">0</span></div>
-    </div>
-    <button id="restart-btn">Restart Game</button>
-  </div>
-</div>
-
-
-<!-- Example if files are in a "sounds" folder -->
-<audio id="correct-sound" src="sounds/correct.mp3"></audio>
-<audio id="incorrect-sound" src="sounds/incorrect.mp3"></audio>
-<audio id="game-over-sound" src="sounds/game-over.mp3"></audio>
+  <!-- Audio Files -->
+  <audio id="correct-sound" src="sounds/correct.mp3"></audio>
+  <audio id="incorrect-sound" src="sounds/incorrect.mp3"></audio>
+  <audio id="game-over-sound" src="sounds/game-over.mp3"></audio>
 
   <script type="module" src="firebase-config.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
