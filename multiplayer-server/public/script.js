@@ -146,46 +146,42 @@ socket.on("startGame", ({ room, currentTurn, timers, players }) => {
   player2SocketId = players[1];
   currentPlayer = currentTurn;
 
-  // Initialize timers
+  // Fallback to 250 if timer values are missing
   timeLeftPlayer1 = timers[player1SocketId] ?? 250;
   timeLeftPlayer2 = timers[player2SocketId] ?? 250;
-  document.getElementById("time1").textContent = timeLeftPlayer1;
-  document.getElementById("time2").textContent = timeLeftPlayer2;
 
-  // Hide lobby, show game container, and add same-screen class
+  time1Element.textContent = timeLeftPlayer1;
+  time2Element.textContent = timeLeftPlayer2;
+
   document.getElementById("lobby").style.display = "none";
-  const gameContainer = document.getElementById("game-container");
-  gameContainer.style.display = "block";
-  gameContainer.classList.add("same-screen"); // Force same layout
-
-  startTimer();
+  document.getElementById("game-container").style.display = "block";
   fetchQuestions();
 });
-
-
 
 // -----------------------
 // Updated Turn Changed Handler
 // -----------------------
-socket.on("turnChanged", (data) => {
+socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
   
-  // Ensure player1SocketId and player2SocketId are set correctly
+  // Remove the code that guesses player IDs from timers
+  // Ensure player1SocketId and player2SocketId are already set via startGame
+  
+  // Update timers safely
   if (player1SocketId && data.timers[player1SocketId] !== undefined) {
     timeLeftPlayer1 = data.timers[player1SocketId];
-    document.getElementById("time1").textContent = timeLeftPlayer1;
+    time1Element.textContent = timeLeftPlayer1;
   }
   if (player2SocketId && data.timers[player2SocketId] !== undefined) {
     timeLeftPlayer2 = data.timers[player2SocketId];
-    document.getElementById("time2").textContent = timeLeftPlayer2;
+    time2Element.textContent = timeLeftPlayer2;
   }
-
+  
   startTimer();
   loadNextQuestion();
   answerInput.disabled = (currentPlayer !== socket.id);
 });
-
 
 // -----------------------
 // Player Move Handler
