@@ -475,35 +475,34 @@ function startTimer(initialTime = null) {
   timerInterval = setInterval(() => {
     if (!isPaused) {
       if (isMultiplayer) {
-        if (currentPlayer === socket.id) {
-          if (myPlayer === 1) {
-            timeLeftPlayer1--;
-            time1Element.textContent = timeLeftPlayer1;
-            if (timeLeftPlayer1 <= 0) {
-              clearInterval(syncInterval);
-              timeLeftPlayer1 = 0;
-              socket.emit('playerAction', { 
-                room: currentRoom, 
-                action: 'skip',
-                currentTime: timeLeftPlayer1 
-              });
-            }
-          } else {
-            timeLeftPlayer2--;
-            time2Element.textContent = timeLeftPlayer2;
-            if (timeLeftPlayer2 <= 0) {
-              clearInterval(syncInterval);
-              timeLeftPlayer2 = 0;
-              socket.emit('playerAction', { 
-                room: currentRoom, 
-                action: 'skip',
-                currentTime: timeLeftPlayer2 
-              });
-            }
+        // Instead of checking currentPlayer === socket.id, check against player socket IDs
+        if (currentPlayer === player1SocketId) {
+          timeLeftPlayer1--;
+          time1Element.textContent = timeLeftPlayer1;
+          if (timeLeftPlayer1 <= 0) {
+            // Handle timeout for Player 1 (e.g., emit 'playerAction')
+            timeLeftPlayer1 = 0;
+            socket.emit('playerAction', { 
+              room: currentRoom, 
+              action: 'skip',
+              currentTime: timeLeftPlayer1 
+            });
+          }
+        } else if (currentPlayer === player2SocketId) {
+          timeLeftPlayer2--;
+          time2Element.textContent = timeLeftPlayer2;
+          if (timeLeftPlayer2 <= 0) {
+            // Handle timeout for Player 2
+            timeLeftPlayer2 = 0;
+            socket.emit('playerAction', { 
+              room: currentRoom, 
+              action: 'skip',
+              currentTime: timeLeftPlayer2 
+            });
           }
         }
       } else {
-        // Same-screen mode - continuous timer
+        // Same-screen mode remains unchanged.
         const currentTime = currentPlayer === 1 ? timeLeftPlayer1 : timeLeftPlayer2;
         if (currentTime > 0) {
           if (currentPlayer === 1) {
@@ -513,7 +512,6 @@ function startTimer(initialTime = null) {
             timeLeftPlayer2--;
             time2Element.textContent = timeLeftPlayer2;
           }
-          
           if ((currentPlayer === 1 && timeLeftPlayer1 <= 0) || 
               (currentPlayer === 2 && timeLeftPlayer2 <= 0)) {
             handleTimeout();
@@ -521,7 +519,7 @@ function startTimer(initialTime = null) {
         }
       }
     }
-  }, 1000);
+  }, 1000);  
 }
 
 // -----------------------
