@@ -675,15 +675,30 @@ function checkAnswer() {
 
 function loadNextQuestion() {
   if (isMultiplayer) {
-    // End game if both players have no questions left
-    if (player1Queue.length === 0 && player2Queue.length === 0) {
+    // End game if both players have no questions left or both timers have expired
+    if ((player1Queue.length === 0 && player2Queue.length === 0) || (timeLeftPlayer1 <= 0 && timeLeftPlayer2 <= 0)) {
       endGame();
       return;
     }
-    
+
+    // Check if the local player has finished their questions/time while the opponent still has time/questions
+    if (myPlayer === 1) {
+      if ((player1Queue.length === 0 || timeLeftPlayer1 <= 0) && (player2Queue.length > 0 && timeLeftPlayer2 > 0)) {
+        document.getElementById('question').textContent = "Waiting for your opponent to finish";
+        answerInput.disabled = true;
+        return;
+      }
+    } else if (myPlayer === 2) {
+      if ((player2Queue.length === 0 || timeLeftPlayer2 <= 0) && (player1Queue.length > 0 && timeLeftPlayer1 > 0)) {
+        document.getElementById('question').textContent = "Waiting for your opponent to finish";
+        answerInput.disabled = true;
+        return;
+      }
+    }
+
     // Determine the current active player's queue
     let currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
-    
+
     // If the active player's queue is empty but the opponent still has questions,
     // automatically skip this player's turn so the opponent can play.
     if (currentQueue.length === 0) {
@@ -694,28 +709,28 @@ function loadNextQuestion() {
       });
       return;
     }
-    
+
     // Otherwise, load the next question from the active player's queue.
     const nextLetter = currentQueue[0];
     const questionKey = nextLetter.toUpperCase();
     let questionData = (myPlayer === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
-    
+
     if (!questionData) {
       // If question not found, remove the letter and try the next one.
       currentQueue.shift();
       loadNextQuestion();
       return;
     }
-    
+
     // Load question only if it's your turn.
     if (currentPlayer === socket.id) {
       loadQuestion(nextLetter, myPlayer);
     }
-    
+
     // Update the alphabet circles for both players.
     activatePlayerLetter(1);
     activatePlayerLetter(2);
-    
+
     // UI adjustments for waiting vs active player.
     const isActivePlayer = (currentPlayer === socket.id);
     const questionContainer = document.getElementById('question-container');
@@ -741,7 +756,7 @@ function loadNextQuestion() {
       skipBtn.style.display = 'none';
       document.getElementById('submit-answer').style.display = 'none';
     }
-    
+
     answerInput.disabled = !isActivePlayer;
     answerInput.focus();
     
@@ -758,7 +773,7 @@ function loadNextQuestion() {
     const nextLetter = currentQueue[0];
     const questionKey = nextLetter.toUpperCase();
     let questionData = (currentPlayer === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
-    
+
     if (!questionData) {
       currentQueue.shift();
       loadNextQuestion();
@@ -770,6 +785,7 @@ function loadNextQuestion() {
     answerInput.focus();
   }
 }
+
 
 
 function checkEndGame() {
