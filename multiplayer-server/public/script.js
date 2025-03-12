@@ -675,32 +675,48 @@ function checkAnswer() {
 
 function loadNextQuestion() {
   if (isMultiplayer) {
-    // Use the local player's queue to check for end-game.
-    let myQueue = (myPlayer === 1) ? player1Queue : player2Queue;
-    if (myQueue.length === 0) {
+    // End game if both players have no questions left
+    if (player1Queue.length === 0 && player2Queue.length === 0) {
       endGame();
       return;
     }
-    const nextLetter = myQueue[0];
+    
+    // Determine the current active player's queue
+    let currentQueue = (myPlayer === 1) ? player1Queue : player2Queue;
+    
+    // If the active player's queue is empty but the opponent still has questions,
+    // automatically skip this player's turn so the opponent can play.
+    if (currentQueue.length === 0) {
+      socket.emit('playerAction', { 
+        room: currentRoom, 
+        action: 'skip', 
+        currentTime: (myPlayer === 1 ? timeLeftPlayer1 : timeLeftPlayer2) 
+      });
+      return;
+    }
+    
+    // Otherwise, load the next question from the active player's queue.
+    const nextLetter = currentQueue[0];
     const questionKey = nextLetter.toUpperCase();
     let questionData = (myPlayer === 1) ? player1Questions[questionKey] : player2Questions[questionKey];
     
     if (!questionData) {
-      myQueue.shift();
+      // If question not found, remove the letter and try the next one.
+      currentQueue.shift();
       loadNextQuestion();
       return;
     }
     
-    // Load question only for the active player
+    // Load question only if it's your turn.
     if (currentPlayer === socket.id) {
       loadQuestion(nextLetter, myPlayer);
     }
     
-    // Update both players' alphabet circles.
+    // Update the alphabet circles for both players.
     activatePlayerLetter(1);
     activatePlayerLetter(2);
     
-    // UI controls to indicate turn status
+    // UI adjustments for waiting vs active player.
     const isActivePlayer = (currentPlayer === socket.id);
     const questionContainer = document.getElementById('question-container');
     const questionElement = document.getElementById('question');
@@ -709,7 +725,7 @@ function loadNextQuestion() {
     const existingWaitingMessage = document.getElementById('waiting-message');
 
     if (existingWaitingMessage) existingWaitingMessage.remove();
-    
+
     if (isActivePlayer) {
       questionElement.style.display = 'block';
       answerContainer.style.display = 'flex';
@@ -730,10 +746,13 @@ function loadNextQuestion() {
     answerInput.focus();
     
   } else {
-    // Same-screen mode remains unchanged.
+    // Same-screen mode logic: end game only when both queues are empty.
+    if (player1Queue.length === 0 && player2Queue.length === 0) {
+      endGame();
+      return;
+    }
     let currentQueue = (currentPlayer === 1) ? player1Queue : player2Queue;
     if (currentQueue.length === 0) {
-      endGame();
       return;
     }
     const nextLetter = currentQueue[0];
@@ -752,8 +771,8 @@ function loadNextQuestion() {
   }
 }
 
+
 function checkEndGame() {
-  // Add these logs
   console.log("[Debug] Player 1 Queue:", player1Queue.length, "Time:", timeLeftPlayer1);
   console.log("[Debug] Player 2 Queue:", player2Queue.length, "Time:", timeLeftPlayer2);
 
@@ -763,7 +782,6 @@ function checkEndGame() {
     endGame();
   }
 }
-
 
 function endGame() {
   clearInterval(timerInterval);
