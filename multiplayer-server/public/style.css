@@ -134,6 +134,27 @@ body {
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.instructions {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 450px;
+  width: 90%;
+  margin-top: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.instructions h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.instructions p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
 /* Stylish Buttons */
 button {
   border: none;
