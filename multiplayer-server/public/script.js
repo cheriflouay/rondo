@@ -812,7 +812,7 @@ function endGame() {
   document.getElementById('player2-circle').style.display = 'none';
   document.getElementById('question-container').style.display = 'none';
   document.querySelector('.answer-container').style.display = 'none';
-  document.querySelector('.player-timer').style.display = 'none';
+  document.querySelectorAll('.player-timer').forEach(timer => timer.style.display = 'none');
   document.getElementById('result').classList.add('show');
   
   // Push leaderboard data to Firebase
