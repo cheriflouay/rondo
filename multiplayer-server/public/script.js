@@ -926,24 +926,38 @@ function loadLanguage(lang) {
   fetch(`${lang}.json`)
     .then(response => response.json())
     .then(translations => {
+      // Update all UI elements marked for translation
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (translations[key]) {
           elem.textContent = translations[key];
         }
       });
+      
+      // Update the answer input placeholder if available
       const answerInput = document.getElementById('answer-input');
       if (answerInput && translations["answerPlaceholder"]) {
         answerInput.placeholder = translations["answerPlaceholder"];
       }
+      
+      // Update the document language and direction
       document.documentElement.lang = lang;
       document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
       console.log(`Language switched to: ${lang}`);
+      
+      // Immediately update the current question text (if one is loaded)
+      if (currentQuestion && currentQuestion.question) {
+        // currentQuestion.question should be an object with language keys
+        questionElement.textContent = currentQuestion.question[lang] || questionElement.textContent;
+      }
     })
     .catch(err => console.error("Error loading language file:", err));
 }
 
+
 document.getElementById('languageSwitcher').addEventListener('change', (event) => {
+  event.stopPropagation();
+  event.preventDefault();
   const switcher = event.target;
   switcher.disabled = true;  // Prevent rapid changes
   loadLanguage(event.target.value);
