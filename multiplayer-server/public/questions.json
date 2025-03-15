@@ -4771,14 +4771,14 @@
       "A": {
         "letter": "A",
         "question": {
-          "en": "Which Austrian forward, known as Arnautović, celebrated for his dynamic performances and who has represented clubs such as Inter Milan and Stoke City, is he?",
-          "ar": "أي لاعب كرة قدم نمساوي، معروف باسم أرناوتوفيتش ومشهور بأدائه الديناميكي، والذي مثل أندية مثل إنتر ميلان وستوك سيتي، هو؟",
-          "fr": "Quel attaquant autrichien, connu sous le nom d'Arnautović, célébré pour ses performances dynamiques et ayant représenté des clubs tels qu'Inter Milan et Stoke City, est-il ?"
+          "en": "Which Austrian forward, celebrated for his dynamic performances and who has represented clubs such as Inter Milan and Stoke City ?",
+          "ar": "أي لاعب كرة قدم نمساوي، مشهور بأدائه الديناميكي، والذي مثل أندية مثل إنتر ميلان وستوك سيتي ؟",
+          "fr": "Quel attaquant autrichien, célébré pour ses performances dynamiques et ayant représenté des clubs tels qu'Inter Milan et Stoke City ?"
         },
         "answer": {
-          "en": "Marko Arnautovic",
-          "ar": "ماركو أرناوتوفيتش",
-          "fr": "Marko Arnautovic"
+          "en": "Arnautovic",
+          "ar": "أرناوتوفيتش",
+          "fr": "Arnatovic"
         }
       },
       "B": {
@@ -4804,7 +4804,7 @@
         "answer": {
           "en": "Club Brugge",
           "ar": "كلوب بروج",
-          "fr": "Club Brugge"
+          "fr": "Club Bruge"
         }
       },
       "D": {
@@ -4817,7 +4817,7 @@
         "answer": {
           "en": "Deportivo La Coruña",
           "ar": "ديبورتيفو لا كورونيا",
-          "fr": "Deportivo La Coruña"
+          "fr": "Deportivo La Corounia"
         }
       },
       "E": {
@@ -4830,7 +4830,7 @@
         "answer": {
           "en": "Egypt",
           "ar": "مصر",
-          "fr": "Égypte"
+          "fr": "Egypte"
         }
       },
       "F": {
@@ -4895,7 +4895,7 @@
         "answer": {
           "en": "Vinicus Junior",
           "ar": "فينيكوس جونيور",
-          "fr": "Vinicus Junior"
+          "fr": "Vini Junior"
         }
       },
       "K": {
@@ -4945,9 +4945,9 @@
           "fr": "Quel est le prénom de l'attaquant sénégalais de Chelsea, reconnu pour sa vitesse et sa capacité à marquer, et considéré comme un talent prometteur, est-il ?"
         },
         "answer": {
-          "en": "Nicolas Jackson",
-          "ar": "نيكولاس جاكسون",
-          "fr": "Nicolas Jackson"
+          "en": "Nicolas",
+          "ar": "نيكولاس",
+          "fr": "Nikolas"
         }
       },
       "O": {
@@ -4960,7 +4960,7 @@
         "answer": {
           "en": "Otamendi",
           "ar": "أوتامندي",
-          "fr": "Otamendi"
+          "fr": "Otamindi"
         }
       },
       "P": {
@@ -4971,9 +4971,9 @@
           "fr": "Quel entraîneur espagnol, renommé pour ses tactiques innovantes, son leadership à Barcelone et ses nombreux titres nationaux et européens, est-il ?"
         },
         "answer": {
-          "en": "Pep Guardiola",
-          "ar": "بيب غوارديولا",
-          "fr": "Pep Guardiola"
+          "en": "Pep",
+          "ar": "بيب",
+          "fr": "Pep"
         }
       },
       "Q": {
@@ -4986,7 +4986,7 @@
         "answer": {
           "en": "Quansah",
           "ar": "كوينسا",
-          "fr": "Quansah"
+          "fr": "Quansa"
         }
       },
       "R": {
