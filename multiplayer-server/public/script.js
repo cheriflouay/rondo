@@ -16,6 +16,10 @@ let isMultiplayer = true;  // true for multiplayer mode, false for same-screen m
 let player1SocketId = null;
 let player2SocketId = null;
 
+// New global flags to lock players when time runs out or their queue is empty
+let player1Locked = false;
+let player2Locked = false;
+
 // -----------------------
 // Helper Functions for Player Status
 // -----------------------
@@ -160,16 +164,12 @@ socket.on("startGame", ({ room, currentTurn, timers, players }) => {
   fetchQuestions();
 });
 
-
 // -----------------------
 // Updated Turn Changed Handler
 // -----------------------
 socket.on('turnChanged', (data) => {
   currentPlayer = data.currentTurn;
   console.log("Turn changed to:", currentPlayer);
-  
-  // Remove the code that guesses player IDs from timers
-  // Ensure player1SocketId and player2SocketId are already set via startGame
   
   // Update timers safely
   if (player1SocketId && data.timers[player1SocketId] !== undefined) {
@@ -360,9 +360,11 @@ function initializeGame() {
     console.log("Defaulting currentPlayer to myPlayer:", myPlayer);
   }
   
-  // Reset question queues.
+  // Reset question queues and locked flags.
   player1Queue = [...alphabet];
   player2Queue = [...alphabet];
+  player1Locked = false;
+  player2Locked = false;
   
   generateAlphabetCircles();
   startTimer();
@@ -475,34 +477,51 @@ function startTimer(initialTime = null) {
   timerInterval = setInterval(() => {
     if (!isPaused) {
       if (isMultiplayer) {
-        // Instead of checking currentPlayer === socket.id, check against player socket IDs
         if (currentPlayer === player1SocketId) {
-          timeLeftPlayer1--;
-          time1Element.textContent = timeLeftPlayer1;
-          if (timeLeftPlayer1 <= 0) {
-            // Handle timeout for Player 1 (e.g., emit 'playerAction')
-            timeLeftPlayer1 = 0;
-            socket.emit('playerAction', { 
-              room: currentRoom, 
-              action: 'skip',
-              currentTime: timeLeftPlayer1 
-            });
+          if (timeLeftPlayer1 > 0) {
+            timeLeftPlayer1--;
+            time1Element.textContent = timeLeftPlayer1;
+            if (timeLeftPlayer1 <= 0) {
+              timeLeftPlayer1 = 0;
+              if (!player1Locked) {
+                player1Locked = true;
+                socket.emit('playerAction', { 
+                  room: currentRoom, 
+                  action: 'timeout', 
+                  player: 1, 
+                  currentTime: timeLeftPlayer1 
+                });
+                if (!player2Locked && player2Queue.length > 0 && timeLeftPlayer2 > 0) {
+                  currentPlayer = player2SocketId;
+                }
+                loadNextQuestion();
+              }
+            }
           }
         } else if (currentPlayer === player2SocketId) {
-          timeLeftPlayer2--;
-          time2Element.textContent = timeLeftPlayer2;
-          if (timeLeftPlayer2 <= 0) {
-            // Handle timeout for Player 2
-            timeLeftPlayer2 = 0;
-            socket.emit('playerAction', { 
-              room: currentRoom, 
-              action: 'skip',
-              currentTime: timeLeftPlayer2 
-            });
+          if (timeLeftPlayer2 > 0) {
+            timeLeftPlayer2--;
+            time2Element.textContent = timeLeftPlayer2;
+            if (timeLeftPlayer2 <= 0) {
+              timeLeftPlayer2 = 0;
+              if (!player2Locked) {
+                player2Locked = true;
+                socket.emit('playerAction', { 
+                  room: currentRoom, 
+                  action: 'timeout', 
+                  player: 2, 
+                  currentTime: timeLeftPlayer2 
+                });
+                if (!player1Locked && player1Queue.length > 0 && timeLeftPlayer1 > 0) {
+                  currentPlayer = player1SocketId;
+                }
+                loadNextQuestion();
+              }
+            }
           }
         }
       } else {
-        // Same-screen mode remains unchanged.
+        // Same-screen mode timer
         const currentTime = currentPlayer === 1 ? timeLeftPlayer1 : timeLeftPlayer2;
         if (currentTime > 0) {
           if (currentPlayer === 1) {
@@ -523,18 +542,32 @@ function startTimer(initialTime = null) {
 }
 
 // -----------------------
-// Timeout Handler
+// Timeout Handler for Same-Screen Mode
 // -----------------------
 function handleTimeout() {
   if (currentPlayer === 1) {
     timeLeftPlayer1 = 0;
     time1Element.textContent = 0;
+    if (!player1Locked) {
+      player1Locked = true;
+    }
+    if (!player2Locked && player2Queue.length > 0 && timeLeftPlayer2 > 0) {
+      currentPlayer = 2;
+    }
   } else {
     timeLeftPlayer2 = 0;
     time2Element.textContent = 0;
+    if (!player2Locked) {
+      player2Locked = true;
+    }
+    if (!player1Locked && player1Queue.length > 0 && timeLeftPlayer1 > 0) {
+      currentPlayer = 1;
+    }
   }
-  checkEndGame(); // Trigger end game checks
+  checkEndGame();
+  loadNextQuestion();
 }
+
 // -----------------------
 // Question Handling
 // -----------------------
@@ -672,9 +705,33 @@ function checkAnswer() {
   loadNextQuestion();
 }
 
-
 function loadNextQuestion() {
   if (isMultiplayer) {
+    // Check if the active player's queue is empty and lock them if so
+    if (currentPlayer === player1SocketId && player1Queue.length === 0) {
+      if (!player1Locked) {
+        player1Locked = true;
+        socket.emit('playerAction', { room: currentRoom, action: 'emptyQueue', player: 1 });
+      }
+      if (!player2Locked && player2Queue.length > 0 && timeLeftPlayer2 > 0) {
+        currentPlayer = player2SocketId;
+      } else {
+        endGame();
+        return;
+      }
+    } else if (currentPlayer === player2SocketId && player2Queue.length === 0) {
+      if (!player2Locked) {
+        player2Locked = true;
+        socket.emit('playerAction', { room: currentRoom, action: 'emptyQueue', player: 2 });
+      }
+      if (!player1Locked && player1Queue.length > 0 && timeLeftPlayer1 > 0) {
+        currentPlayer = player1SocketId;
+      } else {
+        endGame();
+        return;
+      }
+    }
+
     // End game if both players have no questions left or both timers have expired
     if ((player1Queue.length === 0 && player2Queue.length === 0) || (timeLeftPlayer1 <= 0 && timeLeftPlayer2 <= 0)) {
       endGame();
@@ -786,13 +843,12 @@ function loadNextQuestion() {
   }
 }
 
-
-
 function checkEndGame() {
-  console.log("[Debug] Player 1 Queue:", player1Queue.length, "Time:", timeLeftPlayer1);
-  console.log("[Debug] Player 2 Queue:", player2Queue.length, "Time:", timeLeftPlayer2);
+  console.log("[Debug] Player 1 Queue:", player1Queue.length, "Time:", timeLeftPlayer1, "Locked:", player1Locked);
+  console.log("[Debug] Player 2 Queue:", player2Queue.length, "Time:", timeLeftPlayer2, "Locked:", player2Locked);
 
-  if ((player1Queue.length === 0 && player2Queue.length === 0) ||
+  if ((player1Locked && player2Locked) ||
+      (player1Queue.length === 0 && player2Queue.length === 0) ||
       (timeLeftPlayer1 <= 0 && timeLeftPlayer2 <= 0)) {
     console.log("[Debug] End game condition met!");
     endGame();
@@ -812,7 +868,7 @@ function endGame() {
   document.getElementById('player2-circle').style.display = 'none';
   document.getElementById('question-container').style.display = 'none';
   document.querySelector('.answer-container').style.display = 'none';
-  document.querySelectorAll('.player-timer').forEach(timer => timer.style.display = 'none');
+  document.querySelector('.player-timer').style.display = 'none';
   document.getElementById('result').classList.add('show');
   
   // Push leaderboard data to Firebase
@@ -832,8 +888,6 @@ function endGame() {
   }
 }
 
-
-
 function restartGame() {
   clearInterval(timerInterval);
   timeLeftPlayer1 = 250;
@@ -843,6 +897,8 @@ function restartGame() {
   isPaused = false;
   player1Queue = [...alphabet];
   player2Queue = [...alphabet];
+  player1Locked = false;
+  player2Locked = false;
   document.getElementById('time1').textContent = 250;
   document.getElementById('time2').textContent = 250;
   document.getElementById('score1').textContent = 0;
@@ -863,6 +919,9 @@ function togglePause() {
   document.getElementById('pause-btn').textContent = isPaused ? 'Resume' : 'Pause';
 }
 
+// -----------------------
+// Language Switching (Ensuring it doesn't affect game turns)
+// -----------------------
 function loadLanguage(lang) {
   fetch(`${lang}.json`)
     .then(response => response.json())
@@ -879,14 +938,18 @@ function loadLanguage(lang) {
       }
       document.documentElement.lang = lang;
       document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+      console.log(`Language switched to: ${lang}`);
     })
     .catch(err => console.error("Error loading language file:", err));
 }
-  
+
 document.getElementById('languageSwitcher').addEventListener('change', (event) => {
+  const switcher = event.target;
+  switcher.disabled = true;  // Prevent rapid changes
   loadLanguage(event.target.value);
+  setTimeout(() => switcher.disabled = false, 500);
 });
-  
+
 document.addEventListener("DOMContentLoaded", () => {
   loadLanguage("en");
 });
