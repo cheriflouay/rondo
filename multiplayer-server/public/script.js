@@ -926,32 +926,33 @@ function loadLanguage(lang) {
   fetch(`${lang}.json`)
     .then(response => response.json())
     .then(translations => {
-      // Update all UI elements marked for translation
+      // Update only static UI elements
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (translations[key]) {
           elem.textContent = translations[key];
         }
       });
-      
-      // Update the answer input placeholder if available
       const answerInput = document.getElementById('answer-input');
       if (answerInput && translations["answerPlaceholder"]) {
         answerInput.placeholder = translations["answerPlaceholder"];
       }
-      
-      // Update the document language and direction
       document.documentElement.lang = lang;
       document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
       console.log(`Language switched to: ${lang}`);
       
-      // Immediately update the current question text (if one is loaded)
-      if (currentQuestion && currentQuestion.question) {
-        // currentQuestion.question should be an object with language keys
-        questionElement.textContent = currentQuestion.question[lang] || questionElement.textContent;
-      }
+      // Now update the current question UI separately
+      updateCurrentQuestionUI();
     })
     .catch(err => console.error("Error loading language file:", err));
+}
+
+function updateCurrentQuestionUI() {
+  // Update only the text of the current question without affecting any game state.
+  if (currentQuestion && currentQuestion.question) {
+    const currentLang = document.getElementById('languageSwitcher').value;
+    questionElement.textContent = currentQuestion.question[currentLang] || questionElement.textContent;
+  }
 }
 
 
@@ -960,8 +961,12 @@ document.getElementById('languageSwitcher').addEventListener('change', (event) =
   event.preventDefault();
   const switcher = event.target;
   switcher.disabled = true;  // Prevent rapid changes
+  console.log("Before language switch, currentPlayer:", currentPlayer);
   loadLanguage(event.target.value);
-  setTimeout(() => switcher.disabled = false, 500);
+  setTimeout(() => {
+    switcher.disabled = false;
+    console.log("After language switch, currentPlayer:", currentPlayer);
+  }, 500);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
