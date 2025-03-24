@@ -9,39 +9,37 @@
   <link rel="icon" href="logo.jpg" type="image/jpg">
 </head>
 <body>
-  <!-- Landing Page -->
-  <div id="landing-page" class="landing-container">
-    <div id="landing-header">
-      <!-- Changed id to class for a shared language switcher -->
-      <select class="languageSwitcher">
-        <option value="en">English</option>
-        <option value="ar">العربية</option>
-        <option value="fr">Français</option>
-      </select>
-    </div>
-    <div class="landing-section" id="same-screen">
-      <h2 data-i18n="sameScreenTitle">Same Screen</h2>
-      <p data-i18n="sameScreenDescription">Play on the same screen with friends.</p>
-    </div>
-    <div class="landing-section" id="multiplayer">
-      <h2 data-i18n="multiplayerTitle">Multiplayer</h2>
-      <p data-i18n="multiplayerDescription">Play online by joining a room.</p>
-    </div>
-    <!-- How to Play Instructions -->
-    <div class="instructions">
-      <h3 data-i18n="howToPlayTitle">How to Play</h3>
-      <p data-i18n="howToPlayText">
-        In Football Rondo, Answer football-themed questions tied to letters from A to Z. Play on one screen or online in multiplayer mode. Each player faces 26 questions with a 250-second timer. Answer correctly to keep your turn; skipping or a wrong answer passes the turn to your opponent. The game ends when both players run out of time or finish all questions.
-      </p>
-    </div>
+<!-- Landing Page -->
+<div id="landing-page" class="landing-container">
+  <select class="languageSwitcher">
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+    <option value="fr">Français</option>
+  </select>
+</div>
+  <div class="landing-section" id="same-screen">
+    <h2>Same Screen</h2>
+    <p>Play on the same screen with friends.</p>
   </div>
+  <div class="landing-section" id="multiplayer">
+    <h2>Multiplayer</h2>
+    <p>Play online by joining a room.</p>
+  </div>
+  <!-- How to Play Instructions -->
+  <div class="instructions">
+    <h3>How to Play</h3>
+    <p>
+      In football Rondo, Answer football-themed questions tied to letters from A to Z. Play on one screen or online in multiplayer mode. Each player faces 26 questions with a 250-second timer. Answer correctly to keep your turn; skipping or a wrong answer passes the turn to your opponent. The game ends when both players run out of time or finish all questions.
+    </p>
+  </div>
+</div>
 
   <!-- Lobby Section for Room Creation/Joining (Hidden by default) -->
   <div id="lobby" class="lobby-container" style="display: none;">
-    <h2 data-i18n="lobbyTitle">Lobby</h2>
-    <button id="create-room-btn" data-i18n="createRoom">Create Room</button>
-    <input type="text" id="room-code-input" data-i18n-placeholder="roomCodePlaceholder" placeholder="Enter Room Code">
-    <button id="join-room-btn" data-i18n="joinRoom">Join Room</button>
+    <h2>Lobby</h2>
+    <button id="create-room-btn">Create Room</button>
+    <input type="text" id="room-code-input" placeholder="Enter Room Code">
+    <button id="join-room-btn">Join Room</button>
     <p id="room-code-display"></p>
   </div>
 
@@ -50,8 +48,7 @@
     <header class="header">
       <div class="header-top">
         <img src="logo.jpg" alt="Football Rondo Logo" class="logo">
-        <!-- Changed id to class for a shared language switcher -->
-        <select class="languageSwitcher">
+        <select id="languageSwitcher">
           <option value="en">English</option>
           <option value="ar">العربية</option>
           <option value="fr">Français</option>
