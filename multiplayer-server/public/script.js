@@ -926,26 +926,30 @@ function loadLanguage(lang) {
   fetch(`${lang}.json`)
     .then(response => response.json())
     .then(translations => {
-      // Update only static UI elements
+      // Update text for all elements with data-i18n attribute.
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (translations[key]) {
           elem.textContent = translations[key];
         }
       });
-      const answerInput = document.getElementById('answer-input');
-      if (answerInput && translations["answerPlaceholder"]) {
-        answerInput.placeholder = translations["answerPlaceholder"];
-      }
+      // Update placeholder for elements with data-i18n-placeholder attribute.
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n-placeholder');
+        if (translations[key]) {
+          elem.placeholder = translations[key];
+        }
+      });
       document.documentElement.lang = lang;
       document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
       console.log(`Language switched to: ${lang}`);
       
-      // Now update the current question UI separately
+      // Update current question UI if needed.
       updateCurrentQuestionUI();
     })
     .catch(err => console.error("Error loading language file:", err));
 }
+
 
 function updateCurrentQuestionUI() {
   // Update only the text of the current question without affecting any game state.

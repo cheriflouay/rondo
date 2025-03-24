@@ -1,12 +1,21 @@
 {
-    "headerTitle": "Football Rondo",
-    "startGame": "Start Game",
-    "pause": "Pause",
-    "playerTime": "Player {player} Time: {time}s",
-    "gameOver": "Game Over!",
-    "restartGame": "Restart Game",
-    "skipTurn": "Skip Turn",
-    "submitAnswer": "Submit Answer",
-    "answerPlaceholder": "Type your answer here..."
-  }
-  
+  "headerTitle": "Football Rondo",
+  "startGame": "Start Game",
+  "pause": "Pause",
+  "playerTime": "Player {player} Time: {time}s",
+  "gameOver": "Game Over!",
+  "restartGame": "Restart Game",
+  "skipTurn": "Skip Turn",
+  "submitAnswer": "Submit Answer",
+  "answerPlaceholder": "Type your answer here...",
+  "lobbyTitle": "Lobby",
+  "createRoom": "Create Room",
+  "joinRoom": "Join Room",
+  "roomCodePlaceholder": "Enter Room Code",
+  "howToPlayTitle": "How to Play",
+  "howToPlayText": "In Football Rondo, Answer football-themed questions tied to letters from A to Z. Play on one screen or online in multiplayer mode. Each player faces 26 questions with a 250-second timer. Answer correctly to keep your turn; skipping or a wrong answer passes the turn to your opponent. The game ends when both players run out of time or finish all questions.",
+  "sameScreenTitle": "Same Screen",
+  "sameScreenDescription": "Play on the same screen with friends.",
+  "multiplayerTitle": "Multiplayer",
+  "multiplayerDescription": "Play online by joining a room."
+}

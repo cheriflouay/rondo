@@ -1,12 +1,21 @@
 {
-    "headerTitle": "Football Rondo",
-    "startGame": "Commencer le jeu",
-    "pause": "Pause",
-    "playerTime": "Temps du joueur {player} : {time}s",
-    "gameOver": "Fin de jeu !",
-    "restartGame": "Recommencer",
-    "skipTurn": "Passer le tour",
-    "submitAnswer": "Soumettre la réponse",
-    "answerPlaceholder": "Tapez votre réponse ici..."
-  }
-  
+  "headerTitle": "Football Rondo",
+  "startGame": "Commencer le jeu",
+  "pause": "Pause",
+  "playerTime": "Temps du joueur {player} : {time}s",
+  "gameOver": "Fin de jeu !",
+  "restartGame": "Recommencer",
+  "skipTurn": "Passer le tour",
+  "submitAnswer": "Soumettre la réponse",
+  "answerPlaceholder": "Tapez votre réponse ici...",
+  "lobbyTitle": "Salle d'attente",
+  "createRoom": "Créer une salle",
+  "joinRoom": "Rejoindre la salle",
+  "roomCodePlaceholder": "Entrez le code de la salle",
+  "howToPlayTitle": "Comment jouer",
+  "howToPlayText": "Dans Football Rondo, répondez aux questions sur le football associées aux lettres de A à Z. Jouez sur un même écran ou en ligne en mode multijoueur. Chaque joueur fait face à 26 questions avec un minuteur de 250 secondes. Répondez correctement pour conserver votre tour ; passer ou donner une mauvaise réponse passe le tour à votre adversaire. Le jeu se termine lorsque les deux joueurs manquent de temps ou terminent toutes les questions.",
+  "sameScreenTitle": "Écran partagé",
+  "sameScreenDescription": "Jouez sur le même écran avec des amis.",
+  "multiplayerTitle": "Multijoueur",
+  "multiplayerDescription": "Jouez en ligne en rejoignant une salle."
+}
